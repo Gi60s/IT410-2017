@@ -12,6 +12,6 @@ gulp.task('convert', function() {
                 });
             }
         }))
-        .pipe(gulp.dest('./lessons/'))
+        .pipe(gulp.dest('./www/lessons/'))
 });
 
