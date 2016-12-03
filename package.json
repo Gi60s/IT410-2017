@@ -4,6 +4,7 @@
   "description": "IT410 course materials",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-marked": "^1.0.0",
     "pygmentize-bundled": "^2.3.0"
