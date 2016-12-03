@@ -1,0 +1,25 @@
+{
+  "name": "it410",
+  "version": "1.0.0",
+  "description": "IT410 course materials",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-marked": "^1.0.0",
+    "pygmentize-bundled": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gi60s/IT410-2017.git"
+  },
+  "author": "James Speirs <james.speirs@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gi60s/IT410-2017/issues"
+  },
+  "homepage": "https://github.com/Gi60s/IT410-2017#readme"
+}
