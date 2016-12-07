@@ -1,6 +1,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     color: #333333;
+    background-color: #333333;
     padding: 0;
     margin: 0;
 }
@@ -35,14 +36,65 @@ nav a:hover {
     display: inline-block;
 }
 
-section {
-    padding: 15px;
-}
-
 a,
 a:visited,
 a:active,
 a:hover {
     color: #4078c0;
     text-decoration: none;
+}
+
+.navigation {
+    margin: 0 -15px;
+}
+.navigation a {
+    display: block;
+    padding: 5px 15px;
+}
+
+#content {
+    background-color: #FFF;
+    padding: 15px 15px 100px 15px;
+    margin-bottom: 15px;
+}
+
+#content .lesson-heading {
+    display: flex;
+}
+#content .lesson-heading > * {
+    flex: 1;
+}
+#content .lesson-heading-paginate {
+    flex: none;
+    display: flex;
+    align-items: baseline;
+}
+#content .lesson-heading-paginate button {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    display: block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#content .lesson-page {
+    display: none;
+}
+#content .lesson-page.active {
+    display: block;
+}
+
+#content .lesson-page-section {
+    opacity: 0;
+    -webkit-transition: opacity 400ms;
+    -moz-transition: opacity 400ms;
+    -ms-transition: opacity 400ms;
+    -o-transition: opacity 400ms;
+    transition: opacity 400ms;
+}
+#content .lesson-page-section.visible,
+#content .lesson-page-section:first-child {
+    opacity: 1;
 }
