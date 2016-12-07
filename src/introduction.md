@@ -20,21 +20,24 @@ Assignment:
 
 ### Questions
 
-**Question 1:** Is Facebook (http://facebook.com) a Static Website or a Web Application?
+**Question:** Is Facebook (http://facebook.com) a Static Website or a Web Application?
 <br>
 
-**Answer 1:** It is clearly a web application. You can chat live with someone, post, and get new posts without ever having to reload the page. Additionally, posts are tailored to you.
+**Answer:** It is clearly a web application. You can chat live with someone, post, and get new posts without ever having to reload the page. Additionally, posts are tailored to you.
 <br>
 
-**Question 2:** Is Google Search (http://www.google.com) a Static Website or a Web Application?
+<hr>
+**Question:** Is Google Search (http://www.google.com) a Static Website or a Web Application?
 <br>
 
-**Answer 2:** It is a Web Application. Even if you don't log in, cookies are used to identify your computer and search is customized based on many factors.
+**Answer:** It is a Web Application. Even if you don't log in, cookies are used to identify your computer and search is customized based on many factors.
 <br>
 
-**Question 3:** Can anyone think of a static website that they know of?
+<hr>
+**Question:** Can anyone think of a static website that they know of?
+<br>
 
-Most if not all of the popular websites are now web applications.
+**Answer:** Most if not all of the popular websites are now web applications.
 
 ## How We Will Build It
 
