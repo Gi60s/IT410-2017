@@ -12,7 +12,7 @@
 
 - Make changes without compromising stability.
 
-## Repositories
+### Repositories
 
 - *Repository* - The current and past state of all of your tracked files since the creation of the git project.
 
@@ -20,51 +20,61 @@
 
 - *Central Repository* - The repository that everyone uses to get code from and merges new code into.
 
-## In Class Exercise
+### Hands On Exercise
 
-### Step 1:
+1. Visit [https://github.com](https://github.com) and create an account and/or log in.
 
-1. Create a new central repository on Github.
-2. Clone the central repository onto your local machine.
-3. Add a file on your local machine. (From here on, check git status with each step).
-4. Stage the file.
-5. Commit the file.
-6. Push changes to the local repository.
+2. Create a new central repository on Github.
 
-### Step 2:
+3. Open a terminal and after each of the below steps issue the command `git status`.
 
-Join up with a class mate. You each will perform these steps on the other's repository.
+    1. Clone the central repository onto your local machine: `git clone [repository_name]`.
 
-1. Clone the other repository to a new directory on your machine.
-2. Add a file, stage and commit it, and push.
+    2. Add a file on your local machine.
 
-### Step 3:
+    3. Stage the file: `git add [file_path]`.
 
-Working with another class mate on a single repository:
+    4. Commit the file: `git commit [file_path] -m [comment]`.
 
-1. Both of you add different files and make changes.
-2. Stage, commit, and push the files to the central repository.
+    5. Push the changes of the local repository up to the central repository: `git push`.
 
-### Step 4:
+    6. Modify the file.
 
-Working with branches. Useful for making changes that lead to code instability.
+    7. Stage and commit: `git commit -a [file_path] -m [comment]`.
 
-### Step 5:
+    8. Push changes to the central repository.
 
-Pull requests
+## Branches
+
+Branches are useful for:
+
+- Making changes without having to worry about ruining the active stable code.
+
+- Contributing to other people's code.
+
+### Hands on Exercise
+
+Join up with a class mate. You will need to give the class mate access to write to your github repository. You each will perform these steps on the other's repository from the terminal.
+
+1. Clone the other repository to a new directory on your local machine. (Anyone can clone a public repository.) `git clone [repository_name]`
+
+2. Create a new local branch: `git checkout -b [branch_name]`.
+
+3. Check to see what branches you have locally: `git branch`.
 
 
-## Terminology
+4. Push the newly created branch to the central repository: `git push origin [branch_name]`.
 
-- *Fork* - A copy of another repository that becomes a new repository. The new repository will be modified and then eventually will be made into a pull request.
-- *Pull Request* - A request to merge a fork with a central repository.
+5. Modify an existing file on the branch.
 
-## Why Use Versioning
+6. Stage and commit: `git commit -a [file_path] -m [comment]`.
 
-### Scenario 1: All Alone
+Through the github web interface:
 
-- You make changes.
-- You commit those changes.
-- You push the changes to the central repository.
-- You could go to another computer and pull down the latest from the repository.
+1. Create a pull request: https://help.github.com/articles/creating-a-pull-request/
 
+2. Have your class mate merge the pull request and delete the branch.
+
+In your terminal:
+
+1. Delete your local branch: `git branch -d [branch_name]`.
