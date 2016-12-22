@@ -171,7 +171,7 @@
         }
 
         var i = 0;
-        for (i = 0; i < pages.children.length; i++) processPage(pages.children[i]);
+        for (i = 0; i < pages.children.length; i++) processPage(pages.children[i], i + 1 === pages.children.length);
 
         // add pagination to the header
         var paginate = createElement('div', 'lesson-heading-paginate');
@@ -191,7 +191,7 @@
         return container;
     }
 
-    function processPage(page) {
+    function processPage(page, isLastPage) {
         var btn;
         var i;
 
@@ -227,7 +227,13 @@
         }
 
         // add a button to the last section
-        btn = createContinueButton('Next Page', 'Right', navigateTo.nextPage, false);
+        if (isLastPage) {
+            btn = createContinueButton('Lesson Completed', 'Ctrl + H', function() {
+                window.location.href = '/';
+            }, false);
+        } else {
+            btn = createContinueButton('Next Page', 'Right', navigateTo.nextPage, false);
+        }
         section.append(btn);
 
         // move sections into page
@@ -307,6 +313,11 @@
                     navigateTo.nextSection();
                 }
                 break;
+            case 72: // H
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                    window.location.href = '/';
+                }
         }
     });
     
