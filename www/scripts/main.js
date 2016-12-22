@@ -83,7 +83,6 @@
         var btn;
         var i;
         var visible;
-        console.log('Navigate to: ' + page + ':' + section);
 
         // update active page
         var container = document.getElementById('content');
@@ -119,7 +118,10 @@
 
     navigateTo.previousPage = function() {
         const pos = getPosition();
-        if (pos.page > 0) navigateTo(pos.page - 1);
+        if (pos.page > 0) {
+            navigateTo(pos.page - 1);
+            top();
+        }
     };
 
     navigateTo.previousSection = function() {
@@ -132,6 +134,7 @@
         if (pos.page < pos.pages - 1) {
             navigateTo(pos.page, pos.sections - 1);
             navigateTo(pos.page + 1);
+            top();
         }
     };
 
@@ -241,6 +244,12 @@
         }
         el.className = classes.join(' ');
     }
+
+    function top() {
+        setTimeout(function() {
+            window.scrollTo(0, 0);
+        });
+    }
     
     function transitionToElement(el) {
         body.innerHTML = '';
@@ -265,6 +274,7 @@
 
                     var page = parseInt(ar[2]) || 1;
                     navigateTo(page - 1, 0);
+                    top();
                 });
         }
     }
