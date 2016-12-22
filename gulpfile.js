@@ -19,4 +19,4 @@ gulp.task('watch', function() {
     gulp.watch('./src/*.md', ['convert']);
 });
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['convert', 'watch']);
