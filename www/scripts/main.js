@@ -242,7 +242,6 @@
 
     window.addEventListener('keydown', function(e) {
         var pos;
-        console.log(getPosition());
         switch (e.which) {
             case 32: // space
                 e.preventDefault();
@@ -259,7 +258,7 @@
                 break;
             case 39: // right
                 pos = getPosition();
-                if (pos.sections === pos.section || e.ctrlKey) {
+                if (pos.sections === pos.section + 1 || e.ctrlKey) {
                     navigateTo.nextPage();
                 }
                 break;
