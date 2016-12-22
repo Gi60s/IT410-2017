@@ -98,3 +98,12 @@ a:hover {
 #content .lesson-page-section:first-child {
     opacity: 1;
 }
+
+#content .button-continue {
+    display: inline-block;
+    border: none;
+    color: #333;
+    background: #DDD;
+    padding: 5px 15px;
+    cursor: pointer;
+}
