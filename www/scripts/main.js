@@ -227,7 +227,7 @@
         }
 
         // add a button to the last section
-        btn = createContinueButton('Next Page', 'Ctrl + Right', navigateTo.nextPage, false);
+        btn = createContinueButton('Next Page', 'Right', navigateTo.nextPage, false);
         section.append(btn);
 
         // move sections into page
