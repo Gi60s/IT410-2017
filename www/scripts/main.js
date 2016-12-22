@@ -107,19 +107,13 @@
         // update page number on pagination
         var pagination = document.querySelector('.lesson-heading-page');
         pagination.innerHTML = (page + 1) + ' / ' + pages.length;
-
-        // update the page history
-        var urlParts = window.location.pathname.split('/');
-        if (parseInt(urlParts[2]) !== page + 1) {
-            urlParts[2] = page + 1;
-            history.pushState({}, '', urlParts[1] + '/' + (page + 1));
-        }
     }
 
     navigateTo.previousPage = function() {
         const pos = getPosition();
         if (pos.page > 0) {
             navigateTo(pos.page - 1);
+            updateHistory(pos.page - 1);
             top();
         }
     };
@@ -134,6 +128,7 @@
         if (pos.page < pos.pages - 1) {
             navigateTo(pos.page, pos.sections - 1);
             navigateTo(pos.page + 1);
+            updateHistory(pos.page + 1);
             top();
         }
     };
@@ -280,8 +275,17 @@
 
                     var page = parseInt(ar[2]) || 1;
                     navigateTo(page - 1, 0);
+                    updateHistory(page - 1);
                     top();
                 });
+        }
+    }
+
+    function updateHistory(page) {
+        var urlParts = window.location.pathname.split('/');
+        if (parseInt(urlParts[2]) !== page + 1) {
+            urlParts[2] = page + 1;
+            history.pushState({}, '', urlParts[1] + '/' + (page + 1));
         }
     }
 
@@ -320,6 +324,13 @@
                 }
         }
     });
-    
+
+    window.onpopstate = function (event) {
+        var ar = window.location.pathname.split('/');
+        var lesson = ar[1];
+        var page = ar[2] ? parseInt(ar[2]) - 1 : 0;
+        navigateTo(page);
+    };
+
     updateContent();
 })();
