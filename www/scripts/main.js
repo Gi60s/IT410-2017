@@ -27,6 +27,24 @@
         });
     }
 
+    function createContinueButton(label, action, removable) {
+        var btn = createElement('button', 'button-continue');
+        btn.innerHTML = label;
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            action();
+        });
+
+        btn.remove = function() {
+            if (removable) container.parentNode.removeChild(container);
+        };
+
+        var container = createElement('div', 'button-continue-container');
+        container.appendChild(btn);
+
+        return container;
+    }
+
     function createElement(name, classes) {
         var el = document.createElement(name);
         if (classes) el.className = classes;
@@ -62,8 +80,10 @@
     }
 
     function navigateTo(page, section) {
+        var btn;
         var i;
-        console.log(page + ':' + section);
+        var visible;
+        console.log('Navigate to: ' + page + ':' + section);
 
         // update active page
         var container = document.getElementById('content');
@@ -76,7 +96,12 @@
         if (pages[page] && section !== undefined) {
             var sections = pages[page].querySelectorAll('.lesson-page-section');
             for (i = 0; i < sections.length; i++) {
-                toggleClass(sections[i], 'visible', i <= section);
+                visible = i <= section;
+                toggleClass(sections[i], 'visible', visible);
+                if (i > 0 && visible) {
+                    btn = sections[i - 1].querySelector('.button-continue');
+                    if (btn) btn.remove();
+                }
             }
         }
 
@@ -126,12 +151,6 @@
         container.appendChild(heading);
         container.appendChild(pages);
 
-        var footer = createElement('div', 'lesson-footer');
-        var btnContinue = createElement('button');
-        btnContinue.addEventListener('click', function(e) {
-
-        });
-
         var active = heading;
         var child;
         var page;
@@ -170,6 +189,7 @@
     }
 
     function processPage(page) {
+        var btn;
         var i;
 
         // move any breaks outside of child elements
@@ -190,6 +210,11 @@
         sections.appendChild(section);
         while (page.firstChild) {
             if (page.firstChild.tagName === 'BR') {
+
+                // add a button to the last section
+                btn = createContinueButton('Continue', navigateTo.nextSection, true);
+                section.append(btn);
+
                 section = createElement('div', 'lesson-page-section');
                 sections.appendChild(section);
                 page.removeChild(page.firstChild);
@@ -197,6 +222,10 @@
                 section.appendChild(page.firstChild);
             }
         }
+
+        // add a button to the last section
+        btn = createContinueButton('Next Page', navigateTo.nextPage, false);
+        section.append(btn);
 
         // move sections into page
         page.appendChild(sections);
