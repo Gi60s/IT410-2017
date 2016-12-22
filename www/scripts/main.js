@@ -27,9 +27,9 @@
         });
     }
 
-    function createContinueButton(label, action, removable) {
+    function createContinueButton(label, shortcut, action, removable) {
         var btn = createElement('button', 'button-continue');
-        btn.innerHTML = label;
+        btn.innerHTML = '<span>' + label + '</span><span>' + shortcut + '</span>';
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             action();
@@ -215,7 +215,7 @@
             if (page.firstChild.tagName === 'BR') {
 
                 // add a button to the last section
-                btn = createContinueButton('Continue', navigateTo.nextSection, true);
+                btn = createContinueButton('Continue', 'Ctrl + Down', navigateTo.nextSection, true);
                 section.append(btn);
 
                 section = createElement('div', 'lesson-page-section');
@@ -227,7 +227,7 @@
         }
 
         // add a button to the last section
-        btn = createContinueButton('Next Page', navigateTo.nextPage, false);
+        btn = createContinueButton('Next Page', 'Ctrl + Right', navigateTo.nextPage, false);
         section.append(btn);
 
         // move sections into page

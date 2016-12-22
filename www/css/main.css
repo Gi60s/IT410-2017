@@ -107,3 +107,11 @@ a:hover {
     padding: 5px 15px;
     cursor: pointer;
 }
+#content .button-continue span {
+    display: block;
+}
+#content .button-continue span:last-child {
+    font-size: 75%;
+    color: #666;
+    padding-top: 2px;
+}
