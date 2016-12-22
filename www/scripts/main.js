@@ -86,8 +86,10 @@
 
         // update the page history
         var urlParts = window.location.pathname.split('/');
-        urlParts[2] = page + 1;
-        history.pushState({}, '', urlParts[1] + '/' + (page + 1));
+        if (parseInt(urlParts[2]) !== page + 1) {
+            urlParts[2] = page + 1;
+            history.pushState({}, '', urlParts[1] + '/' + (page + 1));
+        }
     }
 
     navigateTo.previousPage = function() {
@@ -232,7 +234,7 @@
                     var el = processContent(html);
                     transitionToElement(el);
 
-                    var page = parseInt(ar[2]) || 0;
+                    var page = parseInt(ar[2]) || 1;
                     navigateTo(page - 1, 0);
                 });
         }
