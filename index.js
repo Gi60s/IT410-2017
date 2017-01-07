@@ -15,6 +15,14 @@ app.get('/api/status', function(req, res) {
 
 app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, res) {
     const p = req.params;
+    if (!p.date) {
+        const dt = new Date();
+        var m = dt.getDate() + 1;
+        if (m < 10) m += '0' + m;
+        var d = dt.getDate();
+        if (d < 10) d += '0' + d;
+        p.date = dt.getFullYear() + '-' + m + '-' + d;
+    }
     grader(p.assignmentId, 'https://github.com/' + p.ghUser + '/' + p.ghRepository + '.git', p.date)
         .then(function(data) {
             res.json(data);
