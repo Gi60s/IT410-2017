@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "IT410 course materials",
   "main": "index.js",
+  "bin": {
+    "it410": "index.js"
+  },
   "dependencies": {
     "express": "^4.14.0",
     "gulp": "^3.9.1",
