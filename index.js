@@ -2,6 +2,7 @@
 'use strict';
 const express           = require('express');
 const fs                = require('fs');
+const grader            = require('it410-grader');
 const path              = require('path');
 
 const app = express();
@@ -12,8 +13,16 @@ app.get('/api/status', function(req, res) {
     res.send('Uptime: ' + Math.round((Date.now() - start) / 1000) + ' seconds');
 });
 
-app.get('/api/grade/:assignmentId/:ghUser/:ghRepository', function(req, res) {
-    res.send('ok');
+app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, res) {
+    const p = req.params;
+    grader(p.assignmentId, 'https://github.com/' + p.ghUser + '/' + p.ghRepository + '.git', p.date)
+        .then(function(data) {
+            res.json(data);
+        })
+        .catch(function(err) {
+            res.status(500);
+            res.send(err.stack);
+        })
 });
 
 app.get('*', function(req, res) {

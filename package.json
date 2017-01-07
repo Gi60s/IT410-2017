@@ -6,10 +6,11 @@
   "bin": {
     "it410": "index.js"
   },
-  "dependencies": {
+  "dependenciesk": {
     "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-marked": "^1.0.0",
+    "it410-grader": "github:gi60s/IT410-grader",
     "pygmentize-bundled": "^2.3.0"
   },
   "devDependencies": {},
