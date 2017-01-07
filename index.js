@@ -2,7 +2,7 @@
 'use strict';
 const express           = require('express');
 const fs                = require('fs');
-const grader            = require('it410-grader');
+const grader            = require('gi60s/it410-grader');
 const path              = require('path');
 
 const app = express();
