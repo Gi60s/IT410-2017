@@ -30,9 +30,15 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
             const index = data.indexOf('Running tests.');
             data = data.substr(index);
 
-            const lastLine = data.split('\n').pop();
-            result += '<h2>Summary</h2>';
-            result += '<pre>' + JSON.stringify(lastLine) + '</pre>';
+            const lines = data.split('\n');
+            const lastLine = lines[lines.length - 2];
+            const score = /score: (\d+)/.exec(lastLine);
+            const percent = /percent: ([\d\.]+)/.exec(lastLine);
+            if (score && percent) {
+                result += '<h2>Summary</h2>';
+                result += '<p><strong>Points:</strong> ' + score[1] + '/25</p>';
+                result += '<p><strong>Percentage:</strong> ' + Math.round(100 * parseFloat(percent[1])) + '%</p>';
+            }
 
             result += '<pre>' + data + '</pre>';
 
