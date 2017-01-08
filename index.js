@@ -41,7 +41,7 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
             }
 
             result += '<h2>Details</h2>';
-            result += '<pre>' + data + '</pre>';
+            result += '<pre>' + lines.slice(0, lines.length - 2).join('\n') + '</pre>';
 
             res.set('Content-Type', 'text/html');
             res.send('<html><body>' + result + '</body></html>');
