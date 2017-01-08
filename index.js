@@ -10,7 +10,7 @@ const www = path.resolve(__dirname, 'www');
 const start = Date.now();
 
 app.use(function(req, res, next) {
-    console.log('REQUEST ' + req.url);
+    console.log('REQUEST  ' + new Date().toISOString() + '  ' + req.method + ' ' + req.url);
     next();
 });
 
