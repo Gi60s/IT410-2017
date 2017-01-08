@@ -28,6 +28,7 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
             let result = '';
 
             const index = data.indexOf('Running tests.');
+            const extra = data.substr(0, index);
             data = data.substr(index);
 
             const lines = data.split('\n');
@@ -39,6 +40,8 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
                 result += '<p><strong>Percentage:</strong> ' + Math.round(100 * parseFloat(percent[1])) + '%</p>';
                 result += '<p><strong>Points:</strong> ' + score[1] + '/25</p>';
             }
+
+            result += '<!--\n' + extra + '\n-->';
 
             result += '<h2>Details</h2>';
             result += '<pre>' + lines.slice(0, lines.length - 2).join('\n') + '</pre>';
