@@ -25,8 +25,8 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
     }
     grader(p.assignmentId, 'https://github.com/' + p.ghUser + '/' + p.ghRepository + '.git', p.date)
         .then(function(data) {
-            res.set('Content-Type', 'text/plain');
-            res.send(data);
+            res.set('Content-Type', 'text/html');
+            res.send('<html><body><pre>' + data + '</pre></body></html>');
         })
         .catch(function(err) {
             res.status(500);
