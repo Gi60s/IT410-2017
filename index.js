@@ -9,6 +9,11 @@ const app = express();
 const www = path.resolve(__dirname, 'www');
 const start = Date.now();
 
+app.use(function(req, res, next) {
+    console.log('REQUEST ' + req.url);
+    next();
+});
+
 app.get('/api/status', function(req, res) {
     res.send('Uptime: ' + Math.round((Date.now() - start) / 1000) + ' seconds');
 });
