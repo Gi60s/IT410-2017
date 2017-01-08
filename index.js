@@ -25,8 +25,24 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
     }
     grader(p.assignmentId, 'https://github.com/' + p.ghUser + '/' + p.ghRepository + '.git', p.date)
         .then(function(data) {
+            let result = '';
+
+            const index = data.indexOf('Running tests.');
+            data = data.substr(index);
+
+            const lastLine = data.split('\n').pop();
+            const score = /score: (\d+)/.exec(lastLine);
+            const percent = /percent: ([\d\.]+)/.exec(lastLine);
+            if (score && percent) {
+                result += '<h2>Score</h2>';
+                result += '<p><strong>Points:</strong> ' + score[1] + '/25</p>';
+                result += '<p><strong>Percentage:</strong> ' + Math.round(100 * parseFloat(percent[1])) + '%</p>';
+            }
+
+            result += '<pre>' + data + '</pre>';
+
             res.set('Content-Type', 'text/html');
-            res.send('<html><body><pre>' + data + '</pre></body></html>');
+            res.send('<html><body>' + result + '</body></html>');
         })
         .catch(function(err) {
             res.status(500);
