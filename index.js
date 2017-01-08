@@ -31,10 +31,8 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
             data = data.substr(index);
 
             const lastLine = data.split('\n').pop();
-            if (score && percent) {
-                result += '<h2>Summary</h2>';
-                result += '<pre>' + JSON.stringify(lastLine) + '</pre>';
-            }
+            result += '<h2>Summary</h2>';
+            result += '<pre>' + JSON.stringify(lastLine) + '</pre>';
 
             result += '<pre>' + data + '</pre>';
 
