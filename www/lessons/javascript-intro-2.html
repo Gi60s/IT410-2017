@@ -1,0 +1,229 @@
+<h1 id="javascript-introduction-part-2-">JavaScript Introduction (Part 2)</h1>
+<h2 id="objects">Objects</h2>
+<h3 id="create-a-plain-object">Create a Plain Object</h3>
+<p>There are many ways to create an Object, but here is the simplest:</p>
+<pre><code class="lang-js">var obj1 = {};
+</code></pre>
+<h3 id="object-properties">Object Properties</h3>
+<ul>
+<li><p>An object can have any number of properties.</p>
+</li>
+<li><p>Each property can be assigned any value (just like variables).</p>
+</li>
+</ul>
+<p><strong>Create an Object with Properties</strong></p>
+<pre><code class="lang-js">var obj = {
+    name: &#39;Bob&#39;,
+    age: 20,
+    gender: &#39;male&#39;
+}
+</code></pre>
+<p><strong>Add Properties to an Object</strong></p>
+<pre><code class="lang-js">var obj = {};
+obj.name = &#39;Bob&#39;;
+obj[&#39;age&#39;] = 20;
+
+var x = &#39;gender&#39;;
+obj[x] = &#39;male&#39;;
+</code></pre>
+<p><strong>Get Properties from an Object</strong></p>
+<pre><code class="lang-js">var obj = {};
+obj.name = &#39;Bob&#39;;
+obj[&#39;age&#39;] = 20;
+
+var name = obj.name;
+var age = obj.age;
+</code></pre>
+<p><strong>Remove Properties from an Object</strong></p>
+<pre><code class="lang-js">var obj = { name: &#39;Bob&#39; };
+delete obj.name;
+</code></pre>
+<h3 id="assignment">Assignment</h3>
+<ul>
+<li><p><strong>Purpose:</strong> To become more comfortable with objects.</p>
+</li>
+<li><p><strong>Assignment ID:</strong> <code>js-intro-objects</code></p>
+</li>
+<li><p><strong>Value:</strong> 10 Points</p>
+</li>
+</ul>
+<p><strong>Instructions:</strong></p>
+<ol>
+<li><p>Create a file called <code>js-intro-objects.js</code></p>
+</li>
+<li><p>Create a function named <code>makeCar</code> that creates and returns an object. The object will represent a car should have the following properties with any string value for each property:</p>
+<ul>
+<li>color</li>
+<li>make</li>
+<li>model</li>
+<li>year</li>
+</ul>
+</li>
+<li><p>The object must also have a property called <code>report</code> that has a value of a function. The function should return a string that lists the color, make, model, and year in that order, separated by a space.</p>
+</li>
+<li><p>Test the assignment until you have it working and then submit it.</p>
+<p> <a href="./introduction.html#how-to-submit-assignments">Need Help Submitting?</a></p>
+</li>
+</ol>
+<h3 id="detecting-if-an-object-has-a-specific-property">Detecting if an Object has a Specific Property</h3>
+<p><strong>Non-Inherited Check</strong></p>
+<pre><code class="lang-js">var obj = { name: &#39;Bob&#39; };
+var hasNameProperty = obj.hasOwnProperty(&#39;name&#39;);
+</code></pre>
+<p><strong>Inherited or Non-Inherited Check</strong></p>
+<pre><code class="lang-js">var obj = { name: &#39;Bob&#39; };
+var hasNameProperty = &#39;name&#39; in obj;
+</code></pre>
+<h3 id="questions">Questions</h3>
+<p><strong>Remember:</strong></p>
+<ul>
+<li><p>Object assignments are by reference.</p>
+</li>
+<li><p>Objects are the only mutable data type in JavaScript.</p>
+</li>
+</ul>
+<p><strong>Question 1:</strong> What does it mean to be mutable vs immutable?
+<br></p>
+<p><strong>Answer 1:</strong> Mutable means it can be changed, immutable means it cannot be changed.
+<br></p>
+<p><strong>Question 2:</strong> Looking at the following example:</p>
+<pre><code class="lang-js">var a = { phone: &#39;555-555-1234&#39; };
+var b = a;
+b.email = &#39;foo@email.com&#39;;
+</code></pre>
+<ol>
+<li><p>What properties does the object in variable <code>a</code> have?</p>
+</li>
+<li><p>What properties does the object in variable <code>b</code> have?
+<br></p>
+</li>
+</ol>
+<p><strong>Answer 2:</strong> Both <code>a</code> and <code>b</code> are referencing the same object. Changes to one are changes to the other. Both have the properties <code>phone</code> and <code>email</code>.
+<br></p>
+<p><strong>Question 3:</strong> Can you assign an object as a value to a property?</p>
+<pre><code class="lang-js">var o = {
+    foo: {
+        bar: 1,
+        baz: {}
+    }
+}
+</code></pre>
+<p><br></p>
+<p><strong>Answer 3:</strong> Yes. Anything you can assign to a variable can be assigned to a property.
+<br></p>
+<h2 id="this">This</h2>
+<ul>
+<li><p>The JavaScript keyword <code>this</code> refers to the current context and is always tied to some object.</p>
+</li>
+<li><p>Using <code>this</code> can be helpful, but be aware that the context is dynamic.</p>
+</li>
+<li><p>The <code>Function.prototype.apply</code> and <code>Function.prototype.call</code> methods can be used to alter context.</p>
+<ul>
+<li><p>More on prototype later.</p>
+</li>
+<li><p>We wont really cover <code>Function.prototype.apply</code> and <code>Function.prototype.call</code>, but you can look it up.</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-js">var obj = {
+    fname: &#39;Bob&#39;,
+    lname: &#39;Smith&#39;,
+    name: function() {
+        return this.fname + &#39; &#39; + this.lname;
+    }
+}
+
+obj.name()                                          // returns &#39;Bob Smith&#39;
+obj.name.call({ fname: &#39;Amy&#39;, lname: &#39;Jones&#39; });    // returns &#39;Amy Jones&#39;
+</code></pre>
+<h2 id="arrays">Arrays</h2>
+<p>There are many ways to create an Array, but here is the simplest:</p>
+<pre><code class="lang-js">var ar = [];
+</code></pre>
+<ul>
+<li><p>Each item in the array can store any data type.</p>
+</li>
+<li><p>Data types do not need to be consistent between items.</p>
+</li>
+<li><p>The Array inherits for Object and has multiple properties.</p>
+</li>
+<li><p>The <code>Array.prototype.length</code> property returns the length of the Array.</p>
+</li>
+</ul>
+<pre><code class="lang-js">var ar = [1, &#39;a&#39;, {}];
+ar.length;      // 3
+</code></pre>
+<h3 id="array-manipulation">Array Manipulation</h3>
+<p><strong>Set an item</strong></p>
+<pre><code class="lang-js">var ar = [];
+ar[0] = &#39;First&#39;;
+</code></pre>
+<p><strong>Get an item</strong></p>
+<pre><code class="lang-js">var ar = [&#39;First&#39;];
+var x = ar[0];      // &#39;First&#39;
+</code></pre>
+<p><strong>Other Useful Methods</strong></p>
+<p>Look these up on the web for details:</p>
+<ul>
+<li><code>Array.prototype.push</code> - Add an item to the end of the array.</li>
+<li><code>Array.prototype.pop</code> - Remove an item from the end of the array.</li>
+<li><code>Array.prototype.unshift</code> - Add an item to the front of the array.</li>
+<li><code>Array.prototype.shift</code> - Remove an item from the front of the array.</li>
+<li><code>Array.prototype.splice</code> - Add and/or remove items in the array at a specified index.</li>
+<li><code>Array.prototype.slice</code> - Copy the array.</li>
+</ul>
+<h3 id="questions">Questions</h3>
+<p><strong>Question 1:</strong> What&#39;s the difference between assigning by value vs by reference?
+<br></p>
+<p><strong>Answer 1:</strong> Assigning by value means that you have a new value in a second variable. Assigning by reference means you have the same value (as in same computer memory address) as the first variable.
+<br></p>
+<p><strong>Question 2:</strong> Are arrays assigned by value or by reference?
+<br></p>
+<p><strong>Answer 2:</strong> Because arrays are objects they are assigned by reference.
+<br></p>
+<p><strong>Question 3:</strong> What is dangerous about this function?</p>
+<pre><code class="lang-js">function joinStrings(ar) {
+    var result = &#39;&#39;;
+    while (ar.length &gt; 0) result += ar.shift();
+    return result;
+}
+</code></pre>
+<p><br></p>
+<p><strong>Answer 3:</strong> The developer who is calling the function may not know that the array passed in is being manipulated. It would be better to not manipulate the passed array.</p>
+<h2 id="closure">Closure</h2>
+<p>TODO: working here</p>
+<h3 id="questions">Questions</h3>
+<p><strong>Question 1:</strong> How can we make a variable private in JavaScript?
+<br></p>
+<p><strong>Answer 1:</strong> Any variable declared within a closure is limited to that closure. It can&#39;t be read or writen to outside of the closure.
+<br></p>
+<p><strong>Question 2:</strong> How do we create a closure?
+<br></p>
+<p><strong>Answer 2:</strong> When we create a function, the body of that function has it&#39;s own closure.</p>
+<h3 id="factories">Factories</h3>
+<ul>
+<li>A factory is a function that produces an object.</li>
+</ul>
+<p><strong>Incrementer Example</strong></p>
+<pre><code class="lang-js">function incrementer(value) {
+
+    // create the object
+    var factory = {};
+
+    // set default initial value if value was not provided
+    if (arguments.length === 0) value = 0;
+
+    // define an function that increments the value and assign it to the factory object&#39;s &quot;increment&quot; property
+    factory.increment = function() {
+
+    }
+
+    return factory;
+}
+</code></pre>
+<h2 id="prototypes">Prototypes</h2>
+<p>TODO: cover what they are, show how to extend but don&#39;t get in depth</p>
+<h3 id="constructor-functions">Constructor Functions</h3>
+<h3 id="factory-functions">Factory Functions</h3>
+<h3 id="avoid-classical-inheritance">Avoid Classical Inheritance</h3>

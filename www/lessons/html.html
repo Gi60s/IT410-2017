@@ -1,0 +1,183 @@
+<h1 id="html">HTML</h1>
+<p>HTML stands for Hypertext Markup Language.</p>
+<h3 id="html-template">HTML Template</h3>
+<p>The below template was taken from <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Sections_and_Outlines_of_an_HTML5_document">https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Sections_and_Outlines_of_an_HTML5_document</a> and modified.</p>
+<ul>
+<li>CSS is generally included in the head of the file.</li>
+<li>JavaScript is generally included at the end of the body.</li>
+<li>Each section affects the size of headers.</li>
+</ul>
+<pre><code class="lang-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;css/main.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;section&gt;
+    &lt;h1&gt;Forest elephants&lt;/h1&gt;
+    &lt;section&gt;
+        &lt;h1&gt;Introduction&lt;/h1&gt;
+        &lt;p&gt;In this section, we discuss the lesser known forest elephants.&lt;/p&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+        &lt;h1&gt;Habitat&lt;/h1&gt;
+        &lt;p&gt;Forest elephants do not live in trees but among them.&lt;/p&gt;
+    &lt;/section&gt;
+    &lt;aside&gt;
+        &lt;p&gt;advertising block&lt;/p&gt;
+    &lt;/aside&gt;
+&lt;/section&gt;
+
+&lt;footer&gt;
+    &lt;p&gt;(c) 2010 The Example company&lt;/p&gt;
+&lt;/footer&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/main.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="tags">Tags</h3>
+<ul>
+<li>A tag is used to define an HTML element.</li>
+<li>A tag starts and ends with <code>&lt;</code> and <code>&gt;</code> respectively. For example, the paragraph tag: <code>&lt;p&gt;</code>.</li>
+<li>Many tags also expect a closing tag to match an opening tag, like the paragraph. Closing tags start with <code>&lt;\</code> and end with <code>&gt;</code>. For example: <code>&lt;p&gt;Content&lt;/p&gt;</code></li>
+<li>If a tag doesn&#39;t need a closing tag then you just put the opening tag. For example, the horizontal rule tag: <code>&lt;hr&gt;</code>.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">HTML Element Reference</a></li>
+</ul>
+<h3 id="attributes">Attributes</h3>
+<ul>
+<li>All tags have attributes that can be used to further define how the tag looks or what it should do.</li>
+<li>Attributes exist within the opening tag, for example the image tag takes a source to define what image to display: <code>&lt;img src=&#39;image.png&#39;&gt;</code></li>
+<li>Two attributes that all elements can have are <code>class</code> and <code>id</code>.</li>
+</ul>
+<h3 id="id-attribute">ID Attribute</h3>
+<ul>
+<li>The <code>id</code> attribute defines a unique ID for an element. This id should be unique for the entire page. Example usage: <code>&lt;p id=&#39;Main&#39;&gt;&lt;/p&gt;</code>.</li>
+<li>This attribute is often used to find the element using JavaScript.</li>
+<li>CSS also uses the ID attribute to define styles.</li>
+</ul>
+<h3 id="the-dom">The DOM</h3>
+<ul>
+<li>The DOM is the document object model.</li>
+<li>A web browser produces the DOM after reading your HTML.</li>
+<li>The DOM is a tree structure made up of nodes. The tree structure mimics your HTML.</li>
+<li>There are <a href="http://www.w3schools.com/jsref/prop_node_nodetype.asp">12 node types</a>.</li>
+<li>An element is one type of node (represented in text by an HTML tag).</li>
+</ul>
+<h3 id="elements">Elements</h3>
+<ul>
+<li>Each element has it&#39;s own attributes and display properties.</li>
+<li>The following code shows the difference between two very similar elements, the <code>div</code> and <code>span</code>.</li>
+</ul>
+<p><strong>Code</strong></p>
+<pre><code class="lang-html">&lt;div&gt;A&lt;/div&gt;
+&lt;div&gt;B&lt;/div&gt;
+&lt;div&gt;C&lt;/div&gt;
+
+&lt;span&gt;A&lt;/span&gt;
+&lt;span&gt;B&lt;/span&gt;
+&lt;span&gt;C&lt;/span&gt;
+</code></pre>
+<p><strong>Output</strong></p>
+<div>A</div>
+<div>B</div>
+<div>C</div>
+
+<p><span>A</span>
+<span>B</span>
+<span>C</span></p>
+<p><strong>Question:</strong> What difference can you see between the <code>div</code> and <code>span</code>?
+<br></p>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>The <code>div</code> takes up the entire line while the <code>span</code> takes up just enough space for its content.</li>
+<li>The <code>div</code> is known as a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">block-level</a> element where the <code>span</code> is an <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">inline</a> element.
+<br></li>
+</ul>
+<p>Take a moment to look at:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">block-level elements</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">inline elements</a></li>
+</ul>
+<h2 id="forms">Forms</h2>
+<ul>
+<li>A form is a common way to provide a user input interface.</li>
+<li>There are many elements that are used together to make up forms.</li>
+<li>Any form elements with a <code>name</code> attribute are distinguished by that name.</li>
+<li><a href="http://www.w3schools.com/html/html_forms.asp">Forms Reference</a></li>
+</ul>
+<p><strong>Code</strong></p>
+<pre><code class="lang-html">&lt;form&gt;
+    &lt;p&gt;
+        &lt;label for=&#39;color&#39;&gt;Favorite Color:&lt;/label&gt;
+        &lt;input id=&#39;color&#39;&gt;
+    &lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;label for=&#39;food&#39;&gt;Favorite Food:&lt;/label&gt;
+        &lt;select id=&quot;food&quot; name=&quot;food&quot;&gt;
+          &lt;option value=&quot;fruit&quot;&gt;Fruit&lt;/option&gt;
+          &lt;option value=&quot;ice cream&quot;&gt;Ice Cream&lt;/option&gt;
+          &lt;option value=&quot;pizza&quot;&gt;Pizza&lt;/option&gt;
+          &lt;option value=&quot;vegetables&quot;&gt;Vegetables&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;label&gt;Gender&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;gender&quot; value=&quot;male&quot;&gt; Male&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;gender&quot; value=&quot;female&quot;&gt; Female&lt;/label&gt;
+    &lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;button type=&quot;button&quot; onclick=&quot;alert(&#39;Hello&#39;)&quot;&gt;Hello Button&lt;/button&gt;
+    &lt;/p&gt;
+&lt;/form&gt;
+</code></pre>
+<p><strong>Output</strong></p>
+<form>
+    <p>
+        <label for='color'>Favorite Color:</label>
+        <input id='color'>
+    </p>
+
+    <p>
+        <label for='food'>Favorite Food:</label>
+        <select id="food" name="food">
+          <option value="fruit">Fruit</option>
+          <option value="ice cream">Ice Cream</option>
+          <option value="pizza">Pizza</option>
+          <option value="vegetables">Vegetables</option>
+        </select>
+    </p>
+
+    <p>
+        <label>Gender</label>
+        <label><input type="radio" name="gender" value="male"> Male</label>
+        <label><input type="radio" name="gender" value="female"> Female</label>
+    </p>
+
+    <p>
+        <button type="button" onclick="alert('Hello')">Hello Button</button>
+    </p>
+</form>
+
+<h2 id="developer-tools">Developer Tools</h2>
+<ul>
+<li>The latest browsers (IE, Edge, Firefox, Chrome, Safari) all have developer tools.</li>
+<li>You can look at how a webpage works using these tools.</li>
+<li>The tools are usually accessed through the browser menu.</li>
+</ul>
+<h3 id="try-it-out">Try it Out</h3>
+<ol>
+<li>Open a browser to <a href="http://www.byu.edu">http://www.byu.edu</a></li>
+<li>Open the developer tools.</li>
+<li>Click on the Elements tab (or equivalent).</li>
+<li>Click on elements in the developer console.</li>
+<li>Use the element selector to select an element on the page.</li>
+</ol>
+<p>TODO: homework assignment: html-form-intro</p>

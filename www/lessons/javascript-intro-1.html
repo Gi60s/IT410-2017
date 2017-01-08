@@ -1,0 +1,529 @@
+<h1 id="javascript-introduction-part-1-">JavaScript Introduction (Part 1)</h1>
+<h2 id="about-javascript">About JavaScript</h2>
+<blockquote>
+<p>JavaScript&copy; (often shortened to JS) is a lightweight, interpreted, object-oriented language with first-class functions, and is best known as the scripting language for Web pages, but it&#39;s used in many non-browser environments as well. It is a prototype-based, multi-paradigm scripting language that is dynamic, and supports object-oriented, imperative, and functional programming styles.</p>
+<p>-- <em>Mozilla Developer Network</em> (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/About_JavaScript">https://developer.mozilla.org/en-US/docs/Web/JavaScript/About_JavaScript</a>)</p>
+</blockquote>
+<p><br></p>
+<ul>
+<li><p><strong>Interpreted:</strong> There are JavaScript engines (SpiderMonkey, V8, Spartan) that read the code and convert it into machine language as the code is running.</p>
+</li>
+<li><p><strong>Multiple Environments:</strong> - The web is where it started but servers are also using it now.</p>
+</li>
+<li><p><strong>Dynamic:</strong> - Data, structures, and even the code can be rewritten on the fly. (Side note: imagine writing code that rewrites it&#39;s own code.)</p>
+</li>
+<li><p><strong>Multi Paradigm:</strong> - Can be written as object-oriented, imperative, and functional (all mixed together if you want).</p>
+</li>
+<li><p><strong>Prototype Based:</strong> Object structures can use classical inheritance, object composition, and prototypical inheritance. You have full control on exactly what is inherited.</p>
+</li>
+</ul>
+<h2 id="javascript-in-the-browser-vs-the-server">JavaScript in the Browser vs. the Server</h2>
+<ul>
+<li><p>Both run the same. Code and logic in one will execute identically to code and logic in the other.</p>
+</li>
+<li><p>The Browser provides some libraries that the server does not and vice versa.</p>
+<ul>
+<li>Browser has: Window, Document Object Model (DOM).</li>
+<li>Server has: Operating System, File System, Network Systems, etc.</li>
+</ul>
+</li>
+</ul>
+<h2 id="first-bit-of-code">First Bit of Code</h2>
+<ol>
+<li><p>Open a web browser to: <a href="http://labs.codecademy.com/">http://labs.codecademy.com/</a></p>
+</li>
+<li><p>Enter this code:</p>
+<pre><code class="lang-js"> alert(&#39;Hello, World!&#39;);
+</code></pre>
+</li>
+<li><p>Click the <code>Run</code> button.</p>
+</li>
+</ol>
+<h3 id="about-that-code">About That Code</h3>
+<ul>
+<li><p><code>alert</code> is a function that only exists within browsers.</p>
+</li>
+<li><p>Double quotes or single quotes are fine. (I prefer single so that I don&#39;t have to hold the shift button.)</p>
+</li>
+<li><p>Semi-colon at the end of the <em>Expression Statement</em>.</p>
+</li>
+</ul>
+<h2 id="console">Console</h2>
+<ul>
+<li><p>The console is another way to provide input out get output.</p>
+</li>
+<li><p>For logging, it is better to use the console than the alert.</p>
+</li>
+<li><p>You can execute JavaScript from the console.</p>
+</li>
+</ul>
+<p>Open your developer tools:</p>
+<ul>
+<li><p><strong>Chrome</strong></p>
+<ol>
+<li>Click the Menu button</li>
+<li>Click <em>More tools</em></li>
+<li>Click <em>Developer tools</em></li>
+<li>Make sure you&#39;re on the <em>Console</em> tab.</li>
+</ol>
+</li>
+<li><p><strong>Firefox</strong></p>
+<ol>
+<li>Click the Menu button</li>
+<li>Click <em>Developer</em></li>
+<li>Click <em>Web Console</em></li>
+</ol>
+</li>
+</ul>
+<h3 id="exercise">Exercise</h3>
+<p>With the developer console open, enter the following JavaScript into the console and hit the <em>Enter</em> key.</p>
+<p><strong>Tip:</strong> To enter multiple lines, use <code>Shift-Enter</code> to go to the next line.</p>
+<pre><code class="lang-js">alert(&#39;Hello&#39;);
+console.log(&#39;Good bye&#39;);
+</code></pre>
+<h2 id="comments">Comments</h2>
+<p>Comments can be for a single line:</p>
+<pre><code class="lang-js">// anything following two slashes is a comment
+alert(&#39;Hello&#39;); // say hello
+</code></pre>
+<p>Comments can also be for a block:</p>
+<pre><code class="lang-js">/*
+This is a comment.
+*/
+</code></pre>
+<h2 id="data-types">Data Types</h2>
+<h3 id="primitives-vs-objects">Primitives vs Objects</h3>
+<ul>
+<li>Primitives cannot have properties.</li>
+<li>Objects can have properties.</li>
+</ul>
+<h3 id="variable-assignment">Variable Assignment</h3>
+<ul>
+<li><p>Assignment can be by value.</p>
+<pre><code class="lang-js">  var x = &#39;123&#39;;  // x has &#39;123&#39;
+  var y = x;      // y has the same value as x, but it&#39;s a copy of the value
+</code></pre>
+</li>
+<li><p>Assignments can be by reference.</p>
+<pre><code class="lang-js">  var x = {};     // x has {}
+  var y = x;      // y is the same as x, not a copy.
+</code></pre>
+</li>
+</ul>
+<h3 id="immutable-vs-mutable">Immutable vs Mutable</h3>
+<p><em>Where not talking about volume levels here.</em></p>
+<ul>
+<li><p><strong>Immutable</strong> means that the data cannot be changed.</p>
+<pre><code class="lang-js">  var x = &#39;123&#39;;  // x is assigned the value &#39;123&#39;
+  x = &#39;abc&#39;;      // x is assigned the value &#39;abc&#39;
+</code></pre>
+<p>  The variable <code>x</code> is assigned a new value, we did not modify <code>&#39;123&#39;</code>.</p>
+</li>
+<li><p><strong>Mutable</strong> means that the data can be changed.</p>
+<pre><code class="lang-js">  var x = {};     // x is assigned an empty object
+  x.foo = &#39;bar&#39;;  // we modify the object to add the property `foo` with value `&#39;bar&#39;`
+</code></pre>
+</li>
+</ul>
+<h3 id="javascript-s-data-types">JavaScript&#39;s Data Types</h3>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>Primitive</th>
+<th>Assign by Value</th>
+<th>Assign by Reference</th>
+<th>Immutable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>undefined</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>x</td>
+</tr>
+<tr>
+<td>null</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>x</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>x</td>
+</tr>
+<tr>
+<td>number</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>x</td>
+</tr>
+<tr>
+<td>string</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>x</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>x</td>
+<td></td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr>
+<td>object</td>
+<td></td>
+<td></td>
+<td>x</td>
+</tr>
+</tbody>
+</table>
+<p>To determine the type of a variable:</p>
+<pre><code class="lang-js">var a = 5;
+alert(typeof a);        // will alert &#39;number&#39;
+</code></pre>
+<h2 id="variables">Variables</h2>
+<p>There are three types of variable declarations:</p>
+<h3 id="var">var</h3>
+<ul>
+<li>Create a variable that can be set to a value any number of times.</li>
+<li>Scoped to the nearest closure. (More on this in a minute.)</li>
+<li>Universal browser support</li>
+</ul>
+<pre><code class="lang-js">var a;
+var b = 5;
+</code></pre>
+<h3 id="const">const</h3>
+<ul>
+<li>Create a variable that must have it&#39;s value set immediately.</li>
+<li>The value can not change.</li>
+<li>Scoped to the nearest block.</li>
+<li>Good browser support</li>
+</ul>
+<pre><code class="lang-js">if (true) {
+    const a = 123;
+    console.log(a);     // 123
+    // a = 5            &lt;-- would throw an error because it cannot be set again
+}
+console.log(a);         // undefined
+</code></pre>
+<h3 id="let">let</h3>
+<ul>
+<li>Create a variable that can be set any number of times.</li>
+<li>Scoped to the nearest block.</li>
+<li>Evergreen browser support</li>
+</ul>
+<pre><code class="lang-js">if (true) {
+    let a = 123;
+    console.log(a);     // 123
+    a = 5;
+}
+console.log(a);         // undefined
+</code></pre>
+<h2 id="loops">Loops</h2>
+<p>There are many types of loops in JavaScript, but here we&#39;re going to look at just the imperative loop styles.</p>
+<p><strong>Question:</strong> What does imperative mean?
+<br></p>
+<p><strong>Answer:</strong> You tell the computer how to do something. In this case we&#39;ll be explicitly telling the computer how to loop.</p>
+<h3 id="for-loop">For Loop</h3>
+<pre><code class="lang-js">var i;
+for (i = 0; i &lt; 10; i++) {
+    console.log(i);
+}
+</code></pre>
+<h3 id="while-loop">While Loop</h3>
+<pre><code class="lang-js">var i;
+while (i &lt; 10) {
+    console.log(i);
+}
+</code></pre>
+<h3 id="do-loop">Do Loop</h3>
+<p>Will execute at least once.</p>
+<pre><code class="lang-js">var i;
+do {
+    console.log(i);
+} while (i &lt; 10);
+</code></pre>
+<h2 id="operators">Operators</h2>
+<h3 id="assignment-operator">Assignment Operator</h3>
+<p>You&#39;ve already seen this one, a single <code>=</code>.</p>
+<pre><code class="lang-js">var x = 5;
+x = 6;
+</code></pre>
+<h3 id="math-operators">Math Operators</h3>
+<ul>
+<li><p><strong>Addition:</strong> <code>1 + 2</code></p>
+</li>
+<li><p><strong>Subtraction:</strong> <code>5 - 2</code></p>
+</li>
+<li><p><strong>Multiplication:</strong> <code>2 * 3</code></p>
+</li>
+<li><p><strong>Division:</strong> <code>5 / 2</code></p>
+</li>
+<li><p><strong>Modulus:</strong> <code>5 % 3</code>  (remainder of dividing 5 / 3 )</p>
+</li>
+<li><p><strong>Increment:</strong></p>
+<pre><code class="lang-js">  var a = 1;
+  a++;        // increment after expression evaluation
+  ++a;        // increment before expression evaluation
+</code></pre>
+</li>
+<li><p><strong>Decrement:</strong></p>
+<pre><code class="lang-js">  var a = 5;
+  a--;        // decrement after expression evaluation
+  --a;        // decrement before expression evaluation
+</code></pre>
+</li>
+</ul>
+<h3 id="comparison-operators">Comparison Operators</h3>
+<ul>
+<li><p><strong>Less Than:</strong> <code>&lt;</code></p>
+</li>
+<li><p><strong>Less Than or Equal:</strong> <code>&lt;=</code></p>
+</li>
+<li><p><strong>Greater Than:</strong> <code>&gt;</code></p>
+</li>
+<li><p><strong>Greater Than or Equal:</strong> <code>&gt;=</code></p>
+</li>
+<li><p><strong>Value is Equal:</strong> <code>==</code></p>
+</li>
+<li><p><strong>Value and Type is Equal:</strong> <code>===</code></p>
+</li>
+<li><p><strong>Value is not Equal:</strong> <code>!=</code></p>
+</li>
+<li><p><strong>Value and Type is not Equal:</strong> <code>!==</code></p>
+</li>
+</ul>
+<h4 id="expert-advice">Expert Advice</h4>
+<p>To reduce the number of logic errors in your code:</p>
+<ul>
+<li>Use <code>===</code> more than <code>==</code></li>
+<li>Use <code>!==</code> more than <code>!=</code></li>
+</ul>
+<pre><code class="lang-js">0 == &quot;&quot;         // true
+0 === &quot;&quot;        // false
+
+0 == false      // true
+0 === false     // false
+</code></pre>
+<h3 id="truthy-or-falsy">Truthy or Falsy</h3>
+<p>Falsy Values:</p>
+<ul>
+<li><code>0</code></li>
+<li><code>null</code></li>
+<li><code>&#39;&#39;</code> (empty string)</li>
+<li><code>false</code></li>
+</ul>
+<p>Truthy Values:</p>
+<ul>
+<li>Everything that isn&#39;t falsy.</li>
+</ul>
+<h2 id="conditional-statements">Conditional Statements</h2>
+<ul>
+<li>With conditional statements you can execute logic based on current state information.</li>
+</ul>
+<p><strong>Single Line If Statement</strong></p>
+<pre><code class="lang-js">if (a === b) console.log(&#39;They are equal&#39;);
+</code></pre>
+<p><strong>Multi Line If Statement</strong></p>
+<p>The code block is enclosed by squiggly brackets.</p>
+<pre><code class="lang-js">if (a === b) {
+    console.log(&#39;They are equal&#39;);
+}
+</code></pre>
+<p><strong>Compound If Statement</strong></p>
+<pre><code class="lang-js">if (a === b) {
+    console.log(&#39;They are equal&#39;);
+} else if (a &lt; b) {
+    console.log(&#39;&quot;A&quot; is smaller&#39;);
+} else {
+    console.log(&#39;&quot;B&quot; is smaller&#39;);
+}
+</code></pre>
+<p><strong>Switch Statement</strong></p>
+<ul>
+<li>When a case is met it will execute all code blocks until a break is reached.</li>
+<li>Don&#39;t forget to break at the end of a block.</li>
+</ul>
+<pre><code class="lang-js">switch (a) {
+    case 1:
+    case 2:
+        console.log(&#39;It is a number 1 or 2&#39;);
+        break;
+    case &#39;One&#39;:
+        console.log(&#39;It is the string One&#39;);
+        break;
+    default:
+        console.log(&#39;It is something else&#39;);
+}
+</code></pre>
+<h2 id="functions">Functions</h2>
+<ul>
+<li><p>Functions create a closure.</p>
+</li>
+<li><p>A variable declared outside of a function is accessible within the function.</p>
+</li>
+<li><p>A variable declared within a function is not accessible outside the function.</p>
+</li>
+</ul>
+<pre><code class="lang-js">var a = 1;
+var b = 2;
+
+function foo() {        //define the function
+  var a = 10;
+  var x = &#39;Hello&#39;;
+  console.log(a, b, x); // 10, 2, &#39;Hello&#39;
+}
+
+foo();                    //call the function
+console.log(a, b, x);   // 1, 2, undefined
+</code></pre>
+<h4 id="expert-advice">Expert Advice</h4>
+<ul>
+<li><p>Be very careful setting the values of variables outside of the closure you are working on.</p>
+</li>
+<li><p>If you forget to declare a variable you may unintentionally set the value for a variable of a higher closure (perhaps a global variable).</p>
+</li>
+</ul>
+<h3 id="function-referencing">Function Referencing</h3>
+<ul>
+<li><p>You can give a function a name.</p>
+<pre><code class="lang-js">  function foo() {        // the name is foo
+  }
+</code></pre>
+</li>
+<li><p>You can store the function in a reference (with or without a name).</p>
+<pre><code class="lang-js">  var x = function() {    // the name is undefined
+  }
+</code></pre>
+</li>
+</ul>
+<h3 id="function-parameters">Function Parameters</h3>
+<ul>
+<li><p>A function can take any number of parameters.</p>
+</li>
+<li><p>You specify the name of those parameters within the function.</p>
+</li>
+</ul>
+<pre><code class="lang-js">function add(a, b) {
+    console.log(a, b);  // output the values from variables a and b to the console
+}
+</code></pre>
+<h3 id="function-returns">Function Returns</h3>
+<ul>
+<li><p>A function can only return one value.</p>
+</li>
+<li><p>It can only return once.</p>
+</li>
+</ul>
+<pre><code class="lang-js">function greet(name) {
+    return &#39;Hello, &#39; + name;
+}
+</code></pre>
+<h3 id="function-calls">Function Calls</h3>
+<ul>
+<li><p>Use the name of the function (or a variable with it&#39;s reference) to call the function.</p>
+</li>
+<li><p>You must have parenthesis after the function name or reference to call it.</p>
+</li>
+<li><p>Parameters values can be passed in within the parenthesis.</p>
+</li>
+<li><p>The calling signature does not need to meet the function signature.</p>
+</li>
+</ul>
+<pre><code class="lang-js">const G = function greet(name) {
+    return &#39;Hello, &#39; + name;
+}
+
+var x = greet(&#39;Bob&#39;);           // x gets the value &#39;Hello, Bob&#39;
+var y = greet();                // y gets the value &#39;Hello, undefined&#39;
+var z = greet(&#39;Sue&#39;, &#39;Amy&#39;);    // z gets the value &#39;Hello, Sue&#39;
+var a = G(&#39;you&#39;);               // a gets the value &#39;Hello, you&#39;
+</code></pre>
+<p><strong>Question:</strong> How does the last line in the example work without using the function name of <code>greet</code>?
+<br></p>
+<p><strong>Answer:</strong> We stored a reference to the function in variable <code>G</code>.</p>
+<h3 id="assignment">Assignment</h3>
+<ul>
+<li><p><strong>Purpose:</strong> Show that you can create a function that takes parameters and returns a result.</p>
+</li>
+<li><p><strong>Assignment ID:</strong> <code>js-intro-functions</code></p>
+</li>
+<li><p><strong>Value:</strong> 3 Points</p>
+</li>
+</ul>
+<p><strong>Instructions:</strong></p>
+<ol>
+<li><p>Create a file called <code>js-intro-functions.js</code></p>
+</li>
+<li><p>Create a function named <code>add</code> that takes two parameters.</p>
+</li>
+<li><p>Inside the function, add the two parameters together and return the result.</p>
+</li>
+<li><p>Test the assignment until you have it working and then submit it.</p>
+<p> <a href="./introduction.html#how-to-submit-assignments">Need Help Submitting?</a></p>
+</li>
+</ol>
+<h3 id="variable-arguments">Variable Arguments</h3>
+<ul>
+<li><p>Because the function signature doesn&#39;t have to match the calling signature we can recieve any number of parameters.</p>
+</li>
+<li><p>It is possible to see how many arguments a function received.</p>
+</li>
+<li><p>We use the <code>arguments</code> keyword within a function.</p>
+</li>
+<li><p><code>arguments</code> is an array-like structure (not an array)</p>
+</li>
+</ul>
+<pre><code class="lang-js">function greet() {
+    var i;
+    var name;
+
+    for (i = 0; i &lt; arguments.length; i++) {
+        name = arguments[i];
+        console.log(&#39;Hello, &#39; + name);
+    }
+}
+
+greet(&#39;Amy&#39;, &#39;Andrew&#39;, &#39;Kim&#39;, &#39;Lance&#39;, &#39;Tyler&#39;, &#39;Zoe&#39;);
+</code></pre>
+<h3 id="optional-arguments">Optional Arguments</h3>
+<ul>
+<li>Using the variable arguments also makes it possible to use optional arguments.</li>
+</ul>
+<pre><code class="lang-js">function greet(name) {
+    if (arguments.length === 0) name = &#39;stranger&#39;;
+    return &#39;Hello, &#39; + name;
+}
+
+greet(&#39;Bob&#39;);   // returns: Hello, Bob
+greet();        // returns: Hello, stranger
+</code></pre>
+<h3 id="assignment">Assignment</h3>
+<ul>
+<li><p><strong>Purpose:</strong> Show that you can accept variable arguments for a function.</p>
+</li>
+<li><p><strong>Assignment ID:</strong> <code>js-intro-function-arguments</code></p>
+</li>
+<li><p><strong>Value:</strong> 3 Points</p>
+</li>
+</ul>
+<p><strong>Instructions:</strong></p>
+<ol>
+<li><p>Create a file called <code>js-intro-function-arguments.js</code></p>
+</li>
+<li><p>Add to that file a function named <code>sum</code> that takes any number of arguments, adds them all together, and returns the result.</p>
+</li>
+<li><p>Test the assignment until you have it working and then submit it.</p>
+<p> <a href="./introduction.html#how-to-submit-assignments">Need Help Submitting?</a></p>
+</li>
+</ol>

@@ -1,0 +1,213 @@
+<h1 id="css">CSS</h1>
+<h2 id="questions">Questions</h2>
+<p><strong>Question:</strong> What is CSS used for?
+<br></p>
+<p><strong>Answer:</strong> It is the style portion of your web application. It controls the look.</p>
+<p><em>Regular Button</em> vs <em>Styled Button</em></p>
+<p><button>My Button</button></p>
+<p><button style="border: 1px solid #09D; background-color: #0BF; border-radius: 4px; padding: 5px 10px; color: #FFF; font-weight: bold">My Button</button>
+<br></p>
+<p>Styles applied to second button:</p>
+<pre><code class="lang-css">border: 1px solid #09D;
+background-color: #0BF;
+border-radius: 4px;
+padding: 5px 10px;
+color: #FFF;
+font-weight: bold;
+</code></pre>
+<p><br></p>
+<p><strong>Question:</strong> What does CSS stand for?</p>
+<p><strong>Answer:</strong> Cascading Style Sheets</p>
+<h2 id="style-rules">Style Rules</h2>
+<p>There are a lot of CSS style rules to know, but you&#39;ll generally only use a small set of them.</p>
+<p><a href="http://www.w3schools.com/css/">W3Schools CSS Tutorial</a></p>
+<h2 id="css-selectors">CSS Selectors</h2>
+<p>A selector tells the CSS <em>where</em> styles should be applied. There are three main types of selectors:</p>
+<ul>
+<li><strong>Tag</strong> - A tag selector will match a given tag.</li>
+<li><strong>Class</strong> - A class selector will match elements that have the same class name.</li>
+<li><strong>ID</strong> - An ID selector will apply to the element with the specified ID.</li>
+</ul>
+<h3 id="tag-selector">Tag Selector</h3>
+<p>All tags that match the selector will have the defined style applied. The following rule will make all <code>&lt;p&gt;</code> tags have bold red content.</p>
+<p><strong>CSS</strong></p>
+<pre><code class="lang-css">p {
+    font-weight: bold;
+    color: red;
+}
+</code></pre>
+<p><strong>HTML</strong></p>
+<pre><code class="lang-html">&lt;p&gt;Hello, World!&lt;/p&gt;
+</code></pre>
+<h3 id="class-selector">Class Selector</h3>
+<p>Class selectors start with a <code>.</code> (dot). For example:</p>
+<p><strong>CSS</strong></p>
+<pre><code class="lang-css">.my-class {
+    border: 1px solid black;
+}
+</code></pre>
+<p><strong>HTML</strong></p>
+<pre><code class="lang-html">&lt;p class=&quot;my-class&quot;&gt;Hello, World!&lt;/p&gt;
+</code></pre>
+<h3 id="id-selector">ID Selector</h3>
+<p>ID selectors start with a <code>#</code>. For example:</p>
+<p><strong>CSS</strong></p>
+<pre><code class="lang-css">#my-id {
+    text-align: center;
+}
+</code></pre>
+<p><strong>HTML</strong></p>
+<pre><code class="lang-html">&lt;p id=&quot;my-id&quot;&gt;Hello, World!&lt;/p&gt;
+</code></pre>
+<h3 id="compound-selectors">Compound Selectors</h3>
+<p>It is possible to join multiple selectors together to create more specific selectors.</p>
+<p>This example shows how you can make all <code>&lt;p&gt;</code> tags with the <code>important</code> class have a specific style. In your html you&#39;d write <code>&lt;p class=&#39;important&#39;&gt; ... &lt;/p&gt;</code> to have this style apply to it.</p>
+<pre><code class="lang-css">p.important {
+    font-weight: bold;
+    color: red;
+}
+</code></pre>
+<h3 id="nested-selectors">Nested Selectors</h3>
+<p>You can also specify how something should look when it is a child or descendant of another selector.</p>
+<ul>
+<li><code>div p { ... }</code> - This style rule would apply to all paragraph tags that are somewhere within a div tag.</li>
+<li><code>div &gt; p</code> { ... }` - This style would apply to all paragraph tags that are immediate children of a div tag.</li>
+<li><code>#my-id &gt; p &gt; em { ... }</code> - This style applies to <code>em</code> tags that are immediate children of <code>p</code> tags that are immediate children of the element with attribute ID of <code>my-id</code>.</li>
+</ul>
+<h3 id="pseudo-selectors">Pseudo Selectors</h3>
+<p>Pseudo selectors are applied for certain states, such as checked, hover, focus, first-child, etc. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">See a full list of pseudo selectors</a>. A common use for this is to modify the way links work in different states.</p>
+<pre><code class="lang-html">&lt;style&gt;
+    a#styled {
+        display: inline-block;
+        color: #666;
+        border: 1px solid #CCC;
+        padding: 5px 10px;
+        text-decoration: none;
+
+        transition: background-color 500ms;
+    }
+    a#styled:hover {
+        background-color: #e7a61a
+    }
+
+    a#styled:active {
+        background-color: #e7d816;
+    }
+&lt;/style&gt;
+
+&lt;a href=&quot;javascript: void 0&quot;&gt;Example Link&lt;/a&gt;
+&lt;a id=&quot;styled&quot; href=&quot;javascript: void 0&quot;&gt;Example Link&lt;/a&gt;
+</code></pre>
+<style>
+    a#styled {
+        display: inline-block;
+        color: #666;
+        border: 1px solid #CCC;
+        padding: 5px 10px;
+        text-decoration: none;
+
+        transition: background-color 500ms;
+    }
+    a#styled:hover {
+        background-color: #e7a61a
+    }
+
+    a#styled:active {
+        background-color: #e7d816;
+    }
+</style>
+
+<p><a href="javascript: void 0">Example Link</a>
+<a id="styled" href="javascript: void 0">Example Link</a></p>
+<h3 id="multiple-selectors">Multiple Selectors</h3>
+<p>You can combine selectors so that more than one selector uses a specific style by separating selectors by commas.</p>
+<pre><code class="lang-css">div &gt; p,
+ul &gt; li {
+    font-weight: bold;
+}
+</code></pre>
+<h3 id="selector-conflicts">Selector Conflicts</h3>
+<p>Sometimes two selectors will try to apply competing styles to an element.</p>
+<p>Rule of thumb: <strong>The more specific selector has precedence or, all things being equal the last selector has precedence.</strong></p>
+<h4 id="questions">Questions</h4>
+<ol>
+<li>What is more specific, an ID or a tag?</li>
+<li>What is more specific, a tag or a class?</li>
+<li>Looking at the following code example, what will the <code>&lt;div&gt;</code> look like?</li>
+</ol>
+<p>CSS</p>
+<pre><code class="lang-css">#main {
+    border-color: blue;
+}
+div {
+    border: 1px solid red;
+}
+div {
+    border-bottom-width: 2px;
+}
+</code></pre>
+<p>HTML</p>
+<pre><code class="lang-html">&lt;div id=&#39;main&#39;&gt;Hello, World!&lt;/div&gt;
+</code></pre>
+<h2 id="adding-css-to-your-html">Adding CSS to your HTML</h2>
+<p>There are three ways to add CSS to your HTML:</p>
+<ol>
+<li>Including a style sheet (generally preferred)</li>
+<li>Include an inline style (great for high performance styles)</li>
+<li>Include a style rule on an element (generally frowned down upon)</li>
+</ol>
+<h3 id="exercises">Exercises</h3>
+<p>Create an index.html file with this content:</p>
+<pre><code class="lang-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;Hello, World!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h4 id="exercise-1-include-style-sheet">Exercise 1: Include Style Sheet</h4>
+<ol>
+<li>Create a file named <code>my-styles.css</code> in the same directory as the index.html file.</li>
+<li>Add css to the my-styles.css file that will make the paragraph text bold, using: <code>font-weight: bold</code>.</li>
+<li>Inside the <code>&lt;head&gt;</code> tag of your index.html file, include your my-style.css using: <code>&lt;link type=&#39;text/css&#39; rel=&#39;stylesheet&#39; href=&#39;my-style.css&#39;&gt;</code></li>
+</ol>
+<h5 id="exercise-2-inline-style">Exercise 2: Inline Style</h5>
+<ol>
+<li>Inside the <code>&lt;head&gt;</code> tag of your index.html file and <em>after</em> your included style sheet add a <code>&lt;style&gt;</code> tag.</li>
+<li>Inside that <code>&lt;style&gt;</code> tag add css to make the paragraph text underlined using: <code>text-decoration: underline</code>.</li>
+</ol>
+<h4 id="exercise-3-element-style-rule">Exercise 3: Element Style Rule</h4>
+<ol>
+<li>On the <code>&lt;p&gt;</code> tag add an attribute <code>style</code> equal to <code>text-align: center; color: blue;</code>.</li>
+</ol>
+<hr>
+
+<h3 id="exercise-solution">Exercise Solution</h3>
+<p>CSS</p>
+<pre><code class="lang-css">p {
+    font-weight: bold;
+}
+</code></pre>
+<p>HTML</p>
+<pre><code class="lang-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link type=&#39;text/css&#39; rel=&#39;stylesheet&#39; href=&#39;my-style.css&#39;&gt;
+    &lt;style&gt;
+        p {
+            text-decoration: underline;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p style=&#39;text-align: center; color: blue;&#39;&gt;Hello, World!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<hr>

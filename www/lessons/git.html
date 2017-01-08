@@ -1,0 +1,87 @@
+<h1 id="git">Git</h1>
+<h2 id="what-is-it-">What is it?</h2>
+<ul>
+<li><p>A file versioning system.</p>
+</li>
+<li><p>Be able to revisit any point in history.</p>
+</li>
+<li><p>Work on a single project simultaneously with other developers.</p>
+</li>
+<li><p>Accept contributions to your code from anyone.</p>
+</li>
+<li><p>Make changes without compromising stability.</p>
+</li>
+</ul>
+<h3 id="repositories">Repositories</h3>
+<ul>
+<li><p><em>Repository</em> - The current and past state of all of your tracked files since the creation of the git project.</p>
+</li>
+<li><p><em>Local Repository</em> - A repository on your own machine. Most of your work is done here.</p>
+</li>
+<li><p><em>Central Repository</em> - The repository that everyone uses to get code from and merges new code into.</p>
+</li>
+</ul>
+<h3 id="hands-on-exercise">Hands On Exercise</h3>
+<ol>
+<li><p>Visit <a href="https://github.com">https://github.com</a> and create an account and/or log in.</p>
+</li>
+<li><p>Create a new central repository on Github.</p>
+</li>
+<li><p>Open a terminal and after each of the below steps issue the command <code>git status</code>.</p>
+<ol>
+<li><p>Clone the central repository onto your local machine: <code>git clone [repository_name]</code>.</p>
+</li>
+<li><p>Add a file on your local machine.</p>
+</li>
+<li><p>Stage the file: <code>git add [file_path]</code>.</p>
+</li>
+<li><p>Commit the file: <code>git commit [file_path] -m [comment]</code>.</p>
+</li>
+<li><p>Push the changes of the local repository up to the central repository: <code>git push</code>.</p>
+</li>
+<li><p>Modify the file.</p>
+</li>
+<li><p>Stage and commit: <code>git commit -a [file_path] -m [comment]</code>.</p>
+</li>
+<li><p>Push changes to the central repository.</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="branches">Branches</h2>
+<p>Branches are useful for:</p>
+<ul>
+<li><p>Making changes without having to worry about ruining the active stable code.</p>
+</li>
+<li><p>Contributing to other people&#39;s code.</p>
+</li>
+</ul>
+<h3 id="hands-on-exercise">Hands on Exercise</h3>
+<p>Join up with a class mate. You will need to give the class mate access to write to your github repository. You each will perform these steps on the other&#39;s repository from the terminal.</p>
+<ol>
+<li><p>Clone the other repository to a new directory on your local machine. (Anyone can clone a public repository.) <code>git clone [repository_name]</code></p>
+</li>
+<li><p>Create a new local branch: <code>git checkout -b [branch_name]</code>.</p>
+</li>
+<li><p>Check to see what branches you have locally: <code>git branch</code>.</p>
+</li>
+</ol>
+<ol>
+<li><p>Push the newly created branch to the central repository: <code>git push origin [branch_name]</code>.</p>
+</li>
+<li><p>Modify an existing file on the branch.</p>
+</li>
+<li><p>Stage and commit: <code>git commit -a [file_path] -m [comment]</code>.</p>
+</li>
+</ol>
+<p>Through the github web interface:</p>
+<ol>
+<li><p>Create a pull request: <a href="https://help.github.com/articles/creating-a-pull-request/">https://help.github.com/articles/creating-a-pull-request/</a></p>
+</li>
+<li><p>Have your class mate merge the pull request and delete the branch.</p>
+</li>
+</ol>
+<p>In your terminal:</p>
+<ol>
+<li>Delete your local branch: <code>git branch -d [branch_name]</code>.</li>
+</ol>

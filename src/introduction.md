@@ -101,9 +101,9 @@ This class will:
 
 ## Assignments and Grades
 
-A [grading tool](https://github.com/Gi60s/IT410-grader) has been developed to grade each of your assignments (except the final project).
+A grading tool has been developed to grade each of your assignments (except the final project).
 
-You can use the [grading tool](https://github.com/Gi60s/IT410-grader) to grade your assignments on your own machines. I'll be using the same grading tool to grade each of your assignments.
+You can use the grading tool to grade your assignments before submitting them. I'll be using the same grading tool to grade each of your assignments, so you'll know in advance what you're grade will be.
 
 The grader will tell you how many points of the possible 25 points you will get on the assignment, but depending on when your assignment is submitted, you may not receive full credit:
 
@@ -118,6 +118,16 @@ Exceptions for late assignments may be granted for extenuating circumstances.
 
 Assignments build on one another, so it's important to stay on top of things.
 
+### How to Submit an Assignment
+
+1. Each assignment must be associated with a single Github repository. You'll need to create that repository.
+2. Once you're assignment is ready you can run it through the tests by going to this url: http://gi60s.dynu.com/api/grade/[assignment-id]/[github-user-name]/[github-repository-name]. You'll need to update the assignment-id, github-user-name, and github-repository.
+3. If you are happy with your score, jump on [Learning Suite](https://learningsuite.byu.edu) and submit the assignment with the Github URL for your assignment to be graded.
+4. I will use the date for the submission on [Learning Suite](https://learningsuite.byu.edu) as the date you completed your assignment.
+
+### First Assignment
+
+On [Learning Suite](https://learningsuite.byu.edu) you'll see the first assignment "Hello World" that has a link. Follow the link to get detailed instructions about how to fulfill the assignment.
 
 ## Final Project
 
