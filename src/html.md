@@ -236,3 +236,10 @@ Here are some Node properties:
 - *createElement*
 - *getAttribute*, *setAttribute*, *removeAttribute*
 - *appendChild*, *insertBefore*
+
+<br>
+
+### API Documentation
+
+- [Node API](https://developer.mozilla.org/en-US/docs/Web/API/Node)
+- [Element API](https://developer.mozilla.org/en-US/docs/Web/API/Element)
