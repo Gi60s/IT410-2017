@@ -1,6 +1,5 @@
 <h1 id="html">HTML</h1>
-<p>HTML stands for Hypertext Markup Language.</p>
-<h3 id="html-template">HTML Template</h3>
+<h2 id="html-template">HTML Template</h2>
 <p>The below template was taken from <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Sections_and_Outlines_of_an_HTML5_document">https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Sections_and_Outlines_of_an_HTML5_document</a> and modified.</p>
 <ul>
 <li>CSS is generally included in the head of the file.</li>
@@ -40,6 +39,7 @@
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
+<p><br></p>
 <h3 id="tags">Tags</h3>
 <ul>
 <li>A tag is used to define an HTML element.</li>
@@ -48,12 +48,14 @@
 <li>If a tag doesn&#39;t need a closing tag then you just put the opening tag. For example, the horizontal rule tag: <code>&lt;hr&gt;</code>.</li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">HTML Element Reference</a></li>
 </ul>
+<p><br></p>
 <h3 id="attributes">Attributes</h3>
 <ul>
 <li>All tags have attributes that can be used to further define how the tag looks or what it should do.</li>
 <li>Attributes exist within the opening tag, for example the image tag takes a source to define what image to display: <code>&lt;img src=&#39;image.png&#39;&gt;</code></li>
 <li>Two attributes that all elements can have are <code>class</code> and <code>id</code>.</li>
 </ul>
+<p><br></p>
 <h3 id="id-attribute">ID Attribute</h3>
 <ul>
 <li>The <code>id</code> attribute defines a unique ID for an element. This id should be unique for the entire page. Example usage: <code>&lt;p id=&#39;Main&#39;&gt;&lt;/p&gt;</code>.</li>
@@ -61,6 +63,7 @@
 <li>CSS also uses the ID attribute to define styles.</li>
 </ul>
 <h3 id="the-dom">The DOM</h3>
+<p><br></p>
 <ul>
 <li>The DOM is the document object model.</li>
 <li>A web browser produces the DOM after reading your HTML.</li>
@@ -69,6 +72,7 @@
 <li>An element is one type of node (represented in text by an HTML tag).</li>
 </ul>
 <h3 id="elements">Elements</h3>
+<p><br></p>
 <ul>
 <li>Each element has it&#39;s own attributes and display properties.</li>
 <li>The following code shows the difference between two very similar elements, the <code>div</code> and <code>span</code>.</li>
@@ -180,4 +184,33 @@
 <li>Click on elements in the developer console.</li>
 <li>Use the element selector to select an element on the page.</li>
 </ol>
-<p>TODO: homework assignment: html-form-intro</p>
+<h2 id="dom-navigation-and-manipulation">DOM Navigation and Manipulation</h2>
+<p>The content of a DOM can be modified via the browser DOM API.</p>
+<h3 id="selectors">Selectors</h3>
+<ul>
+<li>Used to select the elements of interest.</li>
+<li>Can use <code>document.querySelector</code> or <code>document.querySelectorAll</code> to get an array-like object.</li>
+<li>Select by tag, class, id, pseudo, etc.</li>
+</ul>
+<p><br></p>
+<h3 id="navigation">Navigation</h3>
+<p>Each DOM Node has properties that can be used to navigate the DOM. Here are some element properties:</p>
+<ul>
+<li><em>children</em> - Get child elements.</li>
+<li><em>nextElementSibling</em> - Get next sibling element.</li>
+<li><em>previousElementSibling</em> - Get previous sibling element.</li>
+<li><em>parent</em> - Get the element that is parent of this element.</li>
+</ul>
+<p>Here are some Node properties:</p>
+<ul>
+<li><em>childNodes</em> - Get all child nodes.</li>
+<li><em>nextSibling</em> - Get next sibling node.</li>
+<li><em>previousSibling</em> - Get previous sibling node.</li>
+</ul>
+<p><br></p>
+<h3 id="manipulation">Manipulation</h3>
+<ul>
+<li><em>createElement</em></li>
+<li><em>getAttribute</em>, <em>setAttribute</em>, <em>removeAttribute</em></li>
+<li><em>appendChild</em>, <em>insertBefore</em></li>
+</ul>

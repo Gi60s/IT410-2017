@@ -1,8 +1,6 @@
 # HTML
 
-HTML stands for Hypertext Markup Language.
-
-### HTML Template
+## HTML Template
 
 The below template was taken from https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Sections_and_Outlines_of_an_HTML5_document and modified.
 
@@ -45,6 +43,8 @@ The below template was taken from https://developer.mozilla.org/en-US/docs/Web/G
 </html>
 ```
 
+<br>
+
 ### Tags
 
 - A tag is used to define an HTML element.
@@ -53,11 +53,15 @@ The below template was taken from https://developer.mozilla.org/en-US/docs/Web/G
 - If a tag doesn't need a closing tag then you just put the opening tag. For example, the horizontal rule tag: `<hr>`.
 - [HTML Element Reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
 
+<br>
+
 ### Attributes
 
 - All tags have attributes that can be used to further define how the tag looks or what it should do.
 - Attributes exist within the opening tag, for example the image tag takes a source to define what image to display: `<img src='image.png'>`
 - Two attributes that all elements can have are `class` and `id`.
+
+<br>
 
 ### ID Attribute
 
@@ -67,6 +71,8 @@ The below template was taken from https://developer.mozilla.org/en-US/docs/Web/G
 
 ### The DOM
 
+<br>
+
 - The DOM is the document object model.
 - A web browser produces the DOM after reading your HTML.
 - The DOM is a tree structure made up of nodes. The tree structure mimics your HTML.
@@ -74,6 +80,8 @@ The below template was taken from https://developer.mozilla.org/en-US/docs/Web/G
 - An element is one type of node (represented in text by an HTML tag).
 
 ### Elements
+
+<br>
 
 - Each element has it's own attributes and display properties.
 - The following code shows the difference between two very similar elements, the `div` and `span`.
@@ -194,5 +202,37 @@ Take a moment to look at:
 4. Click on elements in the developer console.
 5. Use the element selector to select an element on the page.
 
+## DOM Navigation and Manipulation
 
-TODO: homework assignment: html-form-intro
+The content of a DOM can be modified via the browser DOM API.
+
+### Selectors
+
+- Used to select the elements of interest.
+- Can use `document.querySelector` or `document.querySelectorAll` to get an array-like object.
+- Select by tag, class, id, pseudo, etc.
+
+<br>
+
+### Navigation
+
+Each DOM Node has properties that can be used to navigate the DOM. Here are some element properties:
+
+- *children* - Get child elements.
+- *nextElementSibling* - Get next sibling element.
+- *previousElementSibling* - Get previous sibling element.
+- *parent* - Get the element that is parent of this element.
+
+Here are some Node properties:
+
+- *childNodes* - Get all child nodes.
+- *nextSibling* - Get next sibling node.
+- *previousSibling* - Get previous sibling node.
+
+<br>
+
+### Manipulation
+
+- *createElement*
+- *getAttribute*, *setAttribute*, *removeAttribute*
+- *appendChild*, *insertBefore*
