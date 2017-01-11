@@ -2,9 +2,6 @@
 
 ## We'll Be Building a Web Application
 
-Assignment:
-<assignment id='hello'></assignment>
-
 **A Static Web Site**
 
 - Does not recognize the user.
