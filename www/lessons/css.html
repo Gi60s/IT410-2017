@@ -4,9 +4,9 @@
 <br></p>
 <p><strong>Answer:</strong> It is the style portion of your web application. It controls the look.</p>
 <p><em>Regular Button</em> vs <em>Styled Button</em></p>
-<p><button>My Button</button></p>
-<p><button style="border: 1px solid #09D; background-color: #0BF; border-radius: 4px; padding: 5px 10px; color: #FFF; font-weight: bold">My Button</button>
-<br></p>
+<button>My Button</button>
+<button style="border: 1px solid #09D; background-color: #0BF; border-radius: 4px; padding: 5px 10px; color: #FFF; font-weight: bold">My Button</button>
+
 <p>Styles applied to second button:</p>
 <pre><code class="lang-css">border: 1px solid #09D;
 background-color: #0BF;
@@ -16,7 +16,8 @@ color: #FFF;
 font-weight: bold;
 </code></pre>
 <p><br></p>
-<p><strong>Question:</strong> What does CSS stand for?</p>
+<p><strong>Question:</strong> What does CSS stand for?
+<br></p>
 <p><strong>Answer:</strong> Cascading Style Sheets</p>
 <h2 id="style-rules">Style Rules</h2>
 <p>There are a lot of CSS style rules to know, but you&#39;ll generally only use a small set of them.</p>
@@ -39,6 +40,7 @@ font-weight: bold;
 <p><strong>HTML</strong></p>
 <pre><code class="lang-html">&lt;p&gt;Hello, World!&lt;/p&gt;
 </code></pre>
+<p><br></p>
 <h3 id="class-selector">Class Selector</h3>
 <p>Class selectors start with a <code>.</code> (dot). For example:</p>
 <p><strong>CSS</strong></p>
@@ -49,6 +51,7 @@ font-weight: bold;
 <p><strong>HTML</strong></p>
 <pre><code class="lang-html">&lt;p class=&quot;my-class&quot;&gt;Hello, World!&lt;/p&gt;
 </code></pre>
+<p><br></p>
 <h3 id="id-selector">ID Selector</h3>
 <p>ID selectors start with a <code>#</code>. For example:</p>
 <p><strong>CSS</strong></p>
@@ -59,6 +62,7 @@ font-weight: bold;
 <p><strong>HTML</strong></p>
 <pre><code class="lang-html">&lt;p id=&quot;my-id&quot;&gt;Hello, World!&lt;/p&gt;
 </code></pre>
+<p><br></p>
 <h3 id="compound-selectors">Compound Selectors</h3>
 <p>It is possible to join multiple selectors together to create more specific selectors.</p>
 <p>This example shows how you can make all <code>&lt;p&gt;</code> tags with the <code>important</code> class have a specific style. In your html you&#39;d write <code>&lt;p class=&#39;important&#39;&gt; ... &lt;/p&gt;</code> to have this style apply to it.</p>
@@ -67,12 +71,14 @@ font-weight: bold;
     color: red;
 }
 </code></pre>
+<p><br></p>
 <h3 id="nested-selectors">Nested Selectors</h3>
 <p>You can also specify how something should look when it is a child or descendant of another selector.</p>
 <ul>
 <li><code>div p { ... }</code> - This style rule would apply to all paragraph tags that are somewhere within a div tag.</li>
 <li><code>div &gt; p</code> { ... }` - This style would apply to all paragraph tags that are immediate children of a div tag.</li>
-<li><code>#my-id &gt; p &gt; em { ... }</code> - This style applies to <code>em</code> tags that are immediate children of <code>p</code> tags that are immediate children of the element with attribute ID of <code>my-id</code>.</li>
+<li><code>#my-id &gt; p &gt; em { ... }</code> - This style applies to <code>em</code> tags that are immediate children of <code>p</code> tags that are immediate children of the element with attribute ID of <code>my-id</code>.
+<br></li>
 </ul>
 <h3 id="pseudo-selectors">Pseudo Selectors</h3>
 <p>Pseudo selectors are applied for certain states, such as checked, hover, focus, first-child, etc. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">See a full list of pseudo selectors</a>. A common use for this is to modify the way links work in different states.</p>
@@ -118,7 +124,8 @@ font-weight: bold;
 </style>
 
 <p><a href="javascript: void 0">Example Link</a>
-<a id="styled" href="javascript: void 0">Example Link</a></p>
+<a id="styled" href="javascript: void 0">Example Link</a>
+<br></p>
 <h3 id="multiple-selectors">Multiple Selectors</h3>
 <p>You can combine selectors so that more than one selector uses a specific style by separating selectors by commas.</p>
 <pre><code class="lang-css">div &gt; p,
@@ -126,88 +133,238 @@ ul &gt; li {
     font-weight: bold;
 }
 </code></pre>
+<p><br></p>
+<h3 id="additional-selectors">Additional Selectors</h3>
+<p><a href="https://code.tutsplus.com/tutorials/the-30-css-selectors-you-must-memorize--net-16048">Awesome Selectors Tutorial</a>
+<br></p>
 <h3 id="selector-conflicts">Selector Conflicts</h3>
 <p>Sometimes two selectors will try to apply competing styles to an element.</p>
-<p>Rule of thumb: <strong>The more specific selector has precedence or, all things being equal the last selector has precedence.</strong></p>
+<p>Rule of thumb: <strong>The more specific selector has precedence or, all things being equal the last selector has precedence.</strong>
+<br></p>
 <h4 id="questions">Questions</h4>
-<ol>
-<li>What is more specific, an ID or a tag?</li>
-<li>What is more specific, a tag or a class?</li>
-<li>Looking at the following code example, what will the <code>&lt;div&gt;</code> look like?</li>
-</ol>
+<p><strong>Question:</strong> What is more specific, an ID or a tag?
+<br></p>
+<p><strong>Answer:</strong> An ID. Each ID should be unique, but the same tag can be used many times. For example, the <code>&lt;p&gt;</code> tag is used to generate many paragraphs.
+<br></p>
+<hr>
+
+<p><strong>Question:</strong> What is more specific, a tag or a class?
+<br></p>
+<p><strong>Answer:</strong> According to CSS rules, a class is slightly more specific than a tag.
+<br></p>
+<hr>
+
+<p><strong>Question:</strong> Looking at the following code example, what will the <code>&lt;p&gt;</code> look like?</p>
 <p>CSS</p>
 <pre><code class="lang-css">#main {
     border-color: blue;
 }
-div {
+p {
     border: 1px solid red;
 }
-div {
+p {
     border-bottom-width: 2px;
 }
 </code></pre>
 <p>HTML</p>
-<pre><code class="lang-html">&lt;div id=&#39;main&#39;&gt;Hello, World!&lt;/div&gt;
+<pre><code class="lang-html">&lt;p id=&#39;main&#39;&gt;Hello, World!&lt;/p&gt;
 </code></pre>
+<p><br></p>
+<p><strong>Answer:</strong></p>
+<p style='border: 1px solid blue; border-bottom-width: 2px;'>Hello, World!</p>
+
 <h2 id="adding-css-to-your-html">Adding CSS to your HTML</h2>
 <p>There are three ways to add CSS to your HTML:</p>
-<ol>
-<li>Including a style sheet (generally preferred)</li>
-<li>Include an inline style (great for high performance styles)</li>
-<li>Include a style rule on an element (generally frowned down upon)</li>
-</ol>
-<h3 id="exercises">Exercises</h3>
-<p>Create an index.html file with this content:</p>
+<h3 id="including-an-external-style-sheet">Including an External Style Sheet</h3>
+<ul>
+<li>Generally preferred.</li>
+<li>Can improve performance for subsequent loads.</li>
+<li>Better code reuse.</li>
+<li>Non-blocking, the page continues to load while the CSS is being fetched.</li>
+<li>Use the <code>&lt;link&gt;</code> element, generally in the <code>&lt;head&gt;</code> of your document.</li>
+</ul>
 <pre><code class="lang-html">&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;utf-8&quot;&gt;
     &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;my-styles.css&quot;&gt;
 &lt;/head&gt;
 &lt;body&gt;
     &lt;p&gt;Hello, World!&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<h4 id="exercise-1-include-style-sheet">Exercise 1: Include Style Sheet</h4>
-<ol>
-<li>Create a file named <code>my-styles.css</code> in the same directory as the index.html file.</li>
-<li>Add css to the my-styles.css file that will make the paragraph text bold, using: <code>font-weight: bold</code>.</li>
-<li>Inside the <code>&lt;head&gt;</code> tag of your index.html file, include your my-style.css using: <code>&lt;link type=&#39;text/css&#39; rel=&#39;stylesheet&#39; href=&#39;my-style.css&#39;&gt;</code></li>
-</ol>
-<h5 id="exercise-2-inline-style">Exercise 2: Inline Style</h5>
-<ol>
-<li>Inside the <code>&lt;head&gt;</code> tag of your index.html file and <em>after</em> your included style sheet add a <code>&lt;style&gt;</code> tag.</li>
-<li>Inside that <code>&lt;style&gt;</code> tag add css to make the paragraph text underlined using: <code>text-decoration: underline</code>.</li>
-</ol>
-<h4 id="exercise-3-element-style-rule">Exercise 3: Element Style Rule</h4>
-<ol>
-<li>On the <code>&lt;p&gt;</code> tag add an attribute <code>style</code> equal to <code>text-align: center; color: blue;</code>.</li>
-</ol>
-<hr>
-
-<h3 id="exercise-solution">Exercise Solution</h3>
-<p>CSS</p>
-<pre><code class="lang-css">p {
-    font-weight: bold;
-}
-</code></pre>
-<p>HTML</p>
+<p><br></p>
+<h3 id="inline-styles">Inline Styles</h3>
+<ul>
+<li>Loads with the page; no style flicker.</li>
+<li>Can cause the page to load slower.</li>
+<li>Poor code reuse.</li>
+<li>Use the <code>&lt;style&gt;</code> element, generally in the <code>&lt;head&gt;</code> of your document.</li>
+</ul>
 <pre><code class="lang-html">&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;utf-8&quot;&gt;
     &lt;title&gt;Title&lt;/title&gt;
-    &lt;link type=&#39;text/css&#39; rel=&#39;stylesheet&#39; href=&#39;my-style.css&#39;&gt;
-    &lt;style&gt;
-        p {
-            text-decoration: underline;
+    &lt;style type=&quot;text/css&quot;&gt;
+        body {
+              font-family: Arial, Helvetica, sans-serif;
         }
     &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;p style=&#39;text-align: center; color: blue;&#39;&gt;Hello, World!&lt;/p&gt;
+    &lt;p&gt;Hello, World!&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<hr>
+<p><br></p>
+<h3 id="styles-on-element">Styles on Element</h3>
+<ul>
+<li>High priority, overwrites other rules (except with <code>!important</code>).</li>
+<li>Loads with the page; no style flicker.</li>
+<li>Can cause the page to load slower.</li>
+<li>Poor code reuse.</li>
+<li>Hard to update code.</li>
+<li>Should be avoided in most cases.</li>
+<li>Use the <code>style</code> attribute on an element. Separate style rules using the semi-colon.</li>
+</ul>
+<pre><code class="lang-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body style=&quot;font-family: Arial, Helvetica, sans-serif;&quot;&gt;
+    &lt;p&gt;Hello, World!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="media-queries">Media Queries</h2>
+<p>Media queries allow you to specify what styles are defined under different conditions:</p>
+<ul>
+<li><em>Width</em> - Useful for responsive design.</li>
+<li><em>Screen</em> and <em>Print</em> - Simplify for print.</li>
+</ul>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries">Media Queries Reference</a></p>
+<h3 id="responsive-design">Responsive Design</h3>
+<p>The layout of the page changes to fit the device width. Great for large screens and small screens.</p>
+<p>Common breakpoints:</p>
+<pre><code class="lang-css">/* Smartphones */
+@media screen and (max-width : 767px) {
+
+}
+
+/* Tablets */
+@media screen and (min-width : 768px) and (max-width : 991px) {
+
+}
+
+/* Desktop */
+@media screen and (min-width : 991px) and (max-width : 1199px) {
+
+}
+
+/* Wide Screen Desktop */
+@media screen and (min-width : 1200px) {
+
+}
+</code></pre>
+<h2 id="flexbox">Flexbox</h2>
+<ul>
+<li>Advanced CSS layouts</li>
+<li>No need for tables to do layout</li>
+</ul>
+<p><strong>Resources:</strong></p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes">Using Flexbox</a></li>
+<li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">Quick Reference</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes#Holy_Grail_Layout_example">Holy Grail Layout</a></li>
+<li><a href="http://flexboxfroggy.com/">Flexbox Froggy</a></li>
+</ul>
+<h2 id="css-transitions-and-animations">CSS Transitions and Animations</h2>
+<p>Perform transition between styles:</p>
+<ul>
+<li>Opacity</li>
+<li>Size</li>
+<li>Color</li>
+</ul>
+<p>Animations perform multiple transitions with specialized timing:</p>
+<p><strong>Demos:</strong></p>
+<ul>
+<li><a href="http://codepen.io/lbebber/pen/LELBEo">Gooey Menu</a></li>
+<li><a href="http://codepen.io/joshnh/full/paxbE">3D Boxes</a></li>
+<li><a href="https://tympanus.net/Tutorials/AnimatedButtons/index6.html">Animated Buttons</a></li>
+</ul>
+<p><strong>Resources:</strong></p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions">Transitions Guide</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations">Animations Guide</a></li>
+<li><a href="https://daneden.github.io/animate.css/">CSS Animation Library</a></li>
+</ul>
+<h2 id="css-tricks-and-techniques">CSS Tricks and Techniques</h2>
+<h3 id="center-a-div-horizontally">Center a DIV Horizontally</h3>
+<p>Example URL: <a href="http://home.byu.edu/home/">http://home.byu.edu/home/</a></p>
+<ul>
+<li>Set the width to a specific value</li>
+<li>Set the left and right margin&#39;s to <code>auto</code>.</li>
+</ul>
+<p><strong>CSS</strong></p>
+<pre><code class="lang-CSS">.container {
+    width: 1024px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+</code></pre>
+<p><strong>HTML</strong></p>
+<pre><code class="lang-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;my-style.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&#39;container&#39;&gt;
+        &lt;!-- put content here --&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><br></p>
+<h3 id="absolute-relative-position">Absolute Relative Position</h3>
+<p>You have an element on your page and you want to position another element into an exact location that is relative to the parent element.</p>
+<ul>
+<li>The parent element should be positioned as <code>relative</code>, <code>absolute</code>, <code>fixed</code>, or <code>sticky</code>.</li>
+<li>A descendant element should be positioned as <code>absolute</code> with one or more of <code>top</code>, <code>bottom</code>, <code>left</code>, <code>right</code></li>
+</ul>
+<p><strong>CSS</strong></p>
+<pre><code class="lang-CSS">.container {
+    width: 1024px;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+#back-to-top {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+</code></pre>
+<p><strong>HTML</strong></p>
+<pre><code class="lang-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;my-style.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&#39;container&#39;&gt;
+        &lt;a href=&#39;#top&#39; id=&#39;back-to-top&#39;&gt;Back to Top&lt;/a&gt;
+        &lt;!-- put content here --&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>

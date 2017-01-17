@@ -11,7 +11,6 @@
 
 <button>My Button</button>
 <button style="border: 1px solid #09D; background-color: #0BF; border-radius: 4px; padding: 5px 10px; color: #FFF; font-weight: bold">My Button</button>
-<br>
 
 Styles applied to second button:
 
@@ -26,6 +25,7 @@ font-weight: bold;
 <br>
 
 **Question:** What does CSS stand for?
+<br>
 
 **Answer:** Cascading Style Sheets
 
@@ -61,6 +61,7 @@ p {
 ```html
 <p>Hello, World!</p>
 ```
+<br>
 
 ### Class Selector
 
@@ -79,6 +80,7 @@ Class selectors start with a `.` (dot). For example:
 ```html
 <p class="my-class">Hello, World!</p>
 ```
+<br>
 
 ### ID Selector
 
@@ -97,6 +99,7 @@ ID selectors start with a `#`. For example:
 ```html
 <p id="my-id">Hello, World!</p>
 ```
+<br>
 
 ### Compound Selectors
 
@@ -110,6 +113,7 @@ p.important {
     color: red;
 }
 ```
+<br>
 
 ### Nested Selectors
 
@@ -118,6 +122,7 @@ You can also specify how something should look when it is a child or descendant 
 - `div p { ... }` - This style rule would apply to all paragraph tags that are somewhere within a div tag.
 - `div > p` { ... }` - This style would apply to all paragraph tags that are immediate children of a div tag.
 - `#my-id > p > em { ... }` - This style applies to `em` tags that are immediate children of `p` tags that are immediate children of the element with attribute ID of `my-id`.
+<br>
 
 ### Pseudo Selectors
 
@@ -168,6 +173,7 @@ Pseudo selectors are applied for certain states, such as checked, hover, focus, 
 
 <a href="javascript: void 0">Example Link</a>
 <a id="styled" href="javascript: void 0">Example Link</a>
+<br>
 
 ### Multiple Selectors
 
@@ -179,18 +185,39 @@ ul > li {
     font-weight: bold;
 }
 ```
+<br>
+
+### Additional Selectors
+
+[Awesome Selectors Tutorial](https://code.tutsplus.com/tutorials/the-30-css-selectors-you-must-memorize--net-16048)
+<br>
 
 ### Selector Conflicts
 
 Sometimes two selectors will try to apply competing styles to an element.
 
 Rule of thumb: **The more specific selector has precedence or, all things being equal the last selector has precedence.**
+<br>
 
 #### Questions
 
-1. What is more specific, an ID or a tag?
-2. What is more specific, a tag or a class?
-3. Looking at the following code example, what will the `<div>` look like?
+**Question:** What is more specific, an ID or a tag?
+<br>
+
+**Answer:** An ID. Each ID should be unique, but the same tag can be used many times. For example, the `<p>` tag is used to generate many paragraphs.
+<br>
+
+<hr>
+
+**Question:** What is more specific, a tag or a class?
+<br>
+
+**Answer:** According to CSS rules, a class is slightly more specific than a tag.
+<br>
+
+<hr>
+
+**Question:** Looking at the following code example, what will the `<p>` look like?
 
 CSS
 
@@ -198,10 +225,10 @@ CSS
 #main {
     border-color: blue;
 }
-div {
+p {
     border: 1px solid red;
 }
-div {
+p {
     border-bottom-width: 2px;
 }
 ```
@@ -209,20 +236,25 @@ div {
 HTML
 
 ```html
-<div id='main'>Hello, World!</div>
+<p id='main'>Hello, World!</p>
 ```
+<br>
+
+**Answer:**
+
+<p style='border: 1px solid blue; border-bottom-width: 2px;'>Hello, World!</p>
 
 ## Adding CSS to your HTML
 
 There are three ways to add CSS to your HTML:
 
-1. Including a style sheet (generally preferred)
-2. Include an inline style (great for high performance styles)
-3. Include a style rule on an element (generally frowned down upon)
+### Including an External Style Sheet
 
-### Exercises
-
-Create an index.html file with this content:
+- Generally preferred.
+- Can improve performance for subsequent loads.
+- Better code reuse.
+- Non-blocking, the page continues to load while the CSS is being fetched.
+- Use the `<link>` element, generally in the `<head>` of your document.
 
 ```html
 <!doctype html>
@@ -230,41 +262,21 @@ Create an index.html file with this content:
 <head>
     <meta charset="utf-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="my-styles.css">
 </head>
 <body>
     <p>Hello, World!</p>
 </body>
 </html>
 ```
+<br>
 
-#### Exercise 1: Include Style Sheet
+### Inline Styles
 
-1. Create a file named `my-styles.css` in the same directory as the index.html file.
-2. Add css to the my-styles.css file that will make the paragraph text bold, using: `font-weight: bold`.
-3. Inside the `<head>` tag of your index.html file, include your my-style.css using: `<link type='text/css' rel='stylesheet' href='my-style.css'>`
-
-##### Exercise 2: Inline Style
-
-1. Inside the `<head>` tag of your index.html file and *after* your included style sheet add a `<style>` tag.
-2. Inside that `<style>` tag add css to make the paragraph text underlined using: `text-decoration: underline`.
-
-#### Exercise 3: Element Style Rule
-
-1. On the `<p>` tag add an attribute `style` equal to `text-align: center; color: blue;`.
-
-<hr>
-
-### Exercise Solution
-
-CSS
-
-```css
-p {
-    font-weight: bold;
-}
-```
-
-HTML
+- Loads with the page; no style flicker.
+- Can cause the page to load slower.
+- Poor code reuse.
+- Use the `<style>` element, generally in the `<head>` of your document.
 
 ```html
 <!doctype html>
@@ -272,17 +284,189 @@ HTML
 <head>
     <meta charset="utf-8">
     <title>Title</title>
-    <link type='text/css' rel='stylesheet' href='my-style.css'>
-    <style>
-        p {
-            text-decoration: underline;
+    <style type="text/css">
+        body {
+              font-family: Arial, Helvetica, sans-serif;
         }
     </style>
 </head>
 <body>
-    <p style='text-align: center; color: blue;'>Hello, World!</p>
+    <p>Hello, World!</p>
+</body>
+</html>
+```
+<br>
+
+### Styles on Element
+
+- High priority, overwrites other rules (except with `!important`).
+- Loads with the page; no style flicker.
+- Can cause the page to load slower.
+- Poor code reuse.
+- Hard to update code.
+- Should be avoided in most cases.
+- Use the `style` attribute on an element. Separate style rules using the semi-colon.
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif;">
+    <p>Hello, World!</p>
 </body>
 </html>
 ```
 
-<hr>
+## Media Queries
+
+Media queries allow you to specify what styles are defined under different conditions:
+
+- *Width* - Useful for responsive design.
+- *Screen* and *Print* - Simplify for print.
+
+[Media Queries Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries)
+
+### Responsive Design
+
+The layout of the page changes to fit the device width. Great for large screens and small screens.
+
+Common breakpoints:
+
+```css
+/* Smartphones */
+@media screen and (max-width : 767px) {
+
+}
+
+/* Tablets */
+@media screen and (min-width : 768px) and (max-width : 991px) {
+
+}
+
+/* Desktop */
+@media screen and (min-width : 991px) and (max-width : 1199px) {
+
+}
+
+/* Wide Screen Desktop */
+@media screen and (min-width : 1200px) {
+
+}
+```
+
+## Flexbox
+
+- Advanced CSS layouts
+- No need for tables to do layout
+
+**Resources:**
+
+- [Using Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
+- [Quick Reference](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+- [Holy Grail Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes#Holy_Grail_Layout_example)
+- [Flexbox Froggy](http://flexboxfroggy.com/)
+
+## CSS Transitions and Animations
+
+Perform transition between styles:
+
+- Opacity
+- Size
+- Color
+
+Animations perform multiple transitions with specialized timing:
+
+**Demos:**
+
+- [Gooey Menu](http://codepen.io/lbebber/pen/LELBEo)
+- [3D Boxes](http://codepen.io/joshnh/full/paxbE)
+- [Animated Buttons](https://tympanus.net/Tutorials/AnimatedButtons/index6.html)
+
+**Resources:**
+
+- [Transitions Guide](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions)
+- [Animations Guide](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations)
+- [CSS Animation Library](https://daneden.github.io/animate.css/)
+
+## CSS Tricks and Techniques
+
+### Center a DIV Horizontally
+
+Example URL: http://home.byu.edu/home/
+
+- Set the width to a specific value
+- Set the left and right margin's to `auto`.
+
+**CSS**
+
+```CSS
+.container {
+    width: 1024px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+```
+
+**HTML**
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="my-style.css">
+</head>
+<body>
+    <div class='container'>
+        <!-- put content here -->
+    </div>
+</body>
+</html>
+```
+<br>
+
+### Absolute Relative Position
+
+You have an element on your page and you want to position another element into an exact location that is relative to the parent element.
+
+- The parent element should be positioned as `relative`, `absolute`, `fixed`, or `sticky`.
+- A descendant element should be positioned as `absolute` with one or more of `top`, `bottom`, `left`, `right`
+
+**CSS**
+
+```CSS
+.container {
+    width: 1024px;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+#back-to-top {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+```
+
+**HTML**
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="my-style.css">
+</head>
+<body>
+    <div class='container'>
+        <a href='#top' id='back-to-top'>Back to Top</a>
+        <!-- put content here -->
+    </div>
+</body>
+</html>
+```
