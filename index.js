@@ -32,6 +32,8 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
         .then(function(data) {
             let result = '';
 
+            console.log(req.method + ' ' + req.url + '\n  ', data);
+
             const index = data.indexOf('Running tests.');
             const extra = data.substr(0, index);
             data = data.substr(index);
