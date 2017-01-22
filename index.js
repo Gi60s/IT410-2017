@@ -45,7 +45,7 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
             const percent = /percent: ([\d\.]+)/.exec(lastLine);
             if (score && percent) {
                 result += '<h2>Summary</h2>';
-                result += '<p><strong>Repository</strong>' + p.ghUser + '/' + p.ghRepository + '</p>';
+                result += '<p><strong>Repository</strong> ' + p.ghUser + '/' + p.ghRepository + '</p>';
                 result += '<p><strong>Percentage:</strong> ' + Math.round(100 * parseFloat(percent[1])) + '%</p>';
                 result += '<p><strong>Points:</strong> ' + score[1] + '/25</p>';
 
