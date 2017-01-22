@@ -30,6 +30,7 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
     }
     grader(p.assignmentId, 'https://github.com/' + p.ghUser + '/' + p.ghRepository + '.git', p.date)
         .then(function(data) {
+            const raw = data;
             let result = '';
 
             //console.log(req.method + ' ' + req.url + '\n  ', data);
@@ -54,7 +55,7 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
                 result += '<pre>' + lines.slice(0, lines.length - 2).join('\n') + '</pre>';
             } else {
                 result += '<h2>Something Went Wrong</h2>';
-                result += '<pre>' + data + '</pre>';
+                result += '<pre>' + raw + '</pre>';
             }
 
             res.set('Content-Type', 'text/html');
