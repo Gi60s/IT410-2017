@@ -54,7 +54,7 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
                 result += '<h2>Details</h2>';
                 result += '<pre>' + lines.slice(0, lines.length - 2).join('\n') + '</pre>';
 
-                result += '<script>console.log("' + raw.replace(/"/g, '\\"').replace(/\r\n/g, '\\n') + '");</script>';
+                result += '<script>console.log("' + raw.replace(/"/g, '\\"').replace(/\r\n/g, '\\\\n') + '");</script>';
             } else {
                 result += '<h2>Something Went Wrong</h2>';
                 result += '<pre>' + raw + '</pre>';
