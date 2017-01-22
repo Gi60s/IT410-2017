@@ -32,7 +32,7 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
         .then(function(data) {
             let result = '';
 
-            console.log(req.method + ' ' + req.url + '\n  ', data);
+            //console.log(req.method + ' ' + req.url + '\n  ', data);
 
             const index = data.indexOf('Running tests.');
             const extra = data.substr(0, index);
@@ -44,14 +44,18 @@ app.get('/api/grade/:assignmentId/:ghUser/:ghRepository/:date?', function(req, r
             const percent = /percent: ([\d\.]+)/.exec(lastLine);
             if (score && percent) {
                 result += '<h2>Summary</h2>';
+                result += '<p><strong>Repository</strong>' + p.ghUser + '/' + p.ghRepository + '</p>';
                 result += '<p><strong>Percentage:</strong> ' + Math.round(100 * parseFloat(percent[1])) + '%</p>';
                 result += '<p><strong>Points:</strong> ' + score[1] + '/25</p>';
+
+                result += '<!--\n' + extra + '\n-->';
+
+                result += '<h2>Details</h2>';
+                result += '<pre>' + lines.slice(0, lines.length - 2).join('\n') + '</pre>';
+            } else {
+                result += '<h2>Something Went Wrong</h2>';
+                result += '<pre>' + data + '</pre>';
             }
-
-            result += '<!--\n' + extra + '\n-->';
-
-            result += '<h2>Details</h2>';
-            result += '<pre>' + lines.slice(0, lines.length - 2).join('\n') + '</pre>';
 
             res.set('Content-Type', 'text/html');
             res.send('<html><body style="font-size: 18px; font-family: sans-serif;">' + result + '</body></html>');
