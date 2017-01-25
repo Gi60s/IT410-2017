@@ -250,6 +250,7 @@ for (i = 0; i < 10; i++) {
 var i;
 while (i < 10) {
     console.log(i);
+    i++;
 }
 ```
 
@@ -260,9 +261,10 @@ while (i < 10) {
 Will execute at least once.
 
 ```js
-var i;
+var i = 0;
 do {
     console.log(i);
+    i++;
 } while (i < 10);
 ```
 
@@ -322,6 +324,7 @@ x = 6;
     var a = 1;
     a++;        // increment after expression evaluation
     ++a;        // increment before expression evaluation
+    a += 5;     // add 5 to a
     ```
 
 - **Decrement:**
@@ -330,6 +333,7 @@ x = 6;
     var a = 5;
     a--;        // decrement after expression evaluation
     --a;        // decrement before expression evaluation
+    a -= 5;     // remove 5 from a
     ```
 
 <br>
@@ -417,6 +421,25 @@ if (a === b) {
     console.log('"A" is smaller');
 } else {
     console.log('"B" is smaller');
+}
+```
+
+<br>
+
+**Conditional Ternary Operator**
+
+A shorthand version of if-else statements.
+
+```js
+// conditional operator
+var x = a === b ? 1 : 2;
+
+// equivalent to
+var y;
+if (a === b) {
+    y = 1;
+} else {
+    y = 2;
 }
 ```
 
@@ -657,25 +680,50 @@ For every JavaScript file you write, you should wrap all of the code for that fi
 **With One Parameter**
 
 ```js
+// arrow function
 x => x + 5;
+
+// equivalent to
+function (x) {
+    return x + 5;
+}
 ```
 
 **With No Parameters**
 
 ```js
+// arrow function
 () => 5;
+
+// equivalent to
+function () {
+    return 5;
+}
 ```
 
 **With More Than One Parameter**
 
 ```js
+// arrow function
 (a, b) => a + b;
+
+// equivalent to
+function (a, b) {
+    return a + b;
+}
 ```
 
 **With a More Complex Body**
 
 ```js
+// arrow function
 (a, b) => {
+    console.log(a, b);
+    return a + b;
+}
+
+// equivalent to
+function (a, b) {
     console.log(a, b);
     return a + b;
 }

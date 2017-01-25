@@ -256,14 +256,16 @@ for (i = 0; i &lt; 10; i++) {
 <pre><code class="lang-js">var i;
 while (i &lt; 10) {
     console.log(i);
+    i++;
 }
 </code></pre>
 <p><br></p>
 <h3 id="do-loop">Do Loop</h3>
 <p>Will execute at least once.</p>
-<pre><code class="lang-js">var i;
+<pre><code class="lang-js">var i = 0;
 do {
     console.log(i);
+    i++;
 } while (i &lt; 10);
 </code></pre>
 <p><br></p>
@@ -306,12 +308,14 @@ x = 6;
 <pre><code class="lang-js">  var a = 1;
   a++;        // increment after expression evaluation
   ++a;        // increment before expression evaluation
+  a += 5;     // add 5 to a
 </code></pre>
 </li>
 <li><p><strong>Decrement:</strong></p>
 <pre><code class="lang-js">  var a = 5;
   a--;        // decrement after expression evaluation
   --a;        // decrement before expression evaluation
+  a -= 5;     // remove 5 from a
 </code></pre>
 </li>
 </ul>
@@ -383,6 +387,20 @@ x = 6;
     console.log(&#39;&quot;A&quot; is smaller&#39;);
 } else {
     console.log(&#39;&quot;B&quot; is smaller&#39;);
+}
+</code></pre>
+<p><br></p>
+<p><strong>Conditional Ternary Operator</strong></p>
+<p>A shorthand version of if-else statements.</p>
+<pre><code class="lang-js">// conditional operator
+var x = a === b ? 1 : 2;
+
+// equivalent to
+var y;
+if (a === b) {
+    y = 1;
+} else {
+    y = 2;
 }
 </code></pre>
 <p><br></p>
@@ -586,16 +604,41 @@ console.log(str);       // logs &#39;Bob is 5 years old.&#39;
 </li>
 </ul>
 <p><strong>With One Parameter</strong></p>
-<pre><code class="lang-js">x =&gt; x + 5;
+<pre><code class="lang-js">// arrow function
+x =&gt; x + 5;
+
+// equivalent to
+function (x) {
+    return x + 5;
+}
 </code></pre>
 <p><strong>With No Parameters</strong></p>
-<pre><code class="lang-js">() =&gt; 5;
+<pre><code class="lang-js">// arrow function
+() =&gt; 5;
+
+// equivalent to
+function () {
+    return 5;
+}
 </code></pre>
 <p><strong>With More Than One Parameter</strong></p>
-<pre><code class="lang-js">(a, b) =&gt; a + b;
+<pre><code class="lang-js">// arrow function
+(a, b) =&gt; a + b;
+
+// equivalent to
+function (a, b) {
+    return a + b;
+}
 </code></pre>
 <p><strong>With a More Complex Body</strong></p>
-<pre><code class="lang-js">(a, b) =&gt; {
+<pre><code class="lang-js">// arrow function
+(a, b) =&gt; {
+    console.log(a, b);
+    return a + b;
+}
+
+// equivalent to
+function (a, b) {
     console.log(a, b);
     return a + b;
 }
