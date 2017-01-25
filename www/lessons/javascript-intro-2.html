@@ -1,9 +1,22 @@
 <h1 id="javascript-introduction-part-2-">JavaScript Introduction (Part 2)</h1>
 <h2 id="objects">Objects</h2>
+<p><strong>Question:</strong> What is the difference between an object and a primitive?
+<br></p>
+<p><strong>Answer:</strong> Objects can have properties, primitives cannot.
+<br></p>
+<h2 id="object-composition">Object Composition</h2>
+<ul>
+<li><p>The act of building objects piece by piece.</p>
+</li>
+<li><p>Creating objects directly.</p>
+</li>
+</ul>
 <h3 id="create-a-plain-object">Create a Plain Object</h3>
-<p>There are many ways to create an Object, but here is the simplest:</p>
+<p>These two lines do the same thing, but one is less to write.</p>
 <pre><code class="lang-js">var obj1 = {};
+var obj2 = new Object();
 </code></pre>
+<p><br></p>
 <h3 id="object-properties">Object Properties</h3>
 <ul>
 <li><p>An object can have any number of properties.</p>
@@ -11,14 +24,15 @@
 <li><p>Each property can be assigned any value (just like variables).</p>
 </li>
 </ul>
-<p><strong>Create an Object with Properties</strong></p>
+<p><strong>Initialize an Object with Properties</strong></p>
 <pre><code class="lang-js">var obj = {
     name: &#39;Bob&#39;,
     age: 20,
     gender: &#39;male&#39;
 }
 </code></pre>
-<p><strong>Add Properties to an Object</strong></p>
+<p><br></p>
+<p><strong>Add Properties to an Existing Object</strong></p>
 <pre><code class="lang-js">var obj = {};
 obj.name = &#39;Bob&#39;;
 obj[&#39;age&#39;] = 20;
@@ -26,6 +40,7 @@ obj[&#39;age&#39;] = 20;
 var x = &#39;gender&#39;;
 obj[x] = &#39;male&#39;;
 </code></pre>
+<p><br></p>
 <p><strong>Get Properties from an Object</strong></p>
 <pre><code class="lang-js">var obj = {};
 obj.name = &#39;Bob&#39;;
@@ -34,37 +49,20 @@ obj[&#39;age&#39;] = 20;
 var name = obj.name;
 var age = obj.age;
 </code></pre>
+<p><br></p>
 <p><strong>Remove Properties from an Object</strong></p>
 <pre><code class="lang-js">var obj = { name: &#39;Bob&#39; };
 delete obj.name;
 </code></pre>
-<h3 id="assignment">Assignment</h3>
+<p><br></p>
+<p><strong>Defining Properties for an Object</strong></p>
 <ul>
-<li><p><strong>Purpose:</strong> To become more comfortable with objects.</p>
+<li><p>You can use <code>Object.defineProperty</code> to define getters and setters.</p>
 </li>
-<li><p><strong>Assignment ID:</strong> <code>js-intro-objects</code></p>
-</li>
-<li><p><strong>Value:</strong> 10 Points</p>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">MDN Object.defineProperty</a></p>
 </li>
 </ul>
-<p><strong>Instructions:</strong></p>
-<ol>
-<li><p>Create a file called <code>js-intro-objects.js</code></p>
-</li>
-<li><p>Create a function named <code>makeCar</code> that creates and returns an object. The object will represent a car should have the following properties with any string value for each property:</p>
-<ul>
-<li>color</li>
-<li>make</li>
-<li>model</li>
-<li>year</li>
-</ul>
-</li>
-<li><p>The object must also have a property called <code>report</code> that has a value of a function. The function should return a string that lists the color, make, model, and year in that order, separated by a space.</p>
-</li>
-<li><p>Test the assignment until you have it working and then submit it.</p>
-<p> <a href="./introduction.html#how-to-submit-assignments">Need Help Submitting?</a></p>
-</li>
-</ol>
+<p><br></p>
 <h3 id="detecting-if-an-object-has-a-specific-property">Detecting if an Object has a Specific Property</h3>
 <p><strong>Non-Inherited Check</strong></p>
 <pre><code class="lang-js">var obj = { name: &#39;Bob&#39; };
@@ -74,79 +72,298 @@ var hasNameProperty = obj.hasOwnProperty(&#39;name&#39;);
 <pre><code class="lang-js">var obj = { name: &#39;Bob&#39; };
 var hasNameProperty = &#39;name&#39; in obj;
 </code></pre>
-<h3 id="questions">Questions</h3>
-<p><strong>Remember:</strong></p>
-<ul>
-<li><p>Object assignments are by reference.</p>
-</li>
-<li><p>Objects are the only mutable data type in JavaScript.</p>
-</li>
-</ul>
-<p><strong>Question 1:</strong> What does it mean to be mutable vs immutable?
+<p><br></p>
+<p><strong>Question:</strong> Are objects mutable or immutable? What&#39;s the difference?
 <br></p>
-<p><strong>Answer 1:</strong> Mutable means it can be changed, immutable means it cannot be changed.
+<p><strong>Answer:</strong> Objects are mutable, meaning that they can be mutated (modified) without reassignment to another variable.
 <br></p>
-<p><strong>Question 2:</strong> Looking at the following example:</p>
+<hr>
+
+<p><strong>Question:</strong> In the following example, what properties does the object in variable <code>a</code> have? Why?</p>
 <pre><code class="lang-js">var a = { phone: &#39;555-555-1234&#39; };
 var b = a;
 b.email = &#39;foo@email.com&#39;;
 </code></pre>
-<ol>
-<li><p>What properties does the object in variable <code>a</code> have?</p>
+<p><br></p>
+<p><strong>Answer:</strong> It has <code>phone</code> and <code>email</code>. Variables <code>a</code> and <code>b</code> are pointing to the same place in memory. A modification to one is a modification to the other.</p>
+<p>Objects are assigned by reference, so <code>a</code> and <code>b</code> are pointing to the same location in memory.</p>
+<p><br></p>
+<h3 id="avoid-object-mutation-out-of-scope">Avoid Object Mutation Out of Scope</h3>
+<ul>
+<li><p>You can pass objects as parameters.</p>
 </li>
-<li><p>What properties does the object in variable <code>b</code> have?
-<br></p>
+<li><p>Modifying an object that was received as a parameter is dangerous.</p>
 </li>
-</ol>
-<p><strong>Answer 2:</strong> Both <code>a</code> and <code>b</code> are referencing the same object. Changes to one are changes to the other. Both have the properties <code>phone</code> and <code>email</code>.
-<br></p>
-<p><strong>Question 3:</strong> Can you assign an object as a value to a property?</p>
+<li><p>You should not return an object that shouldn&#39;t be modified.</p>
+</li>
+</ul>
+<p>The following code shows what you should avoid:</p>
 <pre><code class="lang-js">var o = {
-    foo: {
-        bar: 1,
-        baz: {}
-    }
+    important: &#39;Do not delete&#39;
+};
+
+function deleteStuff(obj) {
+    delete obj.important;
 }
+
+deleteStuff(o);
 </code></pre>
 <p><br></p>
-<p><strong>Answer 3:</strong> Yes. Anything you can assign to a variable can be assigned to a property.
+<p><strong>Question:</strong> Can you make an object reference itself in a property? If so, then how?
 <br></p>
+<p><strong>Answer:</strong> The object needs to be created first, then you can add a property that references it.</p>
+<pre><code class="lang-js">var o = {
+    name: &#39;Bob&#39;
+};
+o.me = o;
+
+o.me.me.me.me.me.me.name;       // &#39;Bob&#39;
+</code></pre>
 <h2 id="this">This</h2>
-<ul>
-<li><p>The JavaScript keyword <code>this</code> refers to the current context and is always tied to some object.</p>
-</li>
-<li><p>Using <code>this</code> can be helpful, but be aware that the context is dynamic.</p>
-</li>
-<li><p>The <code>Function.prototype.apply</code> and <code>Function.prototype.call</code> methods can be used to alter context.</p>
-<ul>
-<li><p>More on prototype later.</p>
-</li>
-<li><p>We wont really cover <code>Function.prototype.apply</code> and <code>Function.prototype.call</code>, but you can look it up.</p>
-</li>
-</ul>
-</li>
-</ul>
+<p>The JavaScript keyword <code>this</code> refers to the current context and is always tied to some object.</p>
 <pre><code class="lang-js">var obj = {
-    fname: &#39;Bob&#39;,
-    lname: &#39;Smith&#39;,
-    name: function() {
-        return this.fname + &#39; &#39; + this.lname;
+    name: &#39;Bob&#39;,
+    greet: function() {
+        return &#39;Hello, &#39; + this.name + &#39; [&#39; + arguments.length + &#39;]&#39;;
     }
 }
 
-obj.name()                                          // returns &#39;Bob Smith&#39;
-obj.name.call({ fname: &#39;Amy&#39;, lname: &#39;Jones&#39; });    // returns &#39;Amy Jones&#39;
+obj.greet();    // &#39;Hello, Bob [0]&#39;
 </code></pre>
+<p><br></p>
+<p>Be aware that the context can be redefined by the caller.</p>
+<ul>
+<li><p>All functions inherit two properties that allow modification of context. They are <code>apply</code> and <code>call</code>.</p>
+</li>
+<li><p>You call <code>apply</code> when you have a collection of parameters and cannot hard code the parameters.</p>
+</li>
+<li><p>You call <code>call</code> when you know exactly how many parameters you have and they are not in a collection.</p>
+</li>
+</ul>
+<pre><code class="lang-js">var obj = {
+    name: &#39;Bob&#39;,
+    greet: function() {
+        return &#39;Hello, &#39; + this.name + &#39; [&#39; + arguments.length + &#39;]&#39;;
+    }
+}
+
+var amy = { name: &#39;Amy&#39; };
+
+obj.greet();                        // &#39;Hello, Bob [0]&#39;
+obj.name.call(amy);                 // &#39;Hello, Amy [0]&#39;
+obj.name.call(obj, 1, 2, 3);        // &#39;Hello, Bob [3]&#39;
+obj.name.apply(amy, [1, 2, 3]);     // &#39;Hello, Amy [3]&#39;
+</code></pre>
+<h2 id="prototype">Prototype</h2>
+<ul>
+<li><p>Inheritance in JavaScript works through the prototype.</p>
+</li>
+<li><p>A prototype is an object that defines properties that will be assigned to new objects.</p>
+</li>
+<li><p>Using a prototype reduces performance slightly.</p>
+</li>
+<li><p>Using a prototype can have large memory savings.</p>
+</li>
+</ul>
+<p><br></p>
+<p>The following example explores several parts of the prototype:</p>
+<pre><code class="lang-js">// create a prototype object
+const myPrototype = {
+    name: &#39;stranger&#39;,
+    greet: function() {
+        return &#39;Hello, &#39; + this.name;
+    }
+};
+
+// create an object that inherits the prototype
+const obj = Object.create(myPrototype);
+obj.greet();                    // returns &#39;Hello, stranger&#39;
+obj.hasOwnProperty(&#39;name&#39;);     // false
+&#39;name&#39; in obj;                  // true
+
+// update name, overshadowing prototype name property
+obj.name = &#39;Bob&#39;;
+obj.greet();                    // returns &#39;Hello, Bob&#39;
+obj.hasOwnProperty(&#39;name&#39;);     // false
+
+// overshadow prototype greet property
+obj.greet = function() {
+    return &#39;Hola, &#39; + this.name;
+}
+obj.greet();        // returns &#39;Hola, Bob&#39;
+
+// overwrite previous greet, overshadow prototype greet and extend it
+obj.greet = function() {
+    return Object.getPrototypeOf(this).greet.call(this) + &#39;!&#39;;
+}
+obj.greet();        // returns &#39;Hello, Bob!&#39;
+</code></pre>
+<h2 id="constructor-functions">Constructor Functions</h2>
+<ul>
+<li><p>Any function can be turned into a constructor by calling it with the <code>new</code> keyword.</p>
+</li>
+<li><p>Because functions inherit from Object they have a prototype that you can add properties to.</p>
+</li>
+</ul>
+<pre><code class="lang-js">function Person (name) {
+    if (arguments.length &gt; 0) this.name = name;
+}
+
+Person.prototype.name = &#39;stranger&#39;;
+
+Person.prototype.greet = function() {
+    return &#39;Hello, &#39; + this.name;
+}
+</code></pre>
+<p><br></p>
+<p>Create an object using the <code>new</code> keyword.</p>
+<pre><code class="lang-js">const p = new Person();
+p.greet();              // &#39;Hello, stranger&#39;
+
+const bob = new Person(&#39;Bob&#39;);
+bob.greet();            // &#39;Hello, Bob&#39;
+bob.name = &#39;Robert&#39;;
+bob.greet();            // &#39;Hello, Robert&#39;
+</code></pre>
+<p><br></p>
+<p>A function still has ultimate say in what it returns.</p>
+<p><strong>Force calling using the <code>new</code> keyword</strong></p>
+<pre><code class="lang-js">function Person (name) {
+    const result = !this || typeof this !== &#39;object&#39; || this.constructor !== Person
+        ? new Person()
+        : this;
+    if (arguments.length &gt; 0) result.name = name;
+    return result;
+}
+</code></pre>
+<p><br></p>
+<p><strong>Return a Different Object than New</strong></p>
+<pre><code class="lang-js">function Cake() {
+
+}
+
+function Person (name) {
+    return arguments.length &gt; 0
+        ? this
+        : new Cake()
+}
+
+const p = new Person();
+p instanceof Person;        // false
+
+const q = new Person(&#39;a&#39;);
+q instanceof Person;        // true
+</code></pre>
+<h2 id="factory-functions">Factory Functions</h2>
+<ul>
+<li><p>Produce a result.</p>
+</li>
+<li><p>Great to use with object composition.</p>
+</li>
+<li><p>Take longer to create, consume more memory, but run faster.</p>
+</li>
+<li><p>Less confusing.</p>
+</li>
+<li><p>Does not matter if you call with or without <code>new</code> keyword.</p>
+</li>
+</ul>
+<pre><code class="lang-js">function Person(name) {
+    const person = {};
+
+    person.name = arguments.length &gt; 0 ? name : &#39;stranger&#39;;
+
+    person.greet = function() {
+        return &#39;Hello, &#39; + person.name
+    };
+
+    return person;
+}
+</code></pre>
+<h2 id="private-variables">Private Variables</h2>
+<ul>
+<li><p>Private variables can be used inside of the constructor or factory functions.</p>
+</li>
+<li><p>They are not accessible to the prototype or anywhere else outside of the constructor or factory.</p>
+</li>
+</ul>
+<pre><code class="lang-js">function Counter(init) {
+    const counter = {};
+    let num = init || 0;
+
+    counter.increment = function() {
+        num++;
+    };
+
+    counter.decrement = function() {
+        if (num &gt; 0) num--;
+    };
+
+    Object.defineProperty(counter, &#39;value&#39;, {
+        get: function() {
+            return num;
+        }
+    });
+
+    return counter;
+}
+</code></pre>
+<p><br></p>
+<p><strong>Question:</strong> What advantages can you think of for creating a counter factory like this as opposed to just having a variable with <code>num++</code> or <code>num--</code>?
+<br></p>
+<p><strong>Answer:</strong> You can encompass logic (minimum of zero, can only change value by + or - one).</p>
+<h2 id="property-chaining">Property Chaining</h2>
+<ul>
+<li><p>Allows multiple operations within a single statement.</p>
+</li>
+<li><p>Simplifies functional programming. (More on this soon.)</p>
+</li>
+</ul>
+<pre><code class="lang-js">function Counter(init) {
+    const counter = {};
+    let num = init || 0;
+
+    counter.increment = function() {
+        num++;
+        return counter;
+    };
+
+    counter.decrement = function() {
+        if (num &gt; 0) num--;
+        return counter;
+    };
+
+    Object.defineProperty(counter, &#39;value&#39;, {
+        get: function() {
+            return num;
+        }
+    });
+
+    return counter;
+}
+
+// value === 2
+const value = Counter(0).increment().increment().increment().decrement().value;
+</code></pre>
+<h2 id="classical-inheritance">Classical Inheritance</h2>
+<ul>
+<li><p>We&#39;ve talked about prototypical inheritance and object composition. Both can be used to mimic all of the features of classical inheritance, but they can also do much more.</p>
+</li>
+<li><p>Have only the properties that you want on an object, no more, no less.</p>
+</li>
+<li><p>Classical inheritance is too ridged. Think: gorilla and a banana and the entire jungle.</p>
+</li>
+</ul>
 <h2 id="arrays">Arrays</h2>
 <p>There are many ways to create an Array, but here is the simplest:</p>
 <pre><code class="lang-js">var ar = [];
 </code></pre>
+<p><br></p>
 <ul>
 <li><p>Each item in the array can store any data type.</p>
 </li>
 <li><p>Data types do not need to be consistent between items.</p>
 </li>
-<li><p>The Array inherits for Object and has multiple properties.</p>
+<li><p>The Array inherits from Object and has multiple properties.</p>
 </li>
 <li><p>The <code>Array.prototype.length</code> property returns the length of the Array.</p>
 </li>
@@ -154,35 +371,30 @@ obj.name.call({ fname: &#39;Amy&#39;, lname: &#39;Jones&#39; });    // returns &
 <pre><code class="lang-js">var ar = [1, &#39;a&#39;, {}];
 ar.length;      // 3
 </code></pre>
+<p><br></p>
 <h3 id="array-manipulation">Array Manipulation</h3>
 <p><strong>Set an item</strong></p>
 <pre><code class="lang-js">var ar = [];
 ar[0] = &#39;First&#39;;
 </code></pre>
+<p><br></p>
 <p><strong>Get an item</strong></p>
 <pre><code class="lang-js">var ar = [&#39;First&#39;];
 var x = ar[0];      // &#39;First&#39;
 </code></pre>
+<p><br></p>
 <p><strong>Other Useful Methods</strong></p>
-<p>Look these up on the web for details:</p>
+<p>Look these up on the web for details: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">MDN Array</a></p>
 <ul>
 <li><code>Array.prototype.push</code> - Add an item to the end of the array.</li>
 <li><code>Array.prototype.pop</code> - Remove an item from the end of the array.</li>
 <li><code>Array.prototype.unshift</code> - Add an item to the front of the array.</li>
 <li><code>Array.prototype.shift</code> - Remove an item from the front of the array.</li>
 <li><code>Array.prototype.splice</code> - Add and/or remove items in the array at a specified index.</li>
-<li><code>Array.prototype.slice</code> - Copy the array.</li>
+<li><code>Array.prototype.slice</code> - Copy a portion of the array.</li>
 </ul>
-<h3 id="questions">Questions</h3>
-<p><strong>Question 1:</strong> What&#39;s the difference between assigning by value vs by reference?
-<br></p>
-<p><strong>Answer 1:</strong> Assigning by value means that you have a new value in a second variable. Assigning by reference means you have the same value (as in same computer memory address) as the first variable.
-<br></p>
-<p><strong>Question 2:</strong> Are arrays assigned by value or by reference?
-<br></p>
-<p><strong>Answer 2:</strong> Because arrays are objects they are assigned by reference.
-<br></p>
-<p><strong>Question 3:</strong> What is dangerous about this function?</p>
+<p><br></p>
+<p><strong>Question:</strong> What is dangerous about the following function? How could we fix it?</p>
 <pre><code class="lang-js">function joinStrings(ar) {
     var result = &#39;&#39;;
     while (ar.length &gt; 0) result += ar.shift();
@@ -190,40 +402,82 @@ var x = ar[0];      // &#39;First&#39;
 }
 </code></pre>
 <p><br></p>
-<p><strong>Answer 3:</strong> The developer who is calling the function may not know that the array passed in is being manipulated. It would be better to not manipulate the passed array.</p>
-<h2 id="closure">Closure</h2>
-<p>TODO: working here</p>
-<h3 id="questions">Questions</h3>
-<p><strong>Question 1:</strong> How can we make a variable private in JavaScript?
-<br></p>
-<p><strong>Answer 1:</strong> Any variable declared within a closure is limited to that closure. It can&#39;t be read or writen to outside of the closure.
-<br></p>
-<p><strong>Question 2:</strong> How do we create a closure?
-<br></p>
-<p><strong>Answer 2:</strong> When we create a function, the body of that function has it&#39;s own closure.</p>
-<h3 id="factories">Factories</h3>
-<ul>
-<li>A factory is a function that produces an object.</li>
-</ul>
-<p><strong>Incrementer Example</strong></p>
-<pre><code class="lang-js">function incrementer(value) {
-
-    // create the object
-    var factory = {};
-
-    // set default initial value if value was not provided
-    if (arguments.length === 0) value = 0;
-
-    // define an function that increments the value and assign it to the factory object&#39;s &quot;increment&quot; property
-    factory.increment = function() {
-
-    }
-
-    return factory;
+<p><strong>Answer:</strong> The developer who is calling the function may not know that the array passed in is being manipulated. It would be better to not manipulate the passed in array.</p>
+<pre><code class="lang-js">function joinStrings(ar) {
+    var result = &#39;&#39;;
+    const copy = ar.slice(0);
+    while (copy.length &gt; 0) result += copy.shift();
+    return result;
 }
 </code></pre>
-<h2 id="prototypes">Prototypes</h2>
-<p>TODO: cover what they are, show how to extend but don&#39;t get in depth</p>
-<h3 id="constructor-functions">Constructor Functions</h3>
-<h3 id="factory-functions">Factory Functions</h3>
-<h3 id="avoid-classical-inheritance">Avoid Classical Inheritance</h3>
+<p>Also, there is already a function that does this, <code>Array.prototype.join</code>:</p>
+<pre><code class="lang-js">const ar = [&#39;The&#39;, &#39;quick&#39;, &#39;brown&#39;, &#39;fox&#39;];
+const str = ar.join(&#39; &#39;);   // &#39;The quick brown fox&#39;
+</code></pre>
+<h2 id="functional-programming">Functional Programming</h2>
+<ul>
+<li><p>Same input always produces same output.</p>
+</li>
+<li><p>Does not modify state outside of itself.</p>
+</li>
+<li><p>Fewer bugs.</p>
+</li>
+</ul>
+<p><br></p>
+<p>Arrays provide a good introduction to functional programming.</p>
+<ol>
+<li>We&#39;ll take the following input: <code>[1, 2, 3, 4, 5, 6, 7, 8, 9]</code>.</li>
+<li>We&#39;ll strip out the even numbers.</li>
+<li>We&#39;ll multiply each remaining entry by <code>2</code>.</li>
+<li>We&#39;ll sum the remaining numbers.</li>
+</ol>
+<p><strong>Imperative Solution</strong></p>
+<pre><code class="lang-js">const input = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const result = calculate(input);
+
+function calculate(input) {
+    let i;
+    let sum = 0;
+    for (i = 0; i &lt; input.length; i++) {
+        if (input[i] % 2) {
+            sum += input[i] * 2;
+        }
+    }
+    return sum;
+}
+</code></pre>
+<p><br></p>
+<p><strong>Functional Solution</strong></p>
+<pre><code class="lang-js">const input = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const result = input
+    .filter(v =&gt; v % 2)
+    .map(v =&gt; v * 2)
+    .reduce((prev, curr) =&gt; prev + curr, 0);
+</code></pre>
+<h2 id="modifying-core-prototypes">Modifying Core Prototypes</h2>
+<p><br></p>
+<div style='font-size: 200%; font-weight: bold; color: red'>DON&#39;T</div>
+
+<ul>
+<li><p>Because JavaScript is a dynamic language it is possible to modify core functionality or to add functionality to the core.</p>
+</li>
+<li><p>Modifying prototypes that you did not create can lead to unforeseen consequences.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Bad Example - Augmenting String Prototype</strong></p>
+<pre><code class="lang-js">String.prototype.trim = function() {
+    return this.replace(/^\s+/, &#39;&#39;).replace(/\s+$/, &#39;&#39;);
+};
+
+const str = &#39;   Hello, World!    &#39;;
+const trimmed = str.trim();             // &#39;Hello, World!&#39;
+</code></pre>
+<p><strong>Better Alternative</strong></p>
+<pre><code class="lang-js">function trimString(str) {
+    return str.replace(/^\s+/, &#39;&#39;).replace(/\s+$/, &#39;&#39;);
+};
+
+const str = &#39;   Hello, World!    &#39;;
+const trimmed = trimString(str);        // &#39;Hello, World!&#39;
+</code></pre>
