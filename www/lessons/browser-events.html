@@ -1,0 +1,74 @@
+<h1 id="browser-events">Browser Events</h1>
+<h2 id="events">Events</h2>
+<ul>
+<li><p>Events are created when something happens.</p>
+</li>
+<li><p>Events most often come from the user: mouse move, mouse click, key pressed, etc.</p>
+</li>
+<li><p>Some events can come from other sources: service workers, web sockets, etc.</p>
+</li>
+<li><p>Even though events are always being fired you need to listen for them to utilize them.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="click-events">Click Events</h3>
+<ol>
+<li><p>Using Git, clone the repository: <code>https://github.com/Gi60s/it410-resources.git</code>.</p>
+</li>
+<li><p>Open the file for editing: <code>browser-events/click-bubble/index-starter.html</code>.</p>
+</li>
+<li><p>Open the file <code>browser-events/click-bubble/index-starter.html</code> in your browser of choice.</p>
+</li>
+<li><p>Add event listeners for the inner, middle, and outer <code>&lt;div&gt;</code> elements that log to the console when clicked.</p>
+</li>
+<li><p>Interact with the web page to observe behavior.</p>
+</li>
+</ol>
+<p><br></p>
+<h3 id="dom-events">DOM Events</h3>
+<ul>
+<li><p>Events on elements in the DOM propagate upward from the element that emitted the event.</p>
+</li>
+<li><p>Once the event has gone as high as it can the event hit&#39;s the browser and the browser may take an action based on the event.</p>
+</li>
+<li><p>Event propagation can be stopped with <code>event.stopPropagation()</code> or the browser can be told not to handle the event with <code>event.preventDefault()</code>.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="stop-propagation">Stop Propagation</h3>
+<ol>
+<li><p>Open the file <code>/browser-events/click-bubble-stop/index-starter.html</code> in your editor and in your browser.</p>
+</li>
+<li><p>Add an <code>event.stopPropagation()</code> to one of the handlers.</p>
+</li>
+<li><p>Interact with the web page to observe behavior.</p>
+</li>
+</ol>
+<p><br></p>
+<h3 id="prevent-default">Prevent Default</h3>
+<ol>
+<li><p>Open the file <code>/browser-events/reverse-scroll/index-starter.html</code> in your editor and in your browser.</p>
+</li>
+<li><p>Interact with the web page by hitting keys on the keyboard. You can see the key code for which key was pressed in the console.</p>
+</li>
+<li><p>Notice that using the up and down arrow keys has a default behavior of scrolling the window.</p>
+</li>
+<li><p>Add an <code>event.preventDefault()</code> to the keydown handler.</p>
+</li>
+<li><p>Interact with the web page to notice the scrolling no longer works. Using <code>event.preventDefault()</code> will stop the browser from taking any key down based actions.</p>
+</li>
+<li><p>Call <code>window.scrollBy</code> to enable scrolling in reverse: up arrow scrolls down, down arrow scrolls up.</p>
+</li>
+</ol>
+<p><br></p>
+<h3 id="ideas-on-how-this-is-useful">Ideas on How This is Useful</h3>
+<ul>
+<li><p>You can create a modal window that closes when the escape key is pressed.</p>
+</li>
+<li><p>You can create drag and drop functionality by using the events <code>mousedown</code>, <code>mouseup</code>, <code>mousemove</code>.</p>
+</li>
+<li><p>You can run a form through validation prior to submitting. If there is an error then <code>e.preventDefault()</code>.</p>
+</li>
+<li><p>Infinite possibilities.</p>
+</li>
+</ul>

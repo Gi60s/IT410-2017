@@ -1,0 +1,175 @@
+<h1 id="web-components-part-1-">Web Components (Part 1)</h1>
+<h2 id="reference">Reference</h2>
+<p>These two pages will provide you everything you need to know about web components.</p>
+<ul>
+<li><a href="https://developers.google.com/web/fundamentals/getting-started/primers/shadowdom">https://developers.google.com/web/fundamentals/getting-started/primers/shadowdom</a></li>
+<li><a href="https://developers.google.com/web/fundamentals/getting-started/primers/customelements">https://developers.google.com/web/fundamentals/getting-started/primers/customelements</a></li>
+</ul>
+<h2 id="the-problem-and-the-solution">The Problem and the Solution</h2>
+<p><strong>The Problem</strong></p>
+<p>Web applications are becoming increasingly complex. Complexity is hard to manage:</p>
+<ul>
+<li><p>Subtle bugs begin to occur.</p>
+</li>
+<li><p>CSS specificity becomes a burden.</p>
+</li>
+<li><p>Performance degradation.</p>
+</li>
+<li><p>Difficult to isolate parts of your application.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>The Solution</strong></p>
+<p>Web Components</p>
+<ul>
+<li><p>Introduces scoped styles.</p>
+</li>
+<li><p>Hides HTML, JS, and CSS details.</p>
+</li>
+<li><p>Creates reusable bundles of HTML, CSS, and JS.</p>
+</li>
+<li><p>Reduces complexity - focus on small pieces of code.</p>
+</li>
+<li><p>Has an API</p>
+</li>
+</ul>
+<h2 id="button-toggle-web-component">Button Toggle Web Component</h2>
+<p>We&#39;re going to build a web component in class:</p>
+<ul>
+<li><p>It will be a toggleable button.</p>
+</li>
+<li><p>Clicking the button will toggle the state.</p>
+</li>
+<li><p>The toggle state will by synchronized with HTML element attributes.</p>
+</li>
+<li><p>The button can also be disabled during which clicking the button will not toggle the state.</p>
+</li>
+<li><p>Toggle state and disabled state can also be conrolled via JavaScript.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="instructions">Instructions</h3>
+<ol>
+<li><p>Get the source files from <code>https://github.com/Gi60s/it410-resources.git</code>.</p>
+</li>
+<li><p>The file we&#39;ll be modifying is at <code>it410-resources/web-components/button-toggle/button-toggle.js</code>.</p>
+</li>
+<li><p>Using an evergreen browser, open the file at <code>it410-resources/web-components/button-toggle/index.html</code>.</p>
+</li>
+</ol>
+<p><br></p>
+<h3 id="about-index-html">About index.html</h3>
+<ul>
+<li><p>It loads the web component script.</p>
+</li>
+<li><p>It has a toggle buttons initialized to all four possible states.</p>
+</li>
+<li><p>It has one button that interacts with the Light DOM.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="about-button-toggle-js">About button-toggle.js</h3>
+<ul>
+<li><p>Uses Web Components v1 Standard</p>
+</li>
+<li><p>All evergreen browsers support this standard (except Edge which will have support by the end of March 2017).</p>
+</li>
+<li><p>Older browsers will need Polyfills.</p>
+</li>
+<li><p>Uses ES6 backticks to denote a multiline string.</p>
+</li>
+<li><p>Uses ES6 classes (syntactic sugar on top of prototypical inheritance).</p>
+</li>
+<li><p>Uses the Shadow DOM.</p>
+</li>
+<li><p>Uses Custom Elements.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="about-the-shadow-dom">About the Shadow DOM</h3>
+<p><strong>Question:</strong> If you lived in the Star Wars universe and had the ability to use the Force, would you be a Jedi or a Sith?
+<br></p>
+<p><strong>FYI:</strong> You are about to get a little taste of the <em>dark-side</em>. Be careful that it does not draw you in.
+<br></p>
+<p>There are three DOM types:</p>
+<ul>
+<li><p><em>The light DOM</em> - What web pages have operated in since the beginning.</p>
+</li>
+<li><p><em>The shadow DOM</em> - Allows for encapsulation of HTML, CSS, and JavaScript.</p>
+</li>
+<li><p><em>The shady DOM</em> - An area between the light DOM and shadow DOM where both have a little control.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="styles">Styles</h3>
+<ul>
+<li><p>Styles within the Shadow DOM are unaffected by Light DOM styles and vice versa.</p>
+</li>
+<li><p>Styles in the Shady DOM are affected by both the Shadow DOM and Light DOM, but the Light DOM has priority.</p>
+</li>
+<li><p>The <code>:host</code> and <code>::slotted</code> are part of the Shady DOM. More on those later.</p>
+</li>
+</ul>
+<h4 id="style-encapsulation">Style Encapsulation</h4>
+<ul>
+<li><p>Make the div look like a button.</p>
+</li>
+<li><p>Demonstrate that the Light DOM styling does not affect the div.</p>
+</li>
+<li><p>Demonstrate that the Shadow DOM styling does not affect the Light DOM.</p>
+</li>
+</ul>
+<p><br></p>
+<p>We want out Shadow DOM styles to be affected by Light DOM HTML:</p>
+<ul>
+<li><p>Introduce <code>:host</code>.</p>
+</li>
+<li><p>Any styles applied directly to <code>:host</code> can be overwritten by Light DOM styles.</p>
+</li>
+<li><p>We want to add styles to the <code>div</code> within our custom element for:</p>
+<ol>
+<li><p>An enabled untoggled state.</p>
+</li>
+<li><p>An enabled toggled state.</p>
+</li>
+<li><p>A disabled untoggled state.</p>
+</li>
+<li><p>A disabled toggled state.</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><br></p>
+<h3 id="javascript">JavaScript</h3>
+<ul>
+<li><p>Using JavaScript, add getters and setters for:</p>
+<ul>
+<li><p>disabled</p>
+</li>
+<li><p>pressed</p>
+</li>
+</ul>
+</li>
+<li><p>Add a method: <code>toggle</code> that will toggle the pressed state.</p>
+</li>
+<li><p>Add a click listener to the <code>div</code> that will toggle the pressed state if not disabled.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="slots">Slots</h3>
+<ul>
+<li><p>Slots are insertion points for content from the Light DOM.</p>
+</li>
+<li><p>Slot content resides within the Shady DOM.</p>
+</li>
+<li><p>Shadow DOM styles can only penetrate the slots one level deep.</p>
+</li>
+</ul>
+<p><br></p>
+<p>We&#39;re going to:</p>
+<ol>
+<li><p>Add a default slot to our component.</p>
+</li>
+<li><p>Inject custom content into a button-toggle.</p>
+</li>
+</ol>
