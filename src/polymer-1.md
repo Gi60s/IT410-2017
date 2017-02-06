@@ -4,7 +4,7 @@
 
 1. Download or clone the resource files from: https://github.com/Gi60s/it410-resources
 2. We'll be working in the directory `polymer/stars`.
-3. We need to install several dependencies: `npm install -g bower http-serve`
+3. We need to install several dependencies: `npm install -g bower http-server`
 
 ## Bower
 
