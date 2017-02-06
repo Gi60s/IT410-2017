@@ -1,0 +1,215 @@
+<h2 id="setup">Setup</h2>
+<ol>
+<li>Download or clone the resource files from: <a href="https://github.com/Gi60s/it410-resources">https://github.com/Gi60s/it410-resources</a></li>
+<li>We&#39;ll be working in the directory <code>polymer/stars</code>.</li>
+<li>We need to install several dependencies: <code>npm install -g bower http-serve</code></li>
+</ol>
+<h2 id="bower">Bower</h2>
+<ul>
+<li>A package manager.</li>
+<li>Helps you to acquire all dependencies.</li>
+<li>Easy to add and remove dependencies.</li>
+<li>Stores dependencies in a configuration file.</li>
+<li>Easy to reinstall dependencies from configuration file.</li>
+</ul>
+<p><br></p>
+<h3 id="initialize-bower">Initialize Bower</h3>
+<ol>
+<li>From the <code>polymer/stars</code> directory, run the command: <code>bower init</code>.</li>
+<li>Allow defaults for command prompts, except make sure that the package is set to private.</li>
+<li>Now we have a <code>bower.json</code> file.</li>
+</ol>
+<p><br></p>
+<h3 id="add-bower-dependencies">Add Bower Dependencies</h3>
+<p>For this project we need to add the Polymer iron-icon and iron-icons dependencies.</p>
+<ul>
+<li>Documentation: <a href="https://www.webcomponents.org/element/PolymerElements/iron-icon">https://www.webcomponents.org/element/PolymerElements/iron-icon</a> and <a href="https://www.webcomponents.org/element/PolymerElements/iron-icons">https://www.webcomponents.org/element/PolymerElements/iron-icons</a></li>
+<li>Bower install: <code>bower install --save PolymerElements/iron-icon PolymerElements/iron-icons</code></li>
+</ul>
+<p>What did bower install do?</p>
+<ul>
+<li>Because we included the <code>--save</code> argument, those dependencies have been added to the <code>bower.json</code> file.</li>
+<li>We now have a directory called <code>bower_components</code> that has all of our dependencies.</li>
+</ul>
+<h2 id="project-structure">Project Structure</h2>
+<p>Lets take a minute to look at the current project structure:</p>
+<h3 id="index-html">index.html</h3>
+<ul>
+<li><p>A single HTML page that includes <code>web-components-lite.js</code>. This is a polyfill for web components.</p>
+<p>  -Browsers that don&#39;t support Web Components v0 will use this file to implement web components.</p>
+</li>
+<li><p>An import statement for <code>demo.html</code>. That is the main file for our application.</p>
+<ul>
+<li><p>An import essentially just injects the HTML from another file into this file.</p>
+</li>
+<li><p>Most browsers have decided not to implement this, but the polyfill will do this for us.</p>
+</li>
+</ul>
+</li>
+<li><p>An HTML element called <code>icon-toggle-demo</code>.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="demo-html">demo.html</h3>
+<ul>
+<li><p>Imports the Polymer library and the <code>icon-toggle.html</code>.</p>
+</li>
+<li><p>Defines a DOM module element with ID. The ID is also used in the JavaScript to link the DOM module to the Polymer web component.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="icon-toggle-html">icon-toggle.html</h3>
+<ul>
+<li><p>Imports Polymer library, iron-icons, and iron-icon.</p>
+</li>
+<li><p>Defines an icon toggle component that wraps iron-icon.</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="static-file-server">Static File Server</h2>
+<p>We need some way to serve our files.</p>
+<ul>
+<li><p>When we used the command: <code>npm install -g http-server</code> we installed a static file server onto the computer.</p>
+</li>
+<li><p>Call <code>http-server</code> from the command line to start the server in the current directory.</p>
+</li>
+</ul>
+<h2 id="styling">Styling</h2>
+<p>We can add CSS variables to the icon-toggle that will allow different icon color.</p>
+<p>Define a CSS variable: <code>var(--variable-name, defaultValue)</code></p>
+<ol>
+<li><p>Allow for specifying the fill and stroke color.</p>
+</li>
+<li><p>Allow for specifying the fill color for the pressed state.</p>
+</li>
+<li><p>Go to the <code>demo.html</code> file and in the <code>:host</code> assign values to those CSS variables.</p>
+</li>
+<li><p>Reload the page to see that the colors have changed.</p>
+</li>
+</ol>
+<h2 id="properties">Properties</h2>
+<ul>
+<li><p>Polymer web component properties can be created by adding properties to the Polymer object for that component.</p>
+</li>
+<li><p>Any properties that are to be tied to attributes must be within a <code>properties</code> property.</p>
+</li>
+</ul>
+<p>We want to be able to specify what icon we want the icon-toggle to use.</p>
+<ol>
+<li><p>Notice in the demo.html that their are attributes for the <code>icon-toggle</code> elements called <code>toggle-icon</code>. We want this attribute to tell the icon-toggle which icon to use.</p>
+</li>
+<li><p>In the togle-icon.html file, add a properties object and within that add a <code>toggleIcon</code> property that is of type <code>String</code>. The type is used to deserialize the attribute value.</p>
+</li>
+<li><p>Add a one-way binding (using double square brackets) for the iron-icon to specify the icon to use.</p>
+</li>
+<li><p>Reload the page to see that the icons have changed.</p>
+</li>
+</ol>
+<p><br></p>
+<p>Now we want to be able to click the icon to toggle its pressed state.</p>
+<ol>
+<li><p>Notice in the demo.html file that some <code>toggle-icon</code> elements have the <code>pressed</code> attribute. (Their look is currently controlled with the CSS.)</p>
+</li>
+<li><p>In the <code>toggle-icon.html</code> file add an attribute property: <code>pressed</code></p>
+<ul>
+<li><p>type: <code>Boolean</code></p>
+</li>
+<li><p>value: false</p>
+</li>
+<li><p>notify: true</p>
+</li>
+<li><p>reflectToAttribute: true</p>
+</li>
+</ul>
+</li>
+<li><p>Add a listener property and within that the key value pair: <code>tap: &#39;toggle&#39;</code>.</p>
+</li>
+<li><p>Add a <code>toggle</code> property that is a function that toggles the pressed state.</p>
+</li>
+<li><p>Reload the page and observe changes.</p>
+</li>
+</ol>
+<h2 id="one-way-binding-vs-two-way-binding">One Way Binding vs Two Way Binding</h2>
+<ul>
+<li><p>If you use square brackets then it&#39;s a read only binding.</p>
+</li>
+<li><p>If you use curly braces then it&#39;s a read-write binding, but the child component must also notify of property change.</p>
+</li>
+</ul>
+<p>We&#39;re going to make it so that clicking one star causes both to have the same state, but clicking the other star only changes the state of that star.</p>
+<ol>
+<li><p>Define a property called <code>starState</code>:</p>
+<ul>
+<li><p>type: Boolean</p>
+</li>
+<li><p>value: false</p>
+</li>
+</ul>
+</li>
+<li><p>Add a two way binding for one star and a two way binding for the other.</p>
+</li>
+</ol>
+<p><strong>Note:</strong> This only works because within the <code>icon-toggle.html</code>, the pressed state has been set to <code>notify</code> of changes.</p>
+<h2 id="dom-repeat">Dom-Repeat</h2>
+<p>Polymer comes with some template modifiers. This is an introduction to dom-repeat.</p>
+<ol>
+<li><p>Create a new section on the <code>demo.html</code> page called &quot;Many Stars&quot;.</p>
+</li>
+<li><p>Add a <code>paper-button</code> element that says &#39;Add Star&#39;. You&#39;ll also need to use bower to add the paper-button dependency.</p>
+</li>
+<li><p>Add a template with dom-repeat: <code>&lt;template is=&#39;dom-repeat&#39; items=[[stars]]&gt;&lt;/template&gt;</code>. The items attribute binds an iterable data source to be repeated.</p>
+</li>
+<li><p>Add a property <code>stars</code>:</p>
+<ul>
+<li><p>type: Array</p>
+</li>
+<li><p>value: []</p>
+</li>
+</ul>
+</li>
+<li><p>Add a property method: <code>addStar</code>.</p>
+<ul>
+<li><p>We use a different way to push items on an array (due to object observation constraints).</p>
+</li>
+<li><p>We push objects instead of primitives because each item in the dom-repeat must be unique and primitives can easily violate that constraint.</p>
+</li>
+<li><p><code>this.push(&#39;stars&#39;, { value: false })</code></p>
+</li>
+</ul>
+</li>
+<li><p>Add an <code>on-tap=&quot;addStar&quot;</code> to the &quot;Add Star&quot; button.</p>
+</li>
+<li><p>Within the dom-repeat add toggle-icons with stars and add a paper-button with attribute <code>on-tap=&quot;removeStar&quot;</code>.</p>
+</li>
+<li><p>Create a <code>removeStar</code> method with this body:</p>
+<pre><code class="lang-js"> var item = event.model.get(&#39;item&#39;);
+ var index = this.stars.indexOf(item);
+ this.splice(&#39;stars&#39;, index, 1);
+</code></pre>
+</li>
+<li><p>Reload the page to see changes.</p>
+</li>
+</ol>
+<h2 id="resources-to-learn-polymer">Resources to Learn Polymer</h2>
+<p>There is a lot to learn about Polymer and we won&#39;t attempt to cover it all in one class, so here are some great learning resources:</p>
+<ul>
+<li><a href="https://www.youtube.com/playlist?list=PLNYkxOF6rcIDdS7HWIC_BYRunV6MHs5xo">Polycasts with Rob Dodson</a> - A series of very well done, clear, and concise videos that teach you how to write Polymer applications and web components.</li>
+<li><a href="https://www.polymer-project.org">Polymer Home Page</a><ul>
+<li><a href="https://www.polymer-project.org/1.0/docs/devguide/feature-overview.html">Developer Guide</a> - A comprehensive guide on everything you need to know about how polymer works. Read this very carefully, twice.</li>
+<li><a href="https://elements.polymer-project.org/">Elements Catalog</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+
+<h2 id="the-elements-catalog">The Elements Catalog</h2>
+<p><a href="https://elements.polymer-project.org/">Elements Catalog</a></p>
+<ul>
+<li><strong>Iron Elements</strong> - These are the core polymer elements upon which other elements are built.</li>
+<li><strong>Paper Elements</strong> - Material design elements.</li>
+<li><strong>Google Web Components</strong> - Components that use Google&#39;s API&#39;s and services.</li>
+<li><strong>Gold Elements</strong> - Ecommerce elements.</li>
+<li><strong>Neon Elements</strong> - Animation and special effects.</li>
+<li><strong>Platinum Elements</strong> - Offline, push, and more.</li>
+<li><strong>Molecules</strong> - Wrappers for third-party libraries.</li>
+</ul>
