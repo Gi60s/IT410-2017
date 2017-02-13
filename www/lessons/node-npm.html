@@ -1,0 +1,257 @@
+<h1 id="nodejs-and-npm">NodeJS and NPM</h1>
+<h2 id="nodejs">NodeJS</h2>
+<h3 id="about-javascript-and-nodejs">About JavaScript and NodeJS</h3>
+<ul>
+<li><p>JavaScript is a scripted language.</p>
+</li>
+<li><p>An interpreter reads the code and executes it.</p>
+</li>
+<li><p>Web Browsers that are capable of executing JavaScript have a JavaScript interpreter.</p>
+</li>
+<li><p>The interpreters are known as JavaScript engines.</p>
+</li>
+<li><p>Most browsers have their own JavaScript engine, but some share the same engine.</p>
+</li>
+<li><p>NodeJS takes Chrome&#39;s V8 engine and uses it to run JavaScript on a server.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="browser-javascript-vs-server-javascript">Browser JavaScript vs Server JavaScript</h3>
+<ul>
+<li><p>The language is identical.</p>
+</li>
+<li><p>The libraries are mostly different.</p>
+<ul>
+<li><p>Browser specific libraries: window, document, DOM, alert, etc.</p>
+</li>
+<li><p>NodeJS specific libraries: file system, network, operating system, cryptography, etc.</p>
+</li>
+</ul>
+</li>
+<li><p>In browser JavaScript, all files share the same global scope.</p>
+</li>
+<li><p>In NodeJS, all files are automatically wrapped in a closure.</p>
+</li>
+</ul>
+<h2 id="first-nodejs-file">First NodeJS File</h2>
+<p>Create a factory function that produces a counter with methods to increment, decrement, and output current value. The counter can also be initialized when created.</p>
+<p>After it is created, write some code to initialize a counter, increment it a few times, and then log the value to the console.</p>
+<p><br></p>
+<p><strong>Solution</strong></p>
+<pre><code class="lang-js">function Counter (initialValue) {
+    const counter = {};
+    let value = initialValue || 0;
+
+    counter.increment = function () {
+        value++;
+        return counter;
+    };
+
+    counter.decrement = function () {
+        value--;
+        return counter;
+    };
+
+    Object.defineProperty(counter, &#39;value&#39;, {
+        get: function() {
+            return value;
+        }
+    });
+
+    return counter;
+}
+
+const counter = Counter();
+const value = counter.increment().increment().increment().value;
+console.log(value);
+</code></pre>
+<p><br></p>
+<h2 id="modules">Modules</h2>
+<p><strong>Question:</strong> What does it mean to be a module?
+<br></p>
+<p><strong>Answer:</strong> It is a small set of code with a specific purpose. It is reusable in many instances and along with other modules to produce code with more complex capabilities.
+ <br></p>
+<ul>
+<li><p>Remember that in NodeJS, each file is automatically wrapped with a closure. To be precise, this closure:</p>
+<p> <a href="https://nodejs.org/dist/latest-v6.x/docs/api/modules.html#modules_the_module_wrapper">NodeJS Module Wrapper</a></p>
+<pre><code class="lang-js"> (function (exports, require, module, __filename, __dirname) {
+ // Your module code actually lives in here
+ });
+</code></pre>
+</li>
+<li><p>We can use the <code>exports</code> object to expose properties to files outside of our file.</p>
+</li>
+<li><p>We can get that <code>exports</code> object in a different file by using the <code>require</code> function from that other file.</p>
+<p><br></p>
+<p><strong>counter.js</strong></p>
+<pre><code class="lang-js">exports.counter = function (initialValue) {
+  const counter = {};
+  let value = initialValue || 0;
+
+  counter.increment = function () {
+      value++;
+      return counter;
+  };
+
+  counter.decrement = function () {
+      value--;
+      return counter;
+  };
+
+  Object.defineProperty(counter, &#39;value&#39;, {
+      get: function() {
+          return value;
+      }
+  });
+
+  return counter;
+}
+
+// this still runs when I first require counter.js
+const counter = exports.counter();
+const value = counter.increment().increment().increment().value;
+console.log(value);
+</code></pre>
+<p><strong>index.js</strong></p>
+<pre><code class="lang-js">const Counter = require(&#39;./counter&#39;);      // get the counter.js module
+
+const counter = Counter();
+const value = counter.increment().increment().increment().value;
+console.log(value);
+</code></pre>
+</li>
+</ul>
+<p><br></p>
+<h3 id="your-first-nodejs-api">Your First NodeJS API</h3>
+<p><strong>Question:</strong> What is an API?
+<br></p>
+<p><strong>Answer:</strong> It is an interface that provides some set of functionality. Imagine a black box that does a lot of stuff, but you don&#39;t care about the details of how it does it, you just need to be able to tell it to do it for you.
+<br></p>
+<ul>
+<li><p>We aren&#39;t going to write your first NodeJS API now because we already did our first one with the counter example.</p>
+</li>
+<li><p>Each module is an API for other files.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="more-about-the-module-wrapper">More About the Module Wrapper</h3>
+<pre><code class="lang-js">(function (exports, require, module, __filename, __dirname) {
+// Your module code actually lives in here
+});
+</code></pre>
+<ul>
+<li><p><em>exports</em> - An empty object that you can put properties on.</p>
+</li>
+<li><p><em>require</em> - A function that will get the value from the <code>module.exports</code> property of another file.</p>
+</li>
+<li><p><em>module</em> - An object with various properties. This object represents the current file as a module.</p>
+<ul>
+<li><p>This object has a property <code>exports</code> that is the same object as the exports variable. In other words: <code>exports === module.exports</code></p>
+</li>
+<li><p>Because of this you can export something other than an object from a module. More on this soon.</p>
+</li>
+</ul>
+</li>
+<li><p><em>__filename</em> - The filename plus full path on the hard drive to this current file.</p>
+</li>
+<li><p><em>__dirname</em> - The full directory path for the directory that contains this file.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="exporting-something-else">Exporting Something Else</h3>
+<p>If you want to export a function instead of an object, you can&#39;t do this:</p>
+<pre><code class="lang-js">exports = function() { ... }
+</code></pre>
+<p>You have to do this:</p>
+<pre><code class="lang-js">module.exports = function() { ... }
+</code></pre>
+<p><strong>Question:</strong> What is the difference between these two examples?
+<br></p>
+<p><strong>Answer:</strong> The first example reassigns <code>exports</code> to a new value. The second example mutates the <code>module</code> object by updating a property on it.
+<br></p>
+<p>Also remember that <code>require</code> gets the value from the <code>module.exports</code> property.</p>
+<h2 id="nodejs-core-modules">NodeJS Core Modules</h2>
+<ul>
+<li><p>There are many core modules for NodeJS that allow you to interact with many parts of the server: file system, network, operating system, cryptography, etc.</p>
+</li>
+<li><p><a href="https://nodejs.org/en/docs/">API Documentation</a></p>
+</li>
+</ul>
+<h2 id="packages">Packages</h2>
+<ul>
+<li><p>A package is a set of modules that are combined to produce a single API interface.</p>
+</li>
+<li><p>Node has a package manager called <strong>npm</strong>.</p>
+</li>
+<li><p>npm can be used for:</p>
+<ul>
+<li><p>Getting packages off the internet.</p>
+</li>
+<li><p>Keeping package dependencies up to date.</p>
+</li>
+<li><p>Deploying packages.</p>
+</li>
+<li><p>Providing run scripts for packages.</p>
+</li>
+<li><p>etc.</p>
+</li>
+</ul>
+</li>
+<li><p>Each project you work on is a package, whether it gets published or not.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="creating-our-first-package">Creating Our First Package</h3>
+<ul>
+<li><p>From a terminal: <code>npm init</code></p>
+</li>
+<li><p>Follow the prompts.</p>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>Now we have a <code>package.json</code> file.</p>
+</li>
+<li><p>This file contains information about our package:</p>
+<ul>
+<li><p>Dependencies and their versions.</p>
+</li>
+<li><p>Run scripts.</p>
+</li>
+<li><p>Version</p>
+</li>
+<li><p>Name</p>
+</li>
+<li><p>etc.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h3 id="getting-a-package-dependency">Getting a Package Dependency</h3>
+<p>We&#39;re going to get the <code>request</code> package that makes it easy to perform HTTP requests from NodeJS.</p>
+<ul>
+<li><p>From the terminal: <code>npm install --save request</code></p>
+</li>
+<li><p>Notice that <code>package.json</code> now has the <code>request</code> dependency because we used the <code>--save</code> flag.</p>
+</li>
+<li><p>Where did this package come from? <a href="https://npmjs.com">https://npmjs.com</a></p>
+</li>
+<li><p>The <a href="https://npmjs.com">npmjs.com</a> website is the official repository for all published packages.</p>
+</li>
+<li><p>Lookup the request module to see documentation on how to use it.</p>
+</li>
+<li><p>Create an <code>index.js</code> file where you require the <code>request</code> package and then make a web request to Google or some other website.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Solution</strong></p>
+<pre><code class="lang-js">const request = require(&#39;request&#39;);
+
+request(&#39;http://www.google.com&#39;, function (error, response, body) {
+  if (!error &amp;&amp; response.statusCode == 200) {
+    console.log(body) // Show the HTML for the Google homepage.
+  }
+})
+</code></pre>
+<p>TODO: talk about dummy data with front end app</p>
