@@ -282,5 +282,3 @@ request('http://www.google.com', function (error, response, body) {
   }
 })
 ```
-
-TODO: talk about dummy data with front end app
