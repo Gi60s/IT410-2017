@@ -1,0 +1,54 @@
+<h1 id="sass">SASS</h1>
+<h2 id="about">About</h2>
+<ul>
+<li><p>It stands for Syntactically Awesome Style Sheets</p>
+</li>
+<li><p>Makes it easier to create complex style sheets.</p>
+</li>
+<li><p>Easier to modify style sheets.</p>
+</li>
+<li><p>It&#39;s a programming language that generates style sheets.</p>
+</li>
+<li><p>Similar to CSS.</p>
+</li>
+<li><p>Requires a transpiler: <a href="http://www.sassmeister.com/">Online SASS Transpiler</a> or <a href="https://www.npmjs.com/package/gulp-sass">Gulp Plugin</a>.</p>
+</li>
+</ul>
+<h2 id="the-situation">The Situation</h2>
+<ul>
+<li><p>Your boss asked you to create a modal popup and following your boss&#39;s instructions you created the modal found at: <a href="https://github.com/Gi60s/it410-resources/tree/master/sass">https://github.com/Gi60s/it410-resources/tree/master/sass</a></p>
+</li>
+<li><p>After you create it your boss wants to try some different looks:</p>
+<ul>
+<li><p>How about a different amount of rounded edges in the corner of the window?</p>
+</li>
+<li><p>How about a different color than gray and black?</p>
+</li>
+<li><p>What about a different border width?</p>
+</li>
+<li><p>Lets try making the border 35% darker than the primary color.</p>
+</li>
+</ul>
+</li>
+<li><p>Changes to a single aspect of the design happen in multiple locations in the CSS.</p>
+</li>
+<li><p>This is a relatively small CSS file.</p>
+</li>
+<li><p>The problem can quickly get out of hand.</p>
+</li>
+</ul>
+<h2 id="using-sass">Using SASS</h2>
+<ol>
+<li><p>Create a file called <code>modal.scss</code>.</p>
+</li>
+<li><p>Set up <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#nested_rules">nested selectors</a>.</p>
+</li>
+<li><p><a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variables_">Create variables</a></p>
+</li>
+<li><p><a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#mixins">Create mixins</a> for browser vendor prefixes and use <code>@include</code> to call them.</p>
+</li>
+<li><p><a href="http://sass-lang.com/documentation/Sass/Script/Functions.html">Use SASS Functions</a> to darken the primary color, specifically look at <a href="http://sass-lang.com/documentation/Sass/Script/Functions.html#darken-instance_method">darken</a>.</p>
+</li>
+<li><p>Use a SASS Transpiler to turn the SASS into CSS.</p>
+</li>
+</ol>

@@ -1,0 +1,125 @@
+<h1 id="gulp">Gulp</h1>
+<p><a href="https://jscompress.com/">https://jscompress.com/</a></p>
+<h2 id="about-gulp">About Gulp</h2>
+<ul>
+<li><p>Gulp is a task orchestration system.</p>
+</li>
+<li><p>Run multiple small tasks to accomplish one large end task.</p>
+</li>
+<li><p>Example: You can use gulp to automatically transpile your <a href="/sass/1">SASS</a> into CSS.</p>
+</li>
+<li><p>Similar to Grunt, but less configuration and it runs faster. <a href="https://medium.com/@preslavrachev/gulp-vs-grunt-why-one-why-the-other-f5d3b398edc4#.l50838ihv">Objective Comparison of Grunt vs Gulp</a></p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="why-use-a-task-orchestration-system">Why Use a Task Orchestration System</h3>
+<ul>
+<li><p>Front-end web development code is often transpiled.</p>
+<ul>
+<li><p>Write code using the latest tools.</p>
+</li>
+<li><p>Makes code smaller to reduce download times.</p>
+</li>
+<li><p>Improves code compatibility for older browsers.</p>
+</li>
+</ul>
+</li>
+<li><p>Run automated testing and deployment.</p>
+</li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<ol>
+<li><p>Clone the repository: <code>https://github.com/Gi60s/it410-resources.git</code></p>
+</li>
+<li><p>Navigate to the directory <code>gulp</code>.</p>
+</li>
+<li><p>From the command line: <code>npm init</code></p>
+</li>
+<li><p>Follow the <a href="https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md">Getting Started Guide</a>.</p>
+</li>
+<li><p>From the command line run: <code>gulp</code></p>
+</li>
+</ol>
+<h2 id="gulp-tasks">Gulp Tasks</h2>
+<p><a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md#gulptaskname--deps-fn">gulp.task</a></p>
+<p>Notice that there is a second argument that is optional that allows you to pass in an array of tasks to run before the callback is called.</p>
+<h2 id="javascript-streams">JavaScript Streams</h2>
+<ul>
+<li><p>Gulp uses file streams to process input and produce output.</p>
+</li>
+<li><p>Streams are similar to arrays except that they can have an infinite length.</p>
+</li>
+<li><p>Often in a stream some code is feeding into the stream while other code is reading from the stream.</p>
+</li>
+<li><p>The first item in the stream is usually the first one out.</p>
+</li>
+<li><p>The stream reader waits until data arrives.</p>
+</li>
+<li><p>The stream write writes data whenever it chooses to.</p>
+</li>
+<li><p>You may be familiar with pipes (from Unix) and how you can pipe (or stream) the output from one command into the input of another command.</p>
+</li>
+</ul>
+<h2 id="gulp-file-streams">Gulp File Streams</h2>
+<ul>
+<li><p>Streams consist of objects called Vinyl files. It is a simple metadata object that describes a file&#39;s properties (such as file size, location, content, etc.)</p>
+</li>
+<li><p>Vinyl files are virtual files that exist only in memory, saving time by not writing to disk.</p>
+</li>
+<li><p>Gulp provides vinyl adapters that transform real files into vinyl files and vinyl files into real files.</p>
+</li>
+<li><p>Gulp vinyl adapters:</p>
+<ul>
+<li><p><code>gulp.src(globs)</code> - Match a pattern for actual files and create a steam of vinyl objects.</p>
+</li>
+<li><p><code>gulp.dest(globs)</code> - Take vinyl files and produce actual files.</p>
+</li>
+<li><p><code>gulp.watch(globs)</code>. - Watch actual files for changes and create a vinyl stream for any changed files.</p>
+</li>
+<li><p>The parameters for these functions can be either a string or an array of strings.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="globs">Globs</h2>
+<ul>
+<li><p>Globs are a file path matching pattern system.</p>
+</li>
+<li><p>They originated with Unix.</p>
+</li>
+<li><p>The glob library that gulp uses: <a href="https://github.com/isaacs/node-glob">node-glob</a></p>
+</li>
+</ul>
+<h2 id="define-a-sass-transpiler-task">Define a SASS Transpiler Task</h2>
+<p>Continuing from the Getting Started section:</p>
+<ol>
+<li><p>Create a SASS Transpiler task using <a href="https://www.npmjs.com/package/gulp-sass">gulp-sass</a>.</p>
+</li>
+<li><p>Have the default task start the watcher.</p>
+</li>
+<li><p>Start the default task from the terminal: <code>gulp</code> or <code>gulp default</code>.</p>
+</li>
+<li><p>Modify the SASS file while the task is running, save, and watch the file update.</p>
+</li>
+</ol>
+<h2 id="useful-gulp-plugins">Useful Gulp Plugins</h2>
+<ul>
+<li><p><a href="https://www.npmjs.com/package/gulp-autoprefixer">gulp-autoprefixer</a> - Will automatically add vendor specific prefixes to your CSS.</p>
+</li>
+<li><p><a href="https://www.npmjs.com/package/gulp-csso">gulp-csso</a> - Will minify CSS.</p>
+</li>
+<li><p><a href="https://www.npmjs.com/package/gulp-if">gulp-if</a> - Conditionally runs streams.</p>
+</li>
+<li><p><a href="https://www.npmjs.com/package/gulp-imagemin">gulp-imagemin</a> - Will automatically optimize your images for faster web page loading.</p>
+</li>
+<li><p><a href="https://www.npmjs.com/package/gulp-minify-html">gulp-minify-html</a> - Will take comments and unnecissary white space out ouf your HTML.</p>
+</li>
+<li><p><a href="https://www.npmjs.com/package/gulp-plumber">gulp-plumber</a> - Will prevent errors from crashing your streams.</p>
+</li>
+<li><p><a href="https://www.npmjs.com/package/gulp-sass">gulp-sass</a> - Will convert your SASS and SCSS files into CSS files.</p>
+</li>
+<li><p><a href="https://www.npmjs.com/package/gulp-uglify">gulp-uglify</a> - Will minify your JavaScript.</p>
+</li>
+</ul>
+<h2 id="gulp-homework-cancelled">Gulp Homework Cancelled</h2>
+<p>The title says it all.</p>
