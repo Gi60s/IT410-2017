@@ -1,7 +1,5 @@
 # Gulp
 
-https://jscompress.com/
-
 ## About Gulp
 
 - Gulp is a task orchestration system.
