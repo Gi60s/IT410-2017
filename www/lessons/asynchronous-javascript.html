@@ -1,0 +1,126 @@
+<h1 id="asynchronous-javascript">Asynchronous JavaScript</h1>
+<h2 id="an-introduction-to-the-fs-core-module">An Introduction to the FS Core Module</h2>
+<ul>
+<li><p>We are going to create a JavaScript file that reads a file.</p>
+</li>
+<li><p>First read a file using <a href="https://nodejs.org/api/fs.html#fs_fs_readfilesync_file_options">fs.readFileSync</a>. This is a synchronous blocking operation.</p>
+</li>
+<li><p>Next read a file using <a href="https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback">fs.readFile</a> that uses a callback. This is an asynchronous non-blocking operation.</p>
+<ul>
+<li>Notice that the callback gets two parameters: error and data.</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Question:</strong> We are passing a callback function to <code>fs.readFile</code>. Were is our callback function being called?
+<br></p>
+<p><strong>Answer:</strong> The callback is being called by <code>fs.readFile</code> once it has read the file.
+<br></p>
+<hr>
+
+<p><strong>Question:</strong> Who decides what parameters the callback function will receive, the callback function itself or <code>fs.readFile</code>? Why?
+<br></p>
+<p><strong>Answer:</strong> <code>fs.readFile</code> is the calling function so it gets to decide which parameters it will send to our callback function. Remember that the calling signature does not need to match the function definition&#39;s signature.
+<br></p>
+<h3 id="examples">Examples</h3>
+<p>There are some examples files we can use to look more into the behaviour of synchronous vs asynchronous functions.</p>
+<ul>
+<li><p>Use git to clone the repository: <code>https://github.com/Gi60s/it410-resources.git</code></p>
+</li>
+<li><p>Navigate into the directory: <code>async</code></p>
+</li>
+<li><p>We need to initialize the files. Run the command: <code>node 0-make-files</code></p>
+<ul>
+<li><p>This will generate three large files (<code>small.txt</code>, <code>medium.txt</code>, and <code>large.txt</code>) into the <code>async/files</code> directory.</p>
+</li>
+<li><p>You will probably want to delete these files when we&#39;re done with the examples.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h4 id="example-1">Example 1</h4>
+<ul>
+<li><p>File name: <code>1-sync.js</code></p>
+</li>
+<li><p>This will read each of the files using synchronous blocking functions.</p>
+</li>
+<li><p>The time to read each file will be output (in milliseconds) as well as the total time.</p>
+</li>
+<li><p>Run the example: <code>node 1-sync</code></p>
+</li>
+</ul>
+<p><br></p>
+<h4 id="example-2">Example 2</h4>
+<ul>
+<li><p>File name: <code>2-async.js</code></p>
+</li>
+<li><p>This will read each of the files using asynchronous non-blocking functions.</p>
+</li>
+<li><p>The time to read each file will be output (in milliseconds) as well as the total time.</p>
+</li>
+<li><p>Run the example: <code>node 1-sync</code></p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Question:</strong> There is something wrong with the output. Can you tell what the code did wrong?
+<br></p>
+<p><strong>Answer:</strong> The event queue had not yet resolved the asynchronous requests when we logged the total time.
+<br></p>
+<h3 id="the-event-queue">The Event Queue</h3>
+<ul>
+<li><p>JavaScript continues to execute it&#39;s current set of instructions until completed.</p>
+</li>
+<li><p>Once idle JavaScript checks the event queue for events to take action on.</p>
+</li>
+<li><p>The event queue will never to accessed if the code never idles.</p>
+</li>
+</ul>
+<h4 id="example-3">Example 3</h4>
+<ul>
+<li><p>File name: <code>3-event-queue.js</code></p>
+</li>
+<li><p>This will add an event to the event queue that should run after 100 milliseconds, as soon as the process is idle.</p>
+</li>
+<li><p>The event will trigger a function call that will output the delay.</p>
+</li>
+<li><p>Run the example: <code>node 3-event-queue</code></p>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>Now uncomment the synchronous blocking call to read the large file.</p>
+</li>
+<li><p>Run the example again and observe the change in time.</p>
+</li>
+<li><p>The event appeared on the event queue at 100 milliseconds but the process was busy for a while before it could fire the event&#39;s callback function.</p>
+</li>
+</ul>
+<h4 id="example-4">Example 4</h4>
+<ul>
+<li><p>File name: <code>4-async.js</code></p>
+</li>
+<li><p>Will load all three files asynchronously and output the time for each as well as the total time.</p>
+</li>
+<li><p>Run the example: <code>node 3-event-queue</code></p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Question:</strong> Why wasn&#39;t this any faster than the synchronous blocking code?
+<br></p>
+<p><strong>Answer:</strong> We didn&#39;t start to read the next file until the previous had finished. We didn&#39;t block the process so it could have done other things, but it waited on the previous file before loading the next file.
+<br></p>
+<p><strong>Question:</strong> How can we read all three files simultaneously and report their load times and the total read time?
+<br></p>
+<p><strong>Answer:</strong> Look at the example in <code>5-async.js</code>.</p>
+<h2 id="managing-complex-asynchronous-operations">Managing Complex Asynchronous Operations</h2>
+<ul>
+<li><p>Callbacks provide a nice way to use asynchronous functions.</p>
+</li>
+<li><p>Unfortunately they can create the pyramid of doom.</p>
+</li>
+<li><p>Under complex conditional asynchronous programming they become difficult to manage flow.</p>
+</li>
+<li><p>Promises to the rescue.</p>
+</li>
+</ul>

@@ -1,0 +1,408 @@
+<h1 id="promises">Promises</h1>
+<h2 id="about">About</h2>
+<p>Promises simplify complex asynchronous data flow.</p>
+<p>Without promises, a simple asynchronous operation can be complex. For example, simultaneously loading the contents of three files and getting there data back in the order you requested. You can see an example of this below:</p>
+<pre><code class="lang-js">var fs = require(&#39;fs&#39;);
+var start = Date.now();
+var results = [];
+var done = 3;
+
+function checkDone(err) {
+    done--;
+    if (err) {
+        done = -1;
+        console.error(err.stack);
+        console.log(Date.now() - time);
+    } else if (done === 0) {
+        results.forEach(function(result) {
+            console.log(result);
+        });
+        console.log(Date.now() - start);
+    }
+}
+
+fs.readFile(&#39;./small.txt&#39;, &#39;utf8&#39;, function(err, data) {
+    results[0] = data.substr(0, 6);
+    checkDone();
+});
+
+fs.readFile(&#39;./medium.txt&#39;, &#39;utf8&#39;, function(err, data) {
+    results[1] = data.substr(0, 6);
+    checkDone();
+});
+
+fs.readFile(&#39;./large.txt&#39;, &#39;utf8&#39;, function(err, data) {
+    results[2] = data.substr(0, 6);
+    checkDone();
+});
+</code></pre>
+<p>With promises that same operation is trivial:</p>
+<pre><code class="lang-js">const fsp = require(&#39;fs-promise&#39;);
+const start = Date.now();
+
+Promise
+    .all([
+        fsp.readFile(&#39;./small.txt&#39;, &#39;utf8&#39;),
+        fsp.readFile(&#39;./medium.txt&#39;, &#39;utf8&#39;),
+        fsp.readFile(&#39;./large.txt&#39;, &#39;utf8&#39;)
+    ])
+    .then(function(data) {
+        results.forEach(function(result) {
+            console.log(result);
+        });
+    });
+    .catch(function(err) {
+        console.error(err.stack);
+    })
+    .finally(function() {
+        console.log(Date.now() - start);
+    });
+</code></pre>
+<h2 id="basics">Basics</h2>
+<ul>
+<li><p>A Promise is a JavaScript object with properties.</p>
+</li>
+<li><p>Some properties contain status information about the asynchronous operation.</p>
+</li>
+<li><p>Some properties have functions that allow you to access the result of the asynchronous operation once it is ready.</p>
+</li>
+<li><p>Promises mimic synchronous data flow.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="mimicking-synchronous-data-flow">Mimicking Synchronous Data Flow</h3>
+<p>The following two examples show the similarities between synchronous and asynchronous promise code structures.</p>
+<p>These two examples would produce the exact same results, pass or fail.</p>
+<h4 id="synchronous-example">Synchronous Example</h4>
+<pre><code class="lang-js">try {
+    var content = readFileSync(&#39;./file.txt&#39;);
+    console.log(content);
+} catch (err) {
+    console.error(err.stack);
+}
+</code></pre>
+<h4 id="asynchronous-example">Asynchronous Example</h4>
+<pre><code class="lang-js">readFile(&#39;./file.txt&#39;)
+    .then(function(content) {
+        console.log(content);
+    })
+    .catch(err) {
+        console.error(err.stack);
+    });
+</code></pre>
+<h2 id="a-promises">A+ Promises</h2>
+<ul>
+<li><p>A standard was created to define how promises should work.</p>
+</li>
+<li><p>Before browsers or NodeJS implemented promises, other developers followed the promise specifications to build libraries that implemented promises.</p>
+</li>
+<li><p>There are many Promise libraries. For a list of fully compliant promise libraries, visit <a href="https://promisesaplus.com/implementations">https://promisesaplus.com/implementations</a>.</p>
+</li>
+<li><p>Bluebird is currently considered the best implementation due to it&#39;s high performance nature, in some cases even <a href="http://programmers.stackexchange.com/questions/278778/why-are-native-es6-promises-slower-and-more-memory-intensive-than-bluebird">out performing native implementations</a>.</p>
+</li>
+<li><p>Bluebird also has more functionality that native promises.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="terminology">Terminology</h3>
+<p>Here are some terms you should be familiar with and that you should use when talking about promises.</p>
+<ul>
+<li><p><strong>promise</strong> - An object with a <code>then</code> method whose behavior conforms to the <a href="https://promisesaplus.com/">A+ Promise specifications</a></p>
+</li>
+<li><p><strong>resolve</strong> - If a promise completes successfully then the promise has been <em>resolved</em> and it returns a <em>value</em>.</p>
+</li>
+<li><p><strong>reject</strong> - If a promise does not complete succesfully then the promise has been <em>rejected</em> and it returns a <em>reason</em>.</p>
+</li>
+<li><p><strong>reason</strong> - The value that indicates why the promise was <em>rejected</em>.</p>
+</li>
+<li><p><strong>value</strong> - The value that was returned by a successful promise resolution.</p>
+</li>
+</ul>
+<h2 id="creating-a-promise">Creating a Promise</h2>
+<p>Creating a promise can be daunting at first, so let&#39;s break it up before we see the whole:</p>
+<p><br></p>
+<h4 id="1-function-signature">1. Function Signature</h4>
+<p>The function signature for a promise is simple. You pass a callback function into the Promise function as its first
+parameter. The Promise function must be called with the <code>new</code> keyword so that you can get back an instance of a promise.</p>
+<pre><code class="lang-js">var promise = new Promise (promiseCallback);
+</code></pre>
+<p><br></p>
+<h4 id="2-callback-signature">2. Callback Signature</h4>
+<ul>
+<li>The callback function will be called with two parameters: resolve and reject.</li>
+<li>Resolve and reject are functions.</li>
+<li>To <em>resolve</em> the promise, call the resolve function and optionally give it one parameter, a <em>value</em>.</li>
+<li>To <em>reject</em> the promise, call the reject function and optionally give it one parameter, a <em>reason</em>.</li>
+<li>If an Error is thrown within the promise callback and it is not caught then the promise instance will catch the Error for you and cause a rejection to occur, with the reason being the Error.</li>
+<li>Once you resolve or reject the promise, you cannot resolve or reject it again later.</li>
+</ul>
+<pre><code class="lang-js">var promise = new Promise(function(resolve, reject) {
+    if ( ... ) return reject(&quot;Didn&#39;t work.&quot;);
+    resolve(&quot;It worked&quot;);
+});
+</code></pre>
+<p><br></p>
+<h4 id="3-returning-a-promise">3. Returning a Promise</h4>
+<p>It is common to write a function that returns a promise. Here is an example of how you would do that:</p>
+<pre><code class="lang-js">function doSomething(x, y) {
+    return new Promise(function(resolve, reject) {
+        if (x &gt; y) return resolve(x);
+        reject(y);
+    });
+}
+</code></pre>
+<h2 id="exercise">Exercise</h2>
+<p>Create a function that does the same thing as <code>setTimeout</code> except that it uses a promise paradigm instead of a callback paradigm.</p>
+<ul>
+<li><p>The function should only take one parameter, the delay in milliseconds.</p>
+</li>
+<li><p>The promise returned by the function is never rejected.</p>
+</li>
+<li><p>The promise returned by the function resolves to the actual delay time.</p>
+</li>
+</ul>
+<p>You adapt your solution from the example we just saw:</p>
+<pre><code class="lang-js">function doSomething(x, y) {
+    return new Promise(function(resolve, reject) {
+        if (x &gt; y) return resolve(x);
+        reject(y);
+    });
+}
+</code></pre>
+<p><br></p>
+<p><strong>Exercise Solution</strong></p>
+<p>Keep a copy of this code because we&#39;ll be using it in the next few exercises.</p>
+<pre><code class="lang-js">function timeoutPromise(delay) {
+    const start = Date.now();
+    return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            resolve(Date.now() - start);
+        }, delay);
+    });
+}
+</code></pre>
+<h2 id="processing-a-promise-s-outcome">Processing a Promise&#39;s Outcome</h2>
+<h3 id="promise-then">Promise.then</h3>
+<ul>
+<li><p>The <code>then</code> property from a Promise is a function that accepts a callback function.</p>
+</li>
+<li><p>The callback function will only get one parameter, the result of the asynchronous operation.</p>
+</li>
+</ul>
+<pre><code class="lang-js">var promise = readFile(&#39;./file.txt&#39;);
+promise.then(function(content) {
+    console.log(&#39;File Contents: &#39; + content);
+});
+</code></pre>
+<p><br></p>
+<ul>
+<li><p>There is also a second optional parameter for <code>then</code>.</p>
+</li>
+<li><p>This parameter also must be a callback function, but it will receive any thrown errors.</p>
+</li>
+</ul>
+<pre><code class="lang-js">var promise = readFile(&#39;./file.txt&#39;);
+promise.then(function(content) { ... }, function(err) {
+    console.error(err.stack);
+});
+</code></pre>
+<p>So this is the function signature for <code>then</code>: <strong>.then ( successCallback [, errorCallback ] );</strong></p>
+<p>It&#39;s subtle difference, but I usually omit the error callback function an instead use the <code>catch</code> function (below).</p>
+<p><br></p>
+<h3 id="promise-catch">Promise.catch</h3>
+<ul>
+<li><p>The <code>catch</code> property is a function that accepts a callback function.</p>
+</li>
+<li><p>The callback that you give the <code>catch</code> will only be called if an error is thrown.</p>
+</li>
+</ul>
+<pre><code class="lang-js">var promise = readFile(&#39;./file.txt&#39;);
+promise.catch(function(err) {
+    console.error(err.stack);
+});
+</code></pre>
+<p><br></p>
+<h3 id="promise-property-chains">Promise Property Chains</h3>
+<p>An interesting thing about <code>then</code> and <code>catch</code> is that they <strong><em>always</em></strong> return a promise. If you are in a <code>then</code> or a <code>catch</code> callback and your callback...</p>
+<ul>
+<li><p>Returns a value, then the value is returned as a <em>resolved</em> promise <em>value</em>.</p>
+</li>
+<li><p>Returns a Promise instance, then that instance is returned.</p>
+</li>
+<li><p>Throws an Error, then a promise is returned that is <em>rejected</em> with the <em>reason</em> being the error.</p>
+</li>
+</ul>
+<p>What that means is that you can create promise property chains where you call <code>then</code> or <code>catch</code> after any <code>then</code> or <code>catch</code>.</p>
+<p>Note that if a promise is ever <em>rejected</em> then all <code>then</code> functions that follow will be skipped until a <code>catch</code> function catches the <em>rejected</em> promise.</p>
+<h4 id="example">Example</h4>
+<pre><code class="lang-js">getPromise()
+    .then(function(value) {
+        console.log(value);
+    })
+    .catch(function(reason) {
+        console.error(reason);
+    });
+</code></pre>
+<h2 id="exercises">Exercises</h2>
+<h3 id="task-1-resolved-value">Task 1: Resolved Value</h3>
+<ol>
+<li><p>Take the following code and chain another <code>then</code> function to it.</p>
+<pre><code class="lang-js"> timeoutPromise(500)
+     .then(function(value) {
+         console.log(&#39;Actual delay: &#39; + value);
+     });
+</code></pre>
+</li>
+<li><p>Determine what the resolved value of the first <code>then</code> function is.</p>
+</li>
+<li><p>Log the resolved value to the console.</p>
+</li>
+</ol>
+<p><br></p>
+<p><strong>Question:</strong> What did the second <code>then</code> function resolve to? Why?</p>
+<p><br></p>
+<p><strong>Solution:</strong></p>
+<pre><code class="lang-js">timeoutPromise(500)
+    .then(function(value) {
+        console.log(&#39;Actual delay: &#39; + value);
+    })
+    .then(function(value) {
+        console.log(&#39;Resolved value: &#39; + value);
+    });
+</code></pre>
+<p><strong>Answer:</strong> The resolved value for the second <code>then</code> function resolved to <code>undefined</code> because the previous <code>then</code> function didn&#39;t return anything, so by default it returned undefined.</p>
+<p><br></p>
+<h3 id="task-2-resolved-values">Task 2: Resolved Values</h3>
+<p>In the first then function try the following:</p>
+<ol>
+<li><p>Return a value and see what the result is.</p>
+<pre><code class="lang-js"> timeoutPromise(500)
+     .then(function(value) {
+         console.log(&#39;Actual delay: &#39; + value);
+         return &#39;Hello&#39;;
+     })
+     .then(function(value) {
+         console.log(&#39;Resolved value: &#39; + value);
+     });
+</code></pre>
+</li>
+</ol>
+<p><br></p>
+<ol>
+<li><p>Return a promise by returning the value from a second <code>timeoutPromise</code> and see what the result is.</p>
+<pre><code class="lang-js"> timeoutPromise(500)
+     .then(function(value) {
+         console.log(&#39;Actual delay: &#39; + value);
+         return timeoutPromise(300);
+     })
+     .then(function(value) {
+         console.log(&#39;Resolved value: &#39; + value);
+     });
+</code></pre>
+</li>
+</ol>
+<p><br></p>
+<p><strong>Question:</strong> Why is the resolved value in the first <code>then</code> function <code>&#39;Hello&#39;</code>? Why is the resolved value in the second <code>then</code> function a number instead of a promise object?
+<br></p>
+<p><strong>Answer:</strong> Whatever value is returned inside of a <code>then</code> function gets wrapped into a promise (unless it is already a promise). The following <code>then</code> function gets the resolved value from that promise.</p>
+<p><br></p>
+<h3 id="task-3-rejected-reasons">Task 3 - Rejected Reasons</h3>
+<p>Take the following code:</p>
+<pre><code class="lang-js">timeoutPromise(500)
+    .then(function(value) {
+        console.log(&#39;Actual delay: &#39; + value);
+        throw Error(&#39;Fail&#39;);
+    })
+    .then(function(value) {
+        console.log(&#39;Resolved value: &#39; + value);
+    })
+    .catch(function(err) {
+        console.log(&#39;Rejected reason: &#39; + err.stack);
+    });
+</code></pre>
+<p><strong>Question:</strong> Which functions get executed and why?
+<br></p>
+<p><strong>Answer:</strong> The first <code>then</code> function and the <code>catch</code> function execute. The second <code>then</code> function is skipped because an error occurred preventing further processing.
+<br></p>
+<ul>
+<li><p>The catch can be used to fix errors.</p>
+</li>
+<li><p>You can add a <code>then</code> in the chain after the catch.</p>
+</li>
+<li><p>If the catch cannot fix the error, be sure to rethrow it.</p>
+</li>
+</ul>
+<h2 id="promise-static-methods">Promise Static Methods</h2>
+<h3 id="promise-all">Promise.all</h3>
+<p>Takes an array of promises and returns a promise that resolves when all resolve or rejects immediately when one rejects.</p>
+<pre><code class="lang-js">var promises = [];
+for (var i = 0; i &lt; collection.length; ++i) {
+    promises.push(getPromise(collection[i]));
+}
+Promise.all(promises)
+    .then(function(results) {
+        console.log(results);
+    });
+</code></pre>
+<p><br></p>
+<h3 id="promise-race">Promise.race</h3>
+<p>Take a collection of promises and the first to resolve or reject is used.</p>
+<pre><code class="lang-js">const promises = [
+    promiseTimeout(200).then(v =&gt; 200),
+    promiseTimeout(500).then(v =&gt; 500)
+];
+
+Promise.race(promises)
+    .then(function(value) {
+        console.log(value);         // 200
+    });
+</code></pre>
+<p><br></p>
+<h3 id="promise-resolve">Promise.resolve</h3>
+<p>Create a promise that is immediately resolved to a specific value.</p>
+<pre><code class="lang-js">const promise = Promise.resolve(&#39;Hello&#39;);
+
+promise.then(function(value) {
+    console.log(value);     // &#39;Hello&#39;
+});
+</code></pre>
+<p><br></p>
+<h3 id="promise-reject">Promise.reject</h3>
+<p>Create a promise that is immediately rejected with a reason.</p>
+<p><strong>Important:</strong> It is a best practice to only reject with Error objects. That enables a stack trace of where the error occurred.</p>
+<pre><code class="lang-js">const promise = Promise.reject(Error(&#39;Fail&#39;));
+
+promise.catch(function(err) {
+    console.error(err.stack);
+});
+</code></pre>
+<h2 id="reusing-promises">Reusing Promises</h2>
+<ul>
+<li><p>You can call <code>then</code> or <code>catch</code> on a promise as many times as you want. Once the promise resolves or rejects then it will run all attached callbacks.</p>
+</li>
+<li><p>You can call <code>then</code> or <code>catch</code> before or after the promise resolves or rejects.</p>
+</li>
+</ul>
+<pre><code class="lang-js">const promise = timeoutPromise(500);
+
+promise.then(function(value) {
+    // do something
+});
+
+promise.then(function(value) {
+    // do something
+});
+
+setTimeout(function() {
+    promise.then(function(value) {
+        // do something
+    });
+}, 1000);
+</code></pre>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Native Promises</a></p>
+</li>
+<li><p><a href="http://bluebirdjs.com/docs/api-reference.html">Bluebird Promise API</a></p>
+</li>
+</ul>
