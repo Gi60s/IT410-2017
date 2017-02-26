@@ -6,7 +6,7 @@
   "bin": {
     "it410": "index.js"
   },
-  "dependenciesk": {
+  "dependencies": {
     "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-marked": "^1.0.0",
