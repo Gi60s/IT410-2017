@@ -1,0 +1,91 @@
+<h1 id="rest">REST</h1>
+<h2 id="about">About</h2>
+<ul>
+<li><p>Stands for: Representational State Transfer</p>
+</li>
+<li><p>Used for sending data bidirectionally between the browser and the server.</p>
+</li>
+<li><p>Commonly the browser uses AJAX to make requests to the server.</p>
+</li>
+</ul>
+<h2 id="swagger">Swagger</h2>
+<blockquote>
+<p>Swagger is a powerful open source framework backed by a large ecosystem of tools that helps you design, build, document, and consume your RESTful APIs.</p>
+<p><a href="http://swagger.io/">http://swagger.io/</a></p>
+</blockquote>
+<ul>
+<li><p>Helps you to plan and organize your REST API.</p>
+</li>
+<li><p>Documents your API for other&#39;s to consume.</p>
+</li>
+<li><p>Has tools that enforce your API.</p>
+</li>
+<li><p><a href="http://swagger.io/specification/">Specification</a> - How to write swagger documents.</p>
+</li>
+<li><p><a href="http://editor.swagger.io">Swagger UI</a> - A tool for writing swagger documents.</p>
+</li>
+</ul>
+<h2 id="rest-routes">REST Routes</h2>
+<p>Remember this directory structure?</p>
+<ul>
+<li><strong>node_modules</strong></li>
+<li><strong>server</strong><ul>
+<li><strong>controllers</strong><ul>
+<li>foo-controller.js</li>
+<li>bar-controller.js</li>
+</ul>
+</li>
+<li><strong>routes</strong><ul>
+<li>foo-routes.js</li>
+<li>bar-routes.js</li>
+</ul>
+</li>
+<li>server.js</li>
+</ul>
+</li>
+<li><strong>www</strong><ul>
+<li><strong>bower_components</strong></li>
+<li><strong>css</strong><ul>
+<li>main.css</li>
+</ul>
+</li>
+<li><strong>js</strong><ul>
+<li>main.js</li>
+</ul>
+</li>
+<li>bower.json</li>
+<li>index.html</li>
+</ul>
+</li>
+<li>index.js</li>
+<li>package.json</li>
+</ul>
+<p><strong>Exercise</strong></p>
+<ol>
+<li><p>Create a person API. A person object will look like this:</p>
+<pre><code class="lang-js"> {
+     id: 0,
+     name: &#39;Bob&#39;,
+     age: 20
+ }
+</code></pre>
+</li>
+<li><p>We&#39;ll put the routes in <code>./server/routes/people.js</code> and we&#39;ll use the <a href="http://expressjs.com/en/guide/routing.html">express router middleware</a>.</p>
+</li>
+<li><p>Set up a POST for <code>/people</code> that can add a person, not needing the ID because that will be determined by the server.</p>
+<ul>
+<li><p>Use <code>body-parser</code> middleware for JSON to decode body from the browser.</p>
+</li>
+<li><p>Store the added person in memory. (Later we&#39;ll use databases, but for now we&#39;ll use memory.)</p>
+</li>
+</ul>
+</li>
+<li><p>Set up a GET for <code>/people</code> that get&#39;s an array of people.</p>
+</li>
+<li><p>Set up a GET for &#39;/people/:personId&#39; that get&#39;s a single person by ID.</p>
+</li>
+<li><p>Create a PUT for &#39;/people/:personId&#39; that is used to update a person.</p>
+</li>
+<li><p>Create a DELETE for &#39;/people/:personId&#39; that is used to delete a person.</p>
+</li>
+</ol>

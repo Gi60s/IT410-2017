@@ -1,0 +1,412 @@
+<h1 id="project-set-up">Project Set Up</h1>
+<h2 id="directory-structure">Directory Structure</h2>
+<ul>
+<li><p>The structure is not set in stone.</p>
+</li>
+<li><p>This example shows some good practices:</p>
+<ul>
+<li><p>Put files to be served to the browser under one directory. In this case: <code>www</code></p>
+</li>
+<li><p>Put files to be run only on the server in another directory. In this case: <code>server</code></p>
+</li>
+<li><p>Have a single <code>index.html</code> at the root of your project. This is a minimal footprint file and serves as the entry point for starting your web application.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example</strong></p>
+<ul>
+<li><strong>node_modules</strong></li>
+<li><strong>server</strong><ul>
+<li><strong>controllers</strong><ul>
+<li>foo-controller.js</li>
+<li>bar-controller.js</li>
+</ul>
+</li>
+<li><strong>routes</strong><ul>
+<li>foo-routes.js</li>
+<li>bar-routes.js</li>
+</ul>
+</li>
+<li>server.js</li>
+</ul>
+</li>
+<li><strong>www</strong><ul>
+<li><strong>bower_components</strong></li>
+<li><strong>css</strong><ul>
+<li>main.css</li>
+</ul>
+</li>
+<li><strong>js</strong><ul>
+<li>main.js</li>
+</ul>
+</li>
+<li>bower.json</li>
+<li>index.html</li>
+</ul>
+</li>
+<li>index.js</li>
+<li>package.json</li>
+</ul>
+<p><br></p>
+<p><strong>Exercise</strong></p>
+<p>Get your semester project directory organized.</p>
+<h2 id="express">Express</h2>
+<ul>
+<li><p>A NodeJS package that uses the core http modules to create a web server.</p>
+</li>
+<li><p>From <a href="http://expressjs.com">expressjs.com</a>: Fast, unopinionated, minimalist web framework for Node.js</p>
+</li>
+<li><p>It doesn&#39;t do anything on its own.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Exercise</strong></p>
+<ol>
+<li><p>Install the express package in your project: <code>npm install --save express</code></p>
+</li>
+<li><p>Create file named: <code>server.js</code>.</p>
+</li>
+<li><p>Within that file start up an express server with a simple <code>get</code> route. <a href="http://expressjs.com/en/starter/hello-world.html">Check out the Hello World Example</a>.</p>
+</li>
+<li><p>Use a web browser to hit the route.</p>
+</li>
+</ol>
+<h2 id="the-http-request">The HTTP Request</h2>
+<ol>
+<li><p>The URL</p>
+<pre><code> http://someplace.com:3000/the/path?param1=foo&amp;param2&amp;param3=bar#hash
+</code></pre><ul>
+<li><p><code>http</code> - the protocol</p>
+</li>
+<li><p><code>3000</code> - the port number. If the protocol is <code>http</code> then the default port is <code>80</code>. If the protocol is <code>https</code> then the default port is <code>443</code>.</p>
+</li>
+<li><p><code>someplace.com</code> - the domain</p>
+</li>
+<li><p><code>/the/path</code> - the path</p>
+</li>
+<li><p><code>param1=foo&amp;param2&amp;param3=bar</code> - the query parameters, follow the <code>?</code>, each parameter is separated by <code>&amp;</code> and can be assigned a value with <code>=</code>.</p>
+</li>
+</ul>
+</li>
+<li><p>The headers</p>
+<ul>
+<li><p>Formatted like <code>Header-Name: header-value</code> per header.</p>
+</li>
+<li><p>Includes cookies and other metadata (content types, user agent, etc).</p>
+</li>
+<li><p>Sometimes the server cares about the incoming headers and sometimes it doesn&#39;t.</p>
+</li>
+</ul>
+</li>
+<li><p>The body: a payload of information that can be of any format.</p>
+</li>
+</ol>
+<h2 id="the-http-response">The HTTP Response</h2>
+<ol>
+<li><p>The status code: gives state information about the response. <a href="http://www.restapitutorial.com/httpstatuscodes.html">Status Code Reference</a></p>
+</li>
+<li><p>The body: a payload of information that can be of any format.</p>
+</li>
+<li><p>The headers:</p>
+<ul>
+<li><p>Formatted the same as the request headers.</p>
+</li>
+<li><p>Contains cookies to set or clear and metadata.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="http-methods">HTTP Methods</h2>
+<ul>
+<li><p>There are several different methods that your server can listen for and respond to.</p>
+</li>
+<li><p>Each method has guidelines, but not restrictions.</p>
+</li>
+</ul>
+<p>The most commonly used methods are:</p>
+<ul>
+<li><p>GET</p>
+</li>
+<li><p>POST</p>
+</li>
+<li><p>PUT</p>
+</li>
+<li><p>DELETE</p>
+</li>
+</ul>
+<h2 id="postman">Postman</h2>
+<p>Before we talk about these HTTP methods and play with them:</p>
+<ul>
+<li><p>It is easy to make a GET request because when you use a browser&#39;s URL input, that is a GET request.</p>
+</li>
+<li><p>It is more difficult to use the other methods because you have to use JavaScript code or a tool of some sort.</p>
+</li>
+<li><p><a href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en">Postman</a> is a Chrome extension that allows you to send requests using any HTTP method, URL, headers, and body.</p>
+</li>
+<li><p><a href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en">Download Postman</a> before continuing.</p>
+</li>
+</ul>
+<h2 id="get">GET</h2>
+<ul>
+<li><p>Probably the most commonly used method.</p>
+</li>
+<li><p>Shouldn&#39;t be used to save data.</p>
+</li>
+<li><p>Should not include a body.</p>
+</li>
+<li><p>Should be idempotent.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Question:</strong> What does <em>idempotent</em> mean?
+<br></p>
+<p><strong>Answer:</strong> No matter how many times to do an operation the result is the same.
+<br></p>
+<hr>
+
+<p><strong>Question:</strong> How could you send data with a GET request without using the body?
+<br></p>
+<p><strong>Answer:</strong> You could send information using query parameters, but it&#39;s not a good idea to send information with GET.
+<br></p>
+<p><strong>Exercise</strong></p>
+<p>Use the Postman extension to make a GET request to your only route so far (from the previous exercise).</p>
+<h2 id="post">POST</h2>
+<ul>
+<li><p>With a POST you can send information in the body of the request.</p>
+</li>
+<li><p>Should not be idempotent - each time it&#39;s used it should make a change.</p>
+</li>
+<li><p>Is not the CRUD equivalent of <em>create</em>, although it is often similar.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Exercise</strong></p>
+<ol>
+<li><p>In your <code>server.js</code> file create a POST endpoint to <code>/</code> (same as GET, but with POST).</p>
+</li>
+<li><p>Have the response body be &quot;POST&quot;.</p>
+</li>
+<li><p>Restart your server.</p>
+</li>
+<li><p>Use Postman to hit your POST endpoint.</p>
+</li>
+</ol>
+<p><br></p>
+<h3 id="send-a-body">Send a Body</h3>
+<ul>
+<li><p>Can be of any format.</p>
+</li>
+<li><p>Is sent as binary stream.</p>
+</li>
+<li><p>The server uses the <code>Content-Type</code> header in the request to determine the body format.</p>
+</li>
+<li><p>The server needs a parser to parse the content. <a href="https://www.npmjs.com/package/body-parser">npm body-parser package</a></p>
+</li>
+<li><p>We can implement the <a href="https://www.npmjs.com/package/body-parser">body-parser</a> as connect middleware.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="connect-middleware">Connect Middleware</h3>
+<ul>
+<li><p>A function that looks like this:</p>
+<pre><code class="lang-js">  function(req, res, next) {
+      // do something
+  }
+</code></pre>
+</li>
+<li><p>The parameters for that function are:</p>
+<ul>
+<li><p><code>req</code> - An object that represents the request object.</p>
+</li>
+<li><p><code>res</code> - An object that represents the response API.</p>
+</li>
+<li><p><code>next</code> - A function that can be called to execute the next middleware in line. Can also be called with an Error passed in as a parameter.</p>
+</li>
+</ul>
+</li>
+<li><p>Used in servers to add or modifiy function on the request and response objects or to fulfill the request.</p>
+</li>
+<li><p>You implement the middlware using the <code>use</code> function.</p>
+<pre><code class="lang-js">  const express = require(&#39;express&#39;);
+  const app = express();
+
+  // middleware that adds an id property to the request object
+  app.use(function(req, res, next) {
+      req.id = Math.random();
+      next();
+  });
+
+  app.get(&#39;/&#39;, function (req, res) {
+    res.send(&#39;Hello World!&#39;)
+  });
+
+  app.listen(3000, function () {
+    console.log(&#39;Example app listening on port 3000!&#39;)
+  });
+</code></pre>
+</li>
+<li><p>You probably wont create custom middleware so much as you&#39;ll use other people&#39;s created middleware.</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Exercise</strong></p>
+<ol>
+<li><p>Use the <a href="https://www.npmjs.com/package/body-parser">body-parser middleware</a> to capture the body of the POST request.</p>
+</li>
+<li><p>Send that content back with <code>res.send()</code>.</p>
+</li>
+</ol>
+<h2 id="put">PUT</h2>
+<ul>
+<li><p>With a PUT you can send information in the body of the request.</p>
+</li>
+<li><p>Should be idempotent - no matter how many times you call it, the result is the same.</p>
+</li>
+<li><p>Is not the CRUD equivalent of <em>update</em>. It can also be used to create. Example: Put the data to this state. If it doesn&#39;t exist then it creates it into that state.</p>
+</li>
+</ul>
+<h2 id="delete">DELETE</h2>
+<ul>
+<li><p>With a DELETE you can send information with the body.</p>
+</li>
+<li><p>Should be idempotent - no matter how many times you call it, the result is the same.</p>
+</li>
+<li><p>If is is already deleted it shouldn&#39;t complain because the job is done.</p>
+</li>
+</ul>
+<h2 id="static-middleware">Static Middleware</h2>
+<ul>
+<li><p>Express comes bundled with the static middleware: static</p>
+</li>
+<li><p>The middleware is used for serving static files (files that are in the local file system) to the brower.</p>
+</li>
+<li><p><a href="http://expressjs.com/en/starter/static-files.html">Express Static Documentation</a></p>
+</li>
+<li><p>Using the directory structure that we specified at the start of this lesson, you&#39;d do something like this:</p>
+<pre><code class="lang-js">  const express = require(&#39;express&#39;);
+  const app = express();
+
+  // middleware that serves files from www directory
+  app.use(express.static(&#39;./www&#39;));
+
+  app.listen(3000, function () {
+    console.log(&#39;Example app listening on port 3000!&#39;)
+  });
+</code></pre>
+</li>
+</ul>
+<h2 id="routing">Routing</h2>
+<ul>
+<li><p>Express comes with built in routing for all of the HTTP methods we&#39;ve seen so far.</p>
+</li>
+<li><p>It also has an <code>all</code> routes function that gets called for any route.</p>
+</li>
+<li><p>You can specify routes directly onto the server instance or through a routing middleware.</p>
+</li>
+</ul>
+<p><strong>Example: Routing via Server Instance</strong></p>
+<pre><code class="lang-js">const express = require(&#39;express&#39;);
+const app = express();
+
+app.get(&#39;/&#39;, function(req, res) {
+    res.send(&#39;You used GET&#39;);
+});
+
+app.post(&#39;/&#39;, function(req, res) {
+    res.send(&#39;You used POST&#39;);
+});
+
+app.put(&#39;/&#39;, function(req, res) {
+    res.send(&#39;You used PUT&#39;);
+});
+
+app.delete(&#39;/&#39;, function(req, res) {
+    res.send(&#39;You used DELETE&#39;);
+});
+
+app.add(&#39;/&#39;, function(req, res) {
+    res.send(&#39;You used &#39; + req.method);
+});
+
+app.listen(3000, function () {
+  console.log(&#39;Example app listening on port 3000!&#39;)
+});
+</code></pre>
+<p><br></p>
+<h3 id="route-parameters">Route Parameters</h3>
+<ul>
+<li><p>It is also possible to specify parameters in your routing.</p>
+</li>
+<li><p>Any path parameters specified can be read from the <code>req.params</code> object.</p>
+</li>
+</ul>
+<pre><code class="lang-js">const express = require(&#39;express&#39;);
+const app = express();
+
+app.get(&#39;/foo/:myParam&#39;, function(req, res) {
+    res.send(&#39;Path parameter: &#39; + req.params.myParam);
+});
+
+app.get(&#39;/bar/:optionalParam?&#39;, function(req, res) {
+    res.send(&#39;Path parameter: &#39; + req.params.optionalParam);
+});
+
+app.get(&#39;/bar/:multiPath*&#39;, function(req, res) {
+    res.send(&#39;Path parameter: &#39; + req.params.multiPath);
+});
+
+app.listen(3000, function () {
+  console.log(&#39;Example app listening on port 3000!&#39;)
+});
+</code></pre>
+<h2 id="final-project">Final Project</h2>
+<ol>
+<li><p>Organize your directory structure appropriately.</p>
+<ul>
+<li><strong>node_modules</strong></li>
+<li><strong>server</strong><ul>
+<li><strong>controllers</strong><ul>
+<li>foo-controller.js</li>
+<li>bar-controller.js</li>
+</ul>
+</li>
+<li><strong>routes</strong><ul>
+<li>foo-routes.js</li>
+<li>bar-routes.js</li>
+</ul>
+</li>
+<li>server.js</li>
+</ul>
+</li>
+<li><strong>www</strong><ul>
+<li><strong>bower_components</strong></li>
+<li><strong>css</strong><ul>
+<li>main.css</li>
+</ul>
+</li>
+<li><strong>js</strong><ul>
+<li>main.js</li>
+</ul>
+</li>
+<li>bower.json</li>
+<li>index.html</li>
+</ul>
+</li>
+<li>index.js</li>
+<li>package.json</li>
+</ul>
+</li>
+<li><p>Use static middleware to set up the routing of your front-end files.</p>
+<pre><code class="lang-js"> const express = require(&#39;express&#39;);
+ const app = express();
+
+ // middleware that serves files from www directory
+ app.use(express.static(&#39;../www&#39;));
+
+ app.listen(3000, function () {
+   console.log(&#39;Server running on port 3000&#39;)
+ });
+</code></pre>
+</li>
+</ol>
