@@ -1,0 +1,215 @@
+<h1 id="passport-and-express">Passport and Express</h1>
+<hr>
+
+<h2 id="what-is-passport-">What is Passport?</h2>
+<blockquote>
+<p>Passport is authentication <em>middleware</em> for Node.js. Extremely flexible and modular, Passport can be unobtrusively dropped in to any Express-based web application.</p>
+<p><a href="http://passportjs.org/">http://passportjs.org/</a></p>
+</blockquote>
+<ul>
+<li>It reduces the amount of work you need to do for authentication.</li>
+<li>It has the ability to do local authentication.</li>
+<li>It has OAuth capabilities (use Facebook, Google, or other services to log in).</li>
+<li>It is modular, you need to include the components that you are interested in.</li>
+</ul>
+<p><a href="http://passportjs.org/docs">Passport Documentation</a></p>
+<hr>
+
+<h2 id="strategies">Strategies</h2>
+<p>Using passport you&#39;ll hear about strategies. A strategy:</p>
+<ul>
+<li>Is a module that integrates with Passport.</li>
+<li>Handles a specific type of authentication (local, OAuth, etc).</li>
+<li>Must be installed (via npm) independently of the Passport module.</li>
+<li>Has its own documentation with instructions for usage.</li>
+</ul>
+<hr>
+
+<h2 id="starter-code-example">Starter Code Example</h2>
+<pre><code class="lang-js">// include modules
+var bodyParser          = require(&#39;body-parser&#39;);
+var cookieParser        = require(&#39;cookie-parser&#39;);
+var express             = require(&#39;express&#39;);
+var LocalStrategy       = require(&#39;passport-local&#39;).Strategy;
+var passport            = require(&#39;passport&#39;);
+var session             = require(&#39;express-session&#39;);
+
+// initialize express app
+var app = express();
+
+// tell passport to use a local strategy and tell it how to validate a username and password
+passport.use(new LocalStrategy(function(username, password, done) {
+    if (username &amp;&amp; password === &#39;pass&#39;) return done(null, { username: username });
+    return done(null, false);
+}));
+
+// tell passport how to turn a user into serialized data that will be stored with the session
+passport.serializeUser(function(user, done) {
+    done(null, user.username);
+});
+
+// tell passport how to go from the serialized data back to the user
+passport.deserializeUser(function(id, done) {
+    done(null, { username: id });
+});
+
+// tell the express app what middleware to use
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(session({ secret: &#39;secret key&#39;, resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// home page
+app.get(&#39;/&#39;, function (req, res) {
+    if (req.user) return res.send(&#39;Hello, &#39; + req.user.username);
+    res.send(&#39;Hello, Stranger!&#39;);
+});
+
+// specify a URL that only authenticated users can hit
+app.get(&#39;/protected&#39;,
+    function(req, res) {
+        if (!req.user) return res.sendStatus(401);
+        res.send(&#39;You have access.&#39;);
+    }
+);
+
+// specify the login url
+app.put(&#39;/auth&#39;,
+    passport.authenticate(&#39;local&#39;),
+    function(req, res) {
+        res.send(&#39;You are authenticated, &#39; + req.user.username);
+    });
+
+// log the user out
+app.delete(&#39;/auth&#39;, function(req, res) {
+    req.logout();
+    res.send(&#39;You have logged out.&#39;);
+});
+
+// start the server listening
+app.listen(3000, function () {
+    console.log(&#39;Server listening on port 3000.&#39;);
+});
+</code></pre>
+<hr>
+
+<h2 id="code-break-down">Code Break Down</h2>
+<p>This part of the code should look pretty familiar. We include the modules we plan to use and start up the express web server.</p>
+<pre><code class="lang-js">// include modules
+var bodyParser          = require(&#39;body-parser&#39;);
+var cookieParser        = require(&#39;cookie-parser&#39;);
+var express             = require(&#39;express&#39;);
+var LocalStrategy       = require(&#39;passport-local&#39;).Strategy;
+var passport            = require(&#39;passport&#39;);
+var session             = require(&#39;express-session&#39;);
+
+// initialize express app
+var app = express();
+
+...
+
+// start the server listening
+app.listen(3000, function () {
+    console.log(&#39;Server listening on port 3000.&#39;);
+});
+</code></pre>
+<p>Here we tell express what middleware to use:</p>
+<ul>
+<li>The body-parser will extract body information from the request and store it at req.body for each request.</li>
+<li>The cookie-parser will determine what cookies the client has on it and store it at req.cookie.</li>
+<li>The express-session works with cookies to create and maintain session information.</li>
+<li>The passport.initialize() is required to initialize passport.</li>
+<li>The passport.session() must be added at some point <strong>after</strong> express-session middleware. It augments express-sessions by adding authentication information to the session.</li>
+</ul>
+<pre><code class="lang-js">...
+
+// tell the express app what middleware to use
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(session({ secret: &#39;secret key&#39;, resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+...
+</code></pre>
+<p>This code tells passport of an authentication strategy that we will use.</p>
+<ul>
+<li>It is possible to have more than one strategy.</li>
+<li>The local strategy expects two parameters to be sent with the request, <em>username</em> and <em>password</em>.</li>
+<li>It is possible to change the names of those parameters through the local strategy configuration.</li>
+<li>The done function must be called after you are done checking the username and password.<ul>
+<li>If there was an error then the first parameter of <code>done</code> will be that error.</li>
+<li>If there is no error then the first parameters should be null and the second can be the user object or false on failed authentication.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-js">...
+
+// tell passport to use a local strategy and tell it how to validate a username and password
+passport.use(new LocalStrategy(function(username, password, done) {
+    if (username &amp;&amp; password === &#39;pass&#39;) return done(null, { username: username });
+    return done(null, false);
+}));
+
+...
+</code></pre>
+<ul>
+<li>With session management, when a user authenticates, the user object from <code>done</code> can be serialized into a string.</li>
+<li>The deserialize function is used to turn the string back into the user object. This function is called when a request is made and the user is already authenticated.</li>
+</ul>
+<pre><code class="lang-js">...
+
+// tell passport how to turn a user into serialized data that will be stored with the session
+passport.serializeUser(function(user, done) {
+    done(null, user.username);
+});
+
+// tell passport how to go from the serialized data back to the user
+passport.deserializeUser(function(id, done) {
+    done(null, { username: id });
+});
+
+...
+</code></pre>
+<p>Here we set up routes. If the req parameter has a <code>user</code> property then the user is authenticated.</p>
+<pre><code class="lang-js">...
+
+// home page
+app.get(&#39;/&#39;, function (req, res) {
+    if (req.user) return res.send(&#39;Hello, &#39; + req.user.username);
+    res.send(&#39;Hello, Stranger!&#39;);
+});
+
+// specify a URL that only authenticated users can hit
+app.get(&#39;/protected&#39;,
+    function(req, res) {
+        if (!req.user) return res.sendStatus(401);
+        res.send(&#39;You have access.&#39;);
+    }
+);
+
+// specify the login url
+app.put(&#39;/auth&#39;,
+    passport.authenticate(&#39;local&#39;),
+    function(req, res) {
+        res.send(&#39;You are authenticated, &#39; + req.user.username);
+    });
+
+// log the user out
+app.delete(&#39;/auth&#39;, function(req, res) {
+    req.logout();
+    res.send(&#39;You have logged out.&#39;);
+});
+
+...
+</code></pre>
+<hr>
+
+<h2 id="deeper-understanding">Deeper Understanding</h2>
+<p>To better understand how these components work together:</p>
+<ul>
+<li>Run this code in debug mode.</li>
+<li>Set up breakpoints for the different route callbacks as well as on the LocalStrategy and the serialize/deserialize methods.</li>
+<li>Make GET, PUT, and DELETE requests to the various endpoints.</li>
+</ul>
