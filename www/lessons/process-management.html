@@ -1,0 +1,106 @@
+<h1 id="process-management">Process Management</h1>
+<h2 id="what-is-a-process">What is a Process</h2>
+<p>A process is a running computer program. When we write a NodeJS application and then run it <code>node myapp.js</code> we create a running process for our NodeJS application.</p>
+<p>Some processes are meant to be run once and then terminate. Some processes are meant to run indefinitely.</p>
+<p><br></p>
+<p><strong>Question:</strong> What is an example of an process that should run once and then terminate?
+<br></p>
+<p><strong>Answer:</strong> A few examples in Linux: grep, cat, ls.
+<br></p>
+<p><strong>Question:</strong> What is an example of an application that should run indefinitely?
+<br></p>
+<p><strong>Answer:</strong> A web server.
+<br></p>
+<p><strong>Question:</strong> What happens if a process is running and a error occurs?
+<br></p>
+<p><strong>Answer:</strong> The process terminates with an exit error code.</p>
+<h2 id="uncaught-exceptions-errors-">Uncaught Exceptions (Errors)</h2>
+<p>If your program throws an error and it is not caught then your program will crash.</p>
+<p><strong>Question:</strong> How do you catch an error in JavaScript?
+<br></p>
+<p><strong>Answer:</strong> Use a try catch block.</p>
+<pre><code class="lang-js">try {
+    throw Error(&#39;Error occurred.&#39;);
+} catch (e) {
+
+}
+</code></pre>
+<p><br></p>
+<p>It is also possible to catch all errors:</p>
+<pre><code class="lang-js">process.on(&#39;uncaughtException&#39;, function(err) {
+  console.log(&#39;Caught exception: &#39; + err);
+});
+</code></pre>
+<p><br></p>
+<p><strong>Question:</strong> Should you catch all errors or should you let your program crash sometimes?
+<br></p>
+<p><strong>Answer:</strong> Although you can catch all errors, some errors should not be recovered from.</p>
+<blockquote>
+<p>By the very nature of how throw works in JavaScript, there is almost never any way to safely &quot;pick up where you left off&quot;, without leaking references, or creating some other sort of undefined brittle state. <a href="https://nodejs.org/api/domain.html">https://nodejs.org/api/domain.html</a></p>
+</blockquote>
+<p><br></p>
+<p>You should catch the errors that you can deal with and let any other propagate upwards.</p>
+<p><strong>Recoverable Error Example</strong></p>
+<p>You&#39;ve created a web server. A client makes a request to your webserver for a specific file. You attempt to read the file but it doesn&#39;t exist, throwing an error. You can catch the error and return a 404 status code (file not found) and your code can continue to run with stability.</p>
+<p>If your process becomes unstable your best option is to shut it down.</p>
+<h2 id="the-pm2-daemon">The PM2 Daemon</h2>
+<p>Pronounced [dee-muh n] <a href="http://dictionary.reference.com/browse/daemon">http://dictionary.reference.com/browse/daemon</a></p>
+<p>A daemon is a computer process that runs in the background and often starts up with the operating system. Often they are used to start other processes.</p>
+<p>PM2 is a NodeJS module that is best installed globally on the machine. It&#39;s primary role is to start your application and keep it running. If your program crashes, it starts it again.</p>
+<ul>
+<li><p><a href="http://pm2.keymetrics.io/">PM2 Homepage</a></p>
+</li>
+<li><p><a href="http://pm2.keymetrics.io/docs/usage/quick-start/">PM2 Quick Start</a></p>
+</li>
+</ul>
+<p>Install pm2 globally: <code>npm install -g pm2</code></p>
+<p><br></p>
+<p><strong>Exercise Part 1</strong></p>
+<ol>
+<li><p>Do a git clone of <code>https://github.com/Gi60s/it410-resources.git</code>.</p>
+</li>
+<li><p>Navigate to the <code>process-management</code> directory.</p>
+</li>
+<li><p>This is an app that will randomly crash. Run it with <code>node index.js</code>.</p>
+</li>
+</ol>
+<p><br></p>
+<p><strong>Exercise Part 2</strong></p>
+<ol>
+<li><p>Start the same application using pm2: <code>pm2 start index.js --name crashing-app</code></p>
+</li>
+<li><p>Use the command <code>pm2 status</code> to check that status of the app a few times.</p>
+</li>
+<li><p>Use the command <code>pm2 logs</code> to view the logs.</p>
+</li>
+<li><p>Use the command <code>pm2 stop crashing-app</code> to stop the process.</p>
+</li>
+</ol>
+<h2 id="useful-pm2-commands">Useful PM2 Commands</h2>
+<p>Try some of these commands out to see for yourself how easy they are to use and to see their output.</p>
+<h3 id="process-management">Process Management</h3>
+<p><code>pm2 status</code> or <code>pm2 list</code> - Get the current status of all running processes.</p>
+<p><code>pm2 start &lt;file&gt; --name &quot;App&quot;</code> - Start the node app at <file> and give it the name &quot;App&quot;.</p>
+<p><code>pm2 stop &lt;app_name|id&gt;</code> - Stop a specific process.</p>
+<p><code>pm2 restart &lt;app_name|id&gt;</code> - Restart a specific process.</p>
+<p><code>pm2 start &lt;file&gt; --watch</code> - Start the node app and watch it, files in the same directory, and files in sub-directories for changes. If a change occurs then the app will automatically restart.</p>
+<p><code>pm2 stop &lt;app_name|id&gt; --watch</code> - Stop watching for changes.</p>
+<h3 id="logs">Logs</h3>
+<p><code>pm2 logs</code> - Get a live stream of all logs for all pm2 applications.</p>
+<p><code>pm2 logs 0</code> - Get a live stream of all logs for a single application.</p>
+<h3 id="monitoring">Monitoring</h3>
+<p><code>pm2 monit</code> - Get CPU and memory usage for all running processes.</p>
+<hr>
+
+<h2 id="clustering">Clustering</h2>
+<ul>
+<li><p>Modern CPUs have multiple cores that allow it to process multiple things concurrently.</p>
+</li>
+<li><p>Clustering has to do with running your node application on multiple CPUs at the same time.</p>
+</li>
+<li><p>Clustering is load balancing for a single machine.</p>
+</li>
+</ul>
+<p><code>pm2 start &lt;file&gt; -i 0</code> - Start clustering on all CPUs.</p>
+<p><code>pm2 start &lt;file&gt; -i 2</code> - Start clustering on 2 CPUs.</p>
+<p><code>pm2 reload &lt;app_name|id&gt;</code> - Gracefully restart the application. At least one clustered process will be running at all times during the restart. This maintains 100% up time of your application, ideal for production environments.</p>

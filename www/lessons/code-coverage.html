@@ -1,0 +1,50 @@
+<h1 id="code-coverage">Code Coverage</h1>
+<h2 id="about">About</h2>
+<ul>
+<li><p>Goes hand in hand with testing</p>
+</li>
+<li><p>Tells you what parts of your code haven&#39;t been been run during testing.</p>
+</li>
+<li><p>Makes it easier to know where you need to test your code still.</p>
+</li>
+<li><p>Does not guarantee that your code is thoroughly tested.</p>
+</li>
+</ul>
+<h2 id="how-to-use-it">How to Use It</h2>
+<ul>
+<li><p>Istanbul is a good code coverage tool.</p>
+</li>
+<li><p>The <code>nyc</code> npm package runs the istanbul test coverage tool for you.</p>
+</li>
+<li><p>There are <a href="https://github.com/istanbuljs/istanbul-reports">multiple reporters</a>.</p>
+</li>
+<li><p><a href="https://istanbul.js.org/docs/tutorials/mocha/">Instructions on Instanbul with Mocha</a></p>
+<ol>
+<li><p><code>npm install --save-dev nyc</code></p>
+</li>
+<li><p>Update your package.json to have a new run script:</p>
+<pre><code class="lang-json"> &quot;scripts&quot;: {
+     &quot;test&quot;: &quot;mocha test/*.js&quot;,
+     &quot;coverage&quot;: &quot;nyc --reporter=html --reporter=text mocha test/*.js&quot;
+ },
+</code></pre>
+</li>
+<li><p>Run the coverage script: <code>npm run coverage</code></p>
+</li>
+</ol>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Exercise</strong></p>
+<ol>
+<li><p>Clone the repository: <code>https://github.com/Gi60s/it410-resources.git</code></p>
+</li>
+<li><p>Navigate to the <code>code-coverage</code> directory.</p>
+</li>
+<li><p>Use <code>npm install</code> to install dependencies.</p>
+</li>
+<li><p>Write tests.</p>
+</li>
+<li><p>Write a coverage script in your <code>package.json</code> and run it.</p>
+</li>
+</ol>
