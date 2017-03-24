@@ -1,0 +1,122 @@
+<h1 id="continuous-integration-ci-">Continuous Integration (CI)</h1>
+<h2 id="about">About</h2>
+<ul>
+<li><p>The practice of releasing code updates on a regular basis, sometimes several times per day.</p>
+</li>
+<li><p>It is becoming less common to have long development cycles.</p>
+</li>
+<li><p>Bug fixes and small features don&#39;t need to wait for the next big release.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="testing">Testing</h3>
+<ul>
+<li><p>Unit tests and integration tests go hand in hand with CI.</p>
+</li>
+<li><p>Without tests it is hard to have confidence that your changes haven&#39;t broken things.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="deployment">Deployment</h3>
+<ul>
+<li>Once tests pass then code can be pushed to production automatically.</li>
+</ul>
+<h2 id="how-to-implement-ci">How to Implement CI</h2>
+<ul>
+<li><p>There are many services for implementing the CI pipepline. Here are a few:</p>
+<ul>
+<li><p>Bamboo</p>
+</li>
+<li><p>Bitwise</p>
+</li>
+<li><p>CircleCI</p>
+</li>
+<li><p>Codeship</p>
+</li>
+<li><p>Jenkins</p>
+</li>
+<li><p>TravisCI</p>
+</li>
+</ul>
+</li>
+<li><p>Many of these rely on a version control system (VCS) that has web hooks, like github.</p>
+<ul>
+<li>A web hook is a service where one server can be notified of events by another.</li>
+</ul>
+</li>
+<li><p>You choose your CI service, hook it up to your VCS, and tell it which tests to run and how to deploy on success.</p>
+</li>
+</ul>
+<h2 id="travis-ci">Travis CI</h2>
+<ul>
+<li><p><a href="https://docs.travis-ci.com/">Travis CI Documentation</a></p>
+</li>
+<li><p><a href="https://docs.travis-ci.com/user/getting-started">Getting Started Guide</a></p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="nodejs">NodeJS</h3>
+<p><a href="https://docs.travis-ci.com/user/languages/javascript-with-nodejs/">NodeJS Getting Started Guide</a></p>
+<ul>
+<li><p>Travis looks for a <code>.travis.yaml</code> configuration file in the root of your project.</p>
+</li>
+<li><p>The configuration file can define the project&#39;s language (<code>node_js</code> in our case), the versions to test, and the script to run for your tests, etc.</p>
+</li>
+<li><p>Travis CI will by default run <code>npm install</code> installing all of your project&#39;s dependencies.</p>
+</li>
+<li><p>Example configuration file:</p>
+<pre><code class="lang-yaml">  language: node_js
+  node_js:
+    - 7                   // any version accepted by nvm are OK to use
+    - 6
+    - 5
+    - 4
+  script: npm test        // this is the default script
+</code></pre>
+</li>
+</ul>
+<p><br></p>
+<h3 id="additional-steps">Additional Steps</h3>
+<ul>
+<li><p>Create an account with Travis CI</p>
+</li>
+<li><p>Allow Travis CI to access your Github and to set up hooks.</p>
+</li>
+<li><p>Through Travis CI website add repositories</p>
+</li>
+</ul>
+<p>The next time you push your code to Github, Travis detects the push and starts the build.</p>
+<p>(Show example Travis CI Log)</p>
+<h2 id="deploy">Deploy</h2>
+<ul>
+<li><p>Deployment is the final step for CI.</p>
+</li>
+<li><p>If the tests all pass then the code is ready to be deployed.</p>
+</li>
+<li><p>Deployment is configured via the <code>deploy</code> attribute in the configuration file.</p>
+</li>
+<li><p><a href="https://docs.travis-ci.com/user/deployment/">Deployment Documentation</a></p>
+</li>
+</ul>
+<h2 id="code-coverage-reports">Code Coverage Reports</h2>
+<ul>
+<li><p>You have the option to have Travis CI produce a code coverage report for <a href="https://coveralls.io">Coveralls</a>.</p>
+</li>
+<li><p>You&#39;ll need to set up a Coveralls account and link it to github too.</p>
+</li>
+<li><p>Inside of your <code>package.json</code> file you&#39;ll need to create a script that sends a report to coveralls. See the example below with the script: <code>coverage:report</code></p>
+<pre><code class="lang-json">  {
+    &quot;name&quot;: &quot;my-package&quot;,
+    &quot;version&quot;: &quot;1.0.3&quot;,
+    &quot;main&quot;: &quot;index.js&quot;,
+    &quot;scripts&quot;: {
+      &quot;test&quot;: &quot;mocha test/*.js&quot;,
+      &quot;coverage&quot;: &quot;nyc mocha test/*.js&quot;,
+      &quot;coverage:report&quot;: &quot;nyc mocha test/*.js &amp;&amp; nyc report --reporter=text-lcov | coveralls&quot;
+    },
+    &quot;author&quot;: &quot;Your Name&quot;,
+    &quot;license&quot;: &quot;Apache-2.0&quot;,
+  }
+</code></pre>
+</li>
+</ul>
