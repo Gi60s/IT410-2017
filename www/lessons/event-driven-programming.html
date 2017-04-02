@@ -1,0 +1,42 @@
+<h1 id="event-driven-programming">Event Driven Programming</h1>
+<h2 id="about">About</h2>
+<ul>
+<li><p>Use events and reactions to events to execute code.</p>
+</li>
+<li><p>Can allow for loose coupling of code. In other words, code is less dependent on other pieces of code.</p>
+</li>
+<li><p>Improves flexibility in your code, making it easy to add features without compromising existing features.</p>
+</li>
+<li><p>Everything is asynchronous.</p>
+</li>
+<li><p>Is generally harder to debug.</p>
+</li>
+<li><p>Becoming more common.</p>
+</li>
+</ul>
+<h2 id="callbacks-and-promises">Callbacks and Promises</h2>
+<ul>
+<li><p>The callback paradigm and promises use events that are tightly coupled.</p>
+</li>
+<li><p>You call a function that will cause an event that calls the callback provided.</p>
+</li>
+<li><p>For tightly coupled code we might say: <em>read this file then call this function</em></p>
+</li>
+</ul>
+<p>This example shows a tightly coupled event based callback function.</p>
+<pre><code class="lang-js">const fs = require(&#39;fs&#39;);
+fs.writeFile(&#39;./file.txt&#39;, &#39;Hello, World&#39;, function(err) {
+    console.log(err, data);
+});
+</code></pre>
+<h2 id="loosely-coupled-events">Loosely Coupled Events</h2>
+<ul>
+<li><p>Loosely coupled events use a subscription model.</p>
+</li>
+<li><p>For loosely coupled code we might say: <em>when any file is read call this function</em></p>
+</li>
+<li><p>In NodeJS we can use loosely coupled events using the <a href="https://nodejs.org/dist/latest-v6.x/docs/api/events.html">EventEmitter</a>.</p>
+</li>
+<li><p>Check out an example from <code>https://github.com/Gi60s/it410-resources</code> in the <code>event-driven</code> directory.</p>
+</li>
+</ul>
