@@ -1,0 +1,229 @@
+<h1 id="functional-reactive-programming">Functional Reactive Programming</h1>
+<h2 id="preparation">Preparation</h2>
+<p>In order to understand how this works we first need to recap two other ideas that we&#39;ve already covered to some degree:</p>
+<ol>
+<li><p>Functional Programming</p>
+</li>
+<li><p>Event Driven Programming</p>
+</li>
+</ol>
+<h2 id="imperative-vs-functional-programming">Imperative vs. Functional Programming</h2>
+<p>There are two ways to program: functionally and imperatively.</p>
+<h3 id="imperative">Imperative</h3>
+<ul>
+<li><p><em>Programmer Focus</em> - How to perform tasks (algorithms) and how to track changes in state</p>
+</li>
+<li><p><em>State Changes</em> - Important</p>
+</li>
+<li><p><em>Order of Execution</em> - Important</p>
+</li>
+<li><p><em>Primary Flow Control</em> - Loops, conditions, and function calls</p>
+</li>
+<li><p><em>Primary Manipulation Unit</em> - Instances of structures or classes</p>
+</li>
+</ul>
+<pre><code class="lang-js">var numbers = [1,2,3,4,5];
+var doubled = [];
+
+for(var i = 0; i &lt; numbers.length; i++){
+  var newNumber = numbers[i] * 2;
+  doubled.push(newNumber);
+}
+console.log(doubled); // [2,4,6,8,10]
+</code></pre>
+<p><br></p>
+<h3 id="functional-programming">Functional Programming</h3>
+<ul>
+<li><p><em>Programmer Focus</em> - What information is desired and what transformations are required.</p>
+</li>
+<li><p><em>State Changes</em> - Non-existent (Immutable)</p>
+</li>
+<li><p><em>Order of Execution</em> - Low importance</p>
+</li>
+<li><p><em>Primary Flow Control</em> - Function calls, including recursion</p>
+</li>
+<li><p><em>Primary Manipulation Unit</em> - Functions and data collections</p>
+</li>
+</ul>
+<pre><code class="lang-js">var numbers = [1,2,3,4,5];
+
+var doubled = numbers.map(function(n) {
+  return n * 2
+});
+
+console.log(doubled); //[2,4,6,8,10]
+</code></pre>
+<p><br></p>
+<h3 id="imperative-is-conceptually-straight-forward">Imperative is Conceptually Straight Forward</h3>
+<p>The following two examples do the exact same thing, but one is imperative and one is functional. Both functions below take an array of numbers and return the sum of them.</p>
+<pre><code class="lang-js">var x = sum([1, 2, 3, 4]);  // 10
+</code></pre>
+<p><strong>Imperative Example: For Loop</strong></p>
+<pre><code class="lang-js">function sum(numbers) {
+    var i;
+    var total = 0;
+    for (i = 0; i &lt; numbers.length; i++)
+        total += numbers[i];
+    }
+    return total;
+}
+</code></pre>
+<p><strong>Functional Example: Recursion</strong></p>
+<pre><code class="lang-js">function sum(numbers) {
+    if (numbers.length === 0) {
+        return 0;
+    } else if (numbers.length === 1) {
+        return numbers[0];
+    } else if (numbers.length &gt; 1) {
+        var copyRest = numbers.slice(1);
+        return numbers[0] + sum(copyRest);
+    }
+}
+</code></pre>
+<p><br></p>
+<h3 id="the-real-world-more-closely-models-imperative-programming">The Real World More Closely Models Imperative Programming</h3>
+<p><strong>Imperative Mutable Object</strong></p>
+<pre><code class="lang-js">function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+var p = new Person(&#39;Bob&#39;, 15);
+p.age = 16;
+</code></pre>
+<p><strong>Functional Immutable Object</strong></p>
+<pre><code class="lang-js">function Person(name, age) {
+    this.name = function() {
+        return name;
+    };
+    this.age = function() {
+        return age;
+    }
+}
+
+var p = new Person(&#39;Bob&#39;, 15);
+p = new Person(&#39;Bob&#39;, 16);
+</code></pre>
+<p><br></p>
+<h3 id="imperative-is-less-stable-functional-might-be-stale">Imperative is Less Stable, Functional Might be Stale</h3>
+<p><strong>Imperative Example</strong></p>
+<pre><code class="lang-js">function asyncFullName(person, callback) {
+    var fullName = person.firstName + &#39; &#39;;
+    setTimeout(function() {
+        fullName += person.lastName;
+        callback(fullName);
+    });
+}
+
+function Person(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+
+var p = new Person(&#39;Bob&#39;, &#39;Smith&#39;);
+asnycFullName(p, console.log);          // will eventually output &quot;Bob Jones&quot;
+p.lastName = &#39;Jones&#39;;
+</code></pre>
+<p><strong>Functional Example</strong></p>
+<pre><code class="lang-js">function asyncFullName(person, callback) {
+    var fullName = person.firstName() + &#39; &#39;;
+    setTimeout(function() {
+        fullName += person.lastName();
+        callback(fullName);
+    });
+}
+
+function Person(firstName, lastName) {
+    this.firstName = () =&gt; firstName;
+    this.lastName = () =&gt; lastName;
+}
+
+var p = new Person(&#39;Bob&#39;, &#39;Smith&#39;);
+asnycFullName(p, console.log);          // will eventually output &quot;Bob Smith&quot;
+p = new Person(&#39;Bob&#39;, &#39;Jones&#39;);
+</code></pre>
+<p><br></p>
+<h3 id="functional-programming-is-the-future">Functional Programming Is the Future</h3>
+<p>Code is becoming increasingly complex (conceptually) and higher performing through asynchronous code.</p>
+<blockquote>
+<p>There is no doubt in my mind, and most experts agree, that concurrency and parallelism are the future of programming.</p>
+<p><a href="https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming">https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming</a></p>
+</blockquote>
+<p><br></p>
+<p>If we continue to program imperatively it will be very difficult to manage state with asynchronous code.</p>
+<blockquote>
+<p>A race condition or race hazard is the behavior of an electronic, software or other system where the output is dependent on the sequence or timing of other uncontrollable events. It becomes a bug when events do not happen in the order the programmer intended.</p>
+<p><a href="https://en.wikipedia.org/wiki/Race_condition">https://en.wikipedia.org/wiki/Race_condition</a></p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<p>So why are data races so much harder to detect and fix than regular bugs? It all has to do with non-determinism. Every time a multi-threaded program is run, its threads may interleave differently. The number of possible interleavings is astronomical.</p>
+<p><a href="https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming">https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming</a></p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<p>One way of reducing the complexity [of software] is to reduce or eliminate (ideally) the footprint of state change taking place in our programs.</p>
+<p>Fogus, Michael. Functional JavaScript.  O’Reilly Media, Inc. 2013</p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<p>Imperative programs will always be vulnerable to data races because they contain mutable variables… There are no data races in purely functional languages because they don&#39;t have mutable variables.</p>
+<p><a href="https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming">https://www.fpcomplete.com/blog/2012/04/the-downfall-of-imperative-programming</a></p>
+</blockquote>
+<h2 id="event-driven-programming">Event Driven Programming</h2>
+<p>We&#39;ve already covered the basis for this in a <a href="./event-driven-programming/1">previous class</a>.</p>
+<h2 id="streams">Streams</h2>
+<p>Streams can be:</p>
+<ul>
+<li><p>readable</p>
+</li>
+<li><p>writable</p>
+</li>
+<li><p>duplex (both read and write)</p>
+</li>
+<li><p>transform (a specific type of duplex)</p>
+</li>
+</ul>
+<p><br></p>
+<p>When we used Gulp we saw readable, writable, and transform streams.</p>
+<pre><code class="lang-js">var gulp = require(&#39;gulp&#39;);
+var uglify = require(&quot;gulp-uglify&quot;);
+
+gulp.task(&#39;minify-js&#39;, function () {
+    gulp.src(&#39;./js/*.js&#39;)               // readable stream
+        .pipe(uglify())                 // transform stream
+        .pipe(gulp.dest(&#39;dest&#39;));       // writable stream
+});
+</code></pre>
+<p><br></p>
+<p>You can imagine a data stream to be much like a regular stream of water.</p>
+<ul>
+<li><p>The stream comes from one or more sources.</p>
+</li>
+<li><p>It might split or merge.</p>
+</li>
+<li><p>It has outlets.</p>
+</li>
+</ul>
+<h2 id="functional-reactive-programming">Functional Reactive Programming</h2>
+<ul>
+<li><p>Purely functional, immutable data.</p>
+</li>
+<li><p>Events are used to produce streams.</p>
+</li>
+<li><p>Functions subscribe to those streams and other streams to produce new streams.</p>
+</li>
+<li><p>Lots of callback functions.</p>
+</li>
+<li><p>Complex asynchronous state management becomes trivial.</p>
+</li>
+</ul>
+<p><br></p>
+<p>Two (of several) reactive JavaScript libraries:</p>
+<ul>
+<li><p><a href="https://baconjs.github.io/">Bacon.js</a></p>
+</li>
+<li><p><a href="https://github.com/Reactive-Extensions/RxJS">RxJS</a></p>
+</li>
+</ul>
+<p>Check out some <a href="https://github.com/Gi60s/it410-resources/tree/master/functional-reactive-programming">examples in the IT410-resources repository</a>.</p>
