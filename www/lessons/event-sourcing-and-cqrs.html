@@ -1,0 +1,274 @@
+<h1 id="event-sourcing-and-cqrs">Event Sourcing and CQRS</h1>
+<h2 id="about">About</h2>
+<p>Throughout this lesson we&#39;ll evaluate a few scenarios. We&#39;ll look at the common approach and eventually talk about how event sourcing and CQRS can solve some problems.</p>
+<h2 id="review-website">Review Website</h2>
+<p>You have a system where products have been added by an administrator and guests can create accounts and review the products, leaving both a rating and comments. Once a user has submitted a rating they can edit or delete it as well.</p>
+<p>The database table storing reviews has four columns:</p>
+<ul>
+<li><p>user_id - The ID of the user who submitted the review.</p>
+</li>
+<li><p>product_id - The ID of the product that is being reviewed.</p>
+</li>
+<li><p>rating - A number from 1 to 5 representing rating.</p>
+</li>
+<li><p>review - A text value with the review.</p>
+</li>
+</ul>
+<p><strong>Question:</strong> What situations could occur that would exploit weaknesses in this data structure?
+<br></p>
+<p><strong>Answer:</strong> We can&#39;t track changes. We have no history. Users could write a review with malicious content and then change it or delete it before system administrators could see it.</p>
+<p>If you have an update or delete for your database then you&#39;ve made the decision to destroy data.
+<br></p>
+<p><strong>Question:</strong> How could we fix the weaknesses of not having history?
+<br></p>
+<p><strong>Answer:</strong> You have a few options:</p>
+<p><em>Option 1</em></p>
+<p>We could add columns to the table that track changes. Then every time we try to load the review we&#39;d have to load the very latest review. This table would require that we add the columns:</p>
+<ul>
+<li><p>update_time - The time that the review was last updated.</p>
+</li>
+<li><p>deleted - A flag that indicates if the post was deleted.</p>
+</li>
+</ul>
+<p>The down side of this is that whenever we wanted to get the review value we&#39;d have to search the table for the last review edit. This would eventually cause slow downs as the table grew in size.</p>
+<p><em>Option 2</em></p>
+<p>We could create a second table that keeps track of history and we let the first table maintain current state only.</p>
+<p>The down side of this is that if we change the columns in the first table we also have to make the same changes to the second table. We&#39;d have to create database migration scripts for both the original table and the history table.
+<br></p>
+<p><strong>Question:</strong></p>
+<p>You&#39;ve made some changes to the database structure and have a script that runs and migrates the database data to the new format. You also keep a copy of the data before the migration in case you need to roll back changes.</p>
+<p>You run the migration script, everything works, users are adding reviews. Suddenly you realize that you have an error and need to roll back.</p>
+<p>Can you and should you write a migration script that takes the data from it&#39;s current state and moves it into the old schema without losing data?
+<br></p>
+<p><strong>Answer:</strong> Whether you can actually write a reverse migration script is dependent on the situation. Either way you&#39;re put into a non-ideal situation.</p>
+<h2 id="rethinking-data">Rethinking Data</h2>
+<p>As application developers we are most familiar with mutable databases, but there may be a better solution in many instances.</p>
+<p><br></p>
+<h3 id="what-is-event-sourcing-">What is Event Sourcing?</h3>
+<ol>
+<li><p>You store every event that occurs into the database.</p>
+</li>
+<li><p>You never delete any event.</p>
+<ul>
+<li><p>Disk space is not a concern because disc space also follows Moore&#39;s Law.</p>
+</li>
+<li><p>Maybe use a WORM (write once read many) drive.</p>
+</li>
+</ul>
+</li>
+<li><p>You model every event after a behavior.</p>
+</li>
+</ol>
+<h4 id="example">Example</h4>
+<p>If you have a shopping cart and your using event sourcing, your experience might look like this:</p>
+<ol>
+<li><p>Add item X to cart</p>
+</li>
+<li><p>Add item Y to cart</p>
+</li>
+<li><p>Add item Z to cart</p>
+</li>
+<li><p>Remove item Y from cart</p>
+</li>
+<li><p>Checkout</p>
+</li>
+</ol>
+<p><strong>Question:</strong> How is that different than: &quot;Checkout with items X and Z in cart&quot;?
+<br></p>
+<p><strong>Answer:</strong></p>
+<p>The end result is the same, but we&#39;ve lost valuable data.</p>
+<p>Your boss comes to you and says, &quot;I&#39;d like to start tracking what items are removed from a user&#39;s cart before checkout.&quot;</p>
+<ol>
+<li><p>If you&#39;re not storing events then you&#39;ll have to start tracking that information from this point forward.</p>
+</li>
+<li><p>If you were using event sourcing then you can track that information retroactively. Think: <strong><em>Time Travel</em></strong></p>
+</li>
+</ol>
+<p><br></p>
+<p><strong>Question:</strong> What other things could you retroactively look up in this shopping application if you used event sourcing?
+<br></p>
+<h2 id="bank-account-application">Bank Account Application</h2>
+<p><strong>Questions:</strong></p>
+<ol>
+<li><p>What are the behaviors that we need to store as events for a user&#39;s account?</p>
+</li>
+<li><p>How do we determine what the balance on an account is?</p>
+</li>
+<li><p>How do you handle incorrect events? Ex: Accidentally transferred $100 to your friend&#39;s account when you meant to transfer $10.</p>
+</li>
+<li><p>What happens if an event is deleted?</p>
+</li>
+</ol>
+<p><br></p>
+<p><strong>Answers:</strong></p>
+<ol>
+<li><p><strong>What are the behaviors that we need to store as events for a user&#39;s account?</strong></p>
+<ul>
+<li><p>Open account</p>
+</li>
+<li><p>Close account</p>
+</li>
+<li><p>Add money to account</p>
+</li>
+<li><p>Remove money from account</p>
+</li>
+<li><p>Transfer money from account</p>
+</li>
+<li><p>Transfer money to account</p>
+</li>
+</ul>
+</li>
+<li><p><strong>How do we determine what the balance on an account is?</strong></p>
+<p>Run through all transactions, add everything up and get the result.</p>
+</li>
+<li><p><strong>How do you handle incorrect events?</strong></p>
+<p>Add an undo event then add the correct event.</p>
+</li>
+<li><p><strong>What happens if an event is deleted?</strong></p>
+<p>Your account balance will be wrong. This is a pretty critical application and you should probably have a WORM drive or some other assurance that data cannot be modified.</p>
+</li>
+</ol>
+<p><br></p>
+<p><strong>Question:</strong> We may not want to go through every single transaction on an account to determine the accounts balance. Is there a better way?
+<br></p>
+<h2 id="projections-and-snapshots">Projections and Snapshots</h2>
+<p><strong>Projection</strong></p>
+<ul>
+<li><p>A set of stateful data that is built from the events and the last snapshot (if there is one).</p>
+</li>
+<li><p>It is built to contain specifically the data that you want, nothing more and nothing less.</p>
+</li>
+<li><p>Cannot be modified and still be the same projection. It becomes a new projection.</p>
+</li>
+</ul>
+<p><strong>Snapshot</strong></p>
+<ul>
+<li><p>A set of stateful data that is built from events, intended as a shortcut to build projections.</p>
+</li>
+<li><p>Allows a projection to be built without having to start from the very beginning of the events.</p>
+</li>
+<li><p>How often snapshots are created is based on the needs of the application.</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="bank-account-application">Bank Account Application</h3>
+<ul>
+<li><p>You could create a snapshot of an account balance.</p>
+</li>
+<li><p>You may want to create a daily snapshot.</p>
+</li>
+<li><p>Whenever a query occurs for the current account balance you can build a projection from the snapshot and any events that came after it.</p>
+</li>
+</ul>
+<h2 id="multiplayer-online-video-game">Multiplayer Online Video Game</h2>
+<p>You are build a multiplayer online fighting game (like Smash Bros).</p>
+<p><strong>Questions:</strong></p>
+<ol>
+<li><p>How do you get player position, health, action taken (move, punch, jump, etc) to other players?</p>
+</li>
+<li><p>How can you enable replays?</p>
+</li>
+</ol>
+<p><br></p>
+<p><strong>Answers:</strong></p>
+<ol>
+<li><p><strong>How do you get player position, health, action taken (move, punch, jump, etc) to other players?</strong></p>
+<p>You don&#39;t send all the data in togeteher (position, health, action), you instead send the events: (player pushed button X, player pushed direction right, player released button X) along with time data for when they occurred. Each system individually accepts events from the server as if accepted locally and acts on them.</p>
+</li>
+<li><p><strong>How can you enable replays?</strong></p>
+<p>Simply have he system play through everyone&#39;s events in real time.</p>
+</li>
+</ol>
+<p>There is no other realistic way to do this. Storing all data (position, health, action) per sub-second is wasteful and overly complex.</p>
+<p>If you play a game with replay you won&#39;t often find a rewind button even if there is a fast forward button because the state of the game at any given moment is dependent on the events that proceed it.</p>
+<h2 id="big-high-performance-data">Big High Performance Data</h2>
+<p>You are developing a website just like twitter. It needs to have virtually no lag when you add a post and virtually no lag when you are looking up posts by user, hashtag, date, etc.</p>
+<p>This website receives 7,000 posts per second.</p>
+<p><a href="http://www.internetlivestats.com/one-second/#tweets-band">Twitter Statistics</a></p>
+<p><strong>Question:</strong> How do you keep performance high for writing and reading?</p>
+<hr>
+
+<p><strong>Answer:</strong></p>
+<ul>
+<li><p>Each post is an event.</p>
+</li>
+<li><p>You analyze each event and update snapshots and projections for latest posts, hashtags, etc. based on the post.</p>
+</li>
+<li><p>Queries for the data use projects that area already built.</p>
+</li>
+</ul>
+<h2 id="cqrs">CQRS</h2>
+<ul>
+<li><p>Stands for <strong>Command Query Responsibility Segregation</strong>.</p>
+</li>
+<li><p>Commands are issued to one server.</p>
+<ul>
+<li><p>Because they are added to the database sequentially it can happen very quickly.</p>
+</li>
+<li><p>The command server sends events out to other servers that build projections and snapshots.</p>
+</li>
+</ul>
+</li>
+<li><p>Queries are handled by another server.</p>
+<ul>
+<li><p>This server has one or more stored projections.</p>
+</li>
+<li><p>There isn&#39;t much data to sift through to get the query result.</p>
+</li>
+<li><p>It is high performance.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>Questions:</strong></p>
+<ol>
+<li><p>What about eventual consistency? Projections will not be up to date until the latest commands event&#39;s have reached the projection servers.</p>
+</li>
+<li><p>Can you scale a command server, and if so, how?</p>
+</li>
+<li><p>Can you scale a projection server, and if so, how?</p>
+</li>
+</ol>
+<p><br></p>
+<p><strong>Answers:</strong></p>
+<ol>
+<li><p><strong>What about eventual consistency? Projections will not be up to date until the latest commands event&#39;s have reached the projection servers.</strong></p>
+<p>Mutable databases also have eventual consistency unless your setting a pessimistic lock on all queries.</p>
+<p>Additionally, commands must happen immediately to prevent data loss, but it is very rare that queries will do damage if not immediately up to date.</p>
+</li>
+<li><p><strong>Can you scale a command server, and if so, how?</strong></p>
+<p>Yes you can scale it. You can set up a load balanced array of servers, but if a projection needs to be made from scratch then it will need to get events from every command server.</p>
+</li>
+<li><p><strong>Can you scale a projection server, and if so, how?</strong></p>
+<p>Yes you can scale it. You can set up a load balanced array of servers. Each server will be eventually consistent in its own time.</p>
+</li>
+</ol>
+<h2 id="review-application-revisited">Review Application Revisited</h2>
+<p>You have a system where products have been added by an administrator and guests can create accounts and review the products, leaving both a rating and comments. Once a user has submitted a rating they can edit or delete it as well.</p>
+<p>The command database will get events:</p>
+<ul>
+<li><p>Review added with rating.</p>
+</li>
+<li><p>Review edited with rating.</p>
+</li>
+<li><p>Review removed</p>
+</li>
+</ul>
+<p>The query database will:</p>
+<ul>
+<li>Build a projection for each product. The projection will have a list of all of the reviews and the average review rating.</li>
+</ul>
+<p><br></p>
+<p>Issues we no longer have to worry about:</p>
+<ul>
+<li><p>We now have history, so that isn&#39;t an issue.</p>
+</li>
+<li><p>If the database structure changes we just make a new projection.</p>
+</li>
+<li><p>If we need to roll back, we just build the old projection, including the events added after the software update.</p>
+</li>
+</ul>
+<h2 id="event-sourcing-the-ui">Event Sourcing the UI</h2>
+<p>If you record every even the user takes on the UI and a bug is encountered then it is easy to replay the events to see what occurred.</p>
+<p>You can also replay events for testing code rollout.</p>
